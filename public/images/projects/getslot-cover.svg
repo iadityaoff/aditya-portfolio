@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <rect width="800" height="500" fill="#F0F4F2"/>
+  <g transform="translate(60, 45)">
+    <rect width="680" height="410" rx="16" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+    <!-- Header -->
+    <rect width="680" height="44" rx="16" fill="#FAFAF7"/>
+    <line x1="0" y1="44" x2="680" y2="44" stroke="#E7E5DF"/>
+    <circle cx="28" cy="22" r="5" fill="#FF5F56"/>
+    <circle cx="44" cy="22" r="5" fill="#FFBD2E"/>
+    <circle cx="60" cy="22" r="5" fill="#27C93F"/>
+    <text x="340" y="26" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" fill="#5F5F68">GetSlot / Downtown Arena Turf 2 Booking</text>
+
+    <!-- Turf Floor Plan View -->
+    <g transform="translate(40, 70)">
+      <!-- Arena Turf Graphic -->
+      <rect width="360" height="230" rx="10" fill="#10B981" opacity="0.85"/>
+      <!-- Field markings -->
+      <rect x="10" y="10" width="340" height="210" rx="6" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+      <line x1="180" y1="10" x2="180" y2="220" stroke="#FFFFFF" stroke-width="2"/>
+      <circle cx="180" cy="115" r="35" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+      <!-- Selected Slot indicator -->
+      <rect x="190" y="80" width="130" height="70" rx="8" fill="#2F4BFF" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.2))"/>
+      <text x="255" y="108" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF">Court B (Synthetic)</text>
+      <text x="255" y="126" text-anchor="middle" font-family="monospace" font-size="10" fill="#FFFFFF">07:00 — 08:30 PM</text>
+      <text x="255" y="140" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#FEF08A">SELECTED</text>
+    </g>
+
+    <!-- Right Side Quick Checkout Card -->
+    <g transform="translate(430, 70)">
+      <rect width="210" height="230" rx="10" fill="#FAFAF7" stroke="#E7E5DF" stroke-width="1"/>
+      <text x="16" y="32" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#0E0E10">30-Second Reservation</text>
+      <text x="16" y="52" font-family="monospace" font-size="10" fill="#5F5F68">Downtown Arena · Pitch 2</text>
+
+      <!-- Split payment pill -->
+      <rect x="16" y="70" width="178" height="34" rx="6" fill="#FFFFFF" stroke="#E7E5DF"/>
+      <text x="26" y="91" font-family="-apple-system, sans-serif" font-size="10" fill="#0E0E10">Split cost: 4 players</text>
+      <text x="184" y="91" text-anchor="end" font-family="monospace" font-size="10" font-weight="700" fill="#2F4BFF">$12.50 ea</text>
+
+      <line x1="16" y1="120" x2="194" y2="120" stroke="#E7E5DF"/>
+
+      <text x="16" y="145" font-family="-apple-system, sans-serif" font-size="11" font-weight="600" fill="#0E0E10">Total Amount:</text>
+      <text x="194" y="145" text-anchor="end" font-family="monospace" font-size="14" font-weight="700" fill="#0E0E10">$50.00</text>
+
+      <!-- Pay Button -->
+      <rect x="16" y="165" width="178" height="38" rx="8" fill="#2F4BFF"/>
+      <text x="105" y="189" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF">Instant Apple Pay →</text>
+    </g>
+  </g>
+</svg>

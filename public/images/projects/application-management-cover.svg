@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="am-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F2F4F8"/>
+      <stop offset="100%" stop-color="#E5EAF3"/>
+    </linearGradient>
+    <filter id="am-shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#0E0E10" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background Tinted Panel -->
+  <rect width="800" height="500" fill="url(#am-bg)"/>
+
+  <!-- Desktop Appraisal Frame -->
+  <g transform="translate(60, 45)" filter="url(#am-shadow)">
+    <rect width="680" height="410" rx="16" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+    
+    <!-- Top System Header -->
+    <rect width="680" height="44" rx="16" fill="#FAFAF7"/>
+    <path d="M0 28 Q0 44 16 44 L664 44 Q680 44 680 28 L680 44 L0 44 Z" fill="#FAFAF7"/>
+    <line x1="0" y1="44" x2="680" y2="44" stroke="#E7E5DF" stroke-width="1"/>
+    
+    <circle cx="28" cy="22" r="5" fill="#FF5F56"/>
+    <circle cx="44" cy="22" r="5" fill="#FFBD2E"/>
+    <circle cx="60" cy="22" r="5" fill="#27C93F"/>
+    
+    <text x="340" y="26" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" font-weight="600" fill="#5F5F68">TalentFlow Enterprise / Senior Systems Engineer (248 Applicants)</text>
+
+    <!-- Filter Presets Bar -->
+    <g transform="translate(24, 56)">
+      <rect width="632" height="36" rx="8" fill="#FAFAF7" stroke="#E7E5DF" stroke-width="1"/>
+      <text x="14" y="22" font-family="monospace" font-size="10" font-weight="700" fill="#5F5F68">PRESET:</text>
+      
+      <!-- Filter Chips -->
+      <rect x="70" y="7" width="90" height="22" rx="11" fill="#2F4BFF"/>
+      <text x="115" y="21" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" fill="#FFFFFF">Score &gt; 80% ✕</text>
+
+      <rect x="168" y="7" width="105" height="22" rx="11" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+      <text x="220" y="21" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" fill="#0E0E10">Remote US/CA ✕</text>
+
+      <rect x="281" y="7" width="95" height="22" rx="11" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+      <text x="328" y="21" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" fill="#0E0E10">Stage: Loop ✕</text>
+
+      <!-- Blind Mode toggle -->
+      <g transform="translate(500, 7)">
+        <rect width="118" height="22" rx="11" fill="#0E0E10"/>
+        <circle cx="16" cy="11" r="5" fill="#10B981"/>
+        <text x="30" y="15" font-family="monospace" font-size="9" font-weight="700" fill="#FFFFFF">BLIND MODE ON</text>
+      </g>
+    </g>
+
+    <!-- 3-Pane Evaluation Workspace -->
+    <g transform="translate(24, 102)">
+      <!-- Left Pane: Candidate Pipeline Queue (width: 190) -->
+      <rect width="190" height="284" rx="8" fill="#FAFAF7" stroke="#E7E5DF" stroke-width="1"/>
+      <text x="12" y="22" font-family="monospace" font-size="9" font-weight="700" fill="#5F5F68">PIPELINE (14 SHORTLISTED)</text>
+
+      <!-- Candidate 1 (Selected) -->
+      <rect x="8" y="32" width="174" height="60" rx="6" fill="#FFFFFF" stroke="#2F4BFF" stroke-width="1.5"/>
+      <circle cx="28" cy="52" r="12" fill="#2F4BFF" opacity="0.15"/>
+      <text x="28" y="56" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#2F4BFF">C-1</text>
+      <text x="48" y="48" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#0E0E10">Candidate #9102</text>
+      <text x="48" y="62" font-family="monospace" font-size="9" fill="#5F5F68">Score: 94% · 8y exp</text>
+      <rect x="48" y="68" width="54" height="14" rx="3" fill="#10B981" opacity="0.2"/>
+      <text x="75" y="78" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#059669">ADVANCE</text>
+
+      <!-- Candidate 2 -->
+      <rect x="8" y="100" width="174" height="52" rx="6" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+      <circle cx="28" cy="122" r="12" fill="#FAFAF7"/>
+      <text x="28" y="126" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#5F5F68">C-2</text>
+      <text x="48" y="118" font-family="-apple-system, sans-serif" font-size="11" font-weight="600" fill="#5F5F68">Candidate #8491</text>
+      <text x="48" y="132" font-family="monospace" font-size="9" fill="#8E8EA0">Score: 88% · 6y exp</text>
+
+      <!-- Candidate 3 -->
+      <rect x="8" y="160" width="174" height="52" rx="6" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+      <circle cx="28" cy="182" r="12" fill="#FAFAF7"/>
+      <text x="28" y="186" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#5F5F68">C-3</text>
+      <text x="48" y="178" font-family="-apple-system, sans-serif" font-size="11" font-weight="600" fill="#5F5F68">Candidate #7320</text>
+      <text x="48" y="192" font-family="monospace" font-size="9" fill="#8E8EA0">Score: 82% · 5y exp</text>
+
+      <!-- Center Pane: Dossier Submission (width: 250) -->
+      <g transform="translate(202, 0)">
+        <rect width="250" height="284" rx="8" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+        <rect width="250" height="30" rx="8" fill="#FAFAF7"/>
+        <line x1="0" y1="30" x2="250" y2="30" stroke="#E7E5DF" stroke-width="1"/>
+        <text x="14" y="20" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" fill="#0E0E10">Technical Submission Review</text>
+
+        <!-- Redacted PII Notice -->
+        <rect x="14" y="40" width="222" height="24" rx="4" fill="#FAFAF7" stroke="#E7E5DF" stroke-width="1"/>
+        <text x="24" y="55" font-family="monospace" font-size="8" fill="#5F5F68">🔒 PII Masked to prevent demographic bias</text>
+
+        <!-- Mock submission text lines -->
+        <rect x="14" y="76" width="180" height="8" rx="2" fill="#0E0E10" opacity="0.8"/>
+        <rect x="14" y="92" width="222" height="6" rx="2" fill="#5F5F68" opacity="0.3"/>
+        <rect x="14" y="104" width="210" height="6" rx="2" fill="#5F5F68" opacity="0.3"/>
+        <rect x="14" y="116" width="190" height="6" rx="2" fill="#5F5F68" opacity="0.3"/>
+
+        <!-- Architecture Diagram Box -->
+        <rect x="14" y="136" width="222" height="84" rx="6" fill="#FAFAF7" stroke="#E7E5DF" stroke-width="1"/>
+        <text x="24" y="152" font-family="monospace" font-size="8" font-weight="600" fill="#5F5F68">ARCHITECTURE SKETCH</text>
+        <circle cx="60" cy="184" r="14" fill="#2F4BFF" opacity="0.2"/>
+        <line x1="74" y1="184" x2="114" y2="184" stroke="#2F4BFF" stroke-width="1.5"/>
+        <rect x="114" y="172" width="36" height="24" rx="4" fill="#2F4BFF"/>
+        <line x1="150" y1="184" x2="180" y2="184" stroke="#2F4BFF" stroke-width="1.5"/>
+        <circle cx="194" cy="184" r="14" fill="#10B981" opacity="0.2"/>
+      </g>
+
+      <!-- Right Pane: Scoring Rubric (width: 170) -->
+      <g transform="translate(462, 0)">
+        <rect width="170" height="284" rx="8" fill="#FAFAF7" stroke="#E7E5DF" stroke-width="1"/>
+        <rect width="170" height="30" rx="8" fill="#FAFAF7"/>
+        <line x1="0" y1="30" x2="170" y2="30" stroke="#E7E5DF" stroke-width="1"/>
+        <text x="12" y="20" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" fill="#0E0E10">Evaluation Rubric</text>
+
+        <!-- Rubric Criteria 1 -->
+        <text x="12" y="50" font-family="-apple-system, sans-serif" font-size="9" font-weight="600" fill="#0E0E10">Systems Design</text>
+        <g transform="translate(12, 56)">
+          <rect width="24" height="18" rx="4" fill="#2F4BFF"/>
+          <text x="12" y="13" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#FFFFFF">5</text>
+          <rect x="28" width="24" height="18" rx="4" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+          <text x="40" y="13" text-anchor="middle" font-family="monospace" font-size="9" fill="#5F5F68">4</text>
+          <rect x="56" width="24" height="18" rx="4" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+          <text x="68" y="13" text-anchor="middle" font-family="monospace" font-size="9" fill="#5F5F68">3</text>
+        </g>
+
+        <!-- Rubric Criteria 2 -->
+        <text x="12" y="96" font-family="-apple-system, sans-serif" font-size="9" font-weight="600" fill="#0E0E10">Concurrency &amp; Scale</text>
+        <g transform="translate(12, 102)">
+          <rect width="24" height="18" rx="4" fill="#2F4BFF"/>
+          <text x="12" y="13" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#FFFFFF">5</text>
+          <rect x="28" width="24" height="18" rx="4" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+          <text x="40" y="13" text-anchor="middle" font-family="monospace" font-size="9" fill="#5F5F68">4</text>
+          <rect x="56" width="24" height="18" rx="4" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+          <text x="68" y="13" text-anchor="middle" font-family="monospace" font-size="9" fill="#5F5F68">3</text>
+        </g>
+
+        <!-- Action Buttons -->
+        <g transform="translate(12, 230)">
+          <rect width="146" height="32" rx="6" fill="#2F4BFF"/>
+          <text x="73" y="20" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" fill="#FFFFFF">Advance Candidate [A]</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

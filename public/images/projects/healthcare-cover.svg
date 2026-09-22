@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="hc-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4F7F6"/>
+      <stop offset="100%" stop-color="#E8EFEB"/>
+    </linearGradient>
+    <filter id="hc-shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#0E0E10" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background Tinted Panel -->
+  <rect width="800" height="500" fill="url(#hc-bg)"/>
+
+  <!-- Desktop Clinical Frame -->
+  <g transform="translate(60, 45)" filter="url(#hc-shadow)">
+    <rect width="680" height="410" rx="16" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+    
+    <!-- Top System Header -->
+    <rect width="680" height="44" rx="16" fill="#FAFAF7"/>
+    <path d="M0 28 Q0 44 16 44 L664 44 Q680 44 680 28 L680 44 L0 44 Z" fill="#FAFAF7"/>
+    <line x1="0" y1="44" x2="680" y2="44" stroke="#E7E5DF" stroke-width="1"/>
+    
+    <circle cx="28" cy="22" r="5" fill="#FF5F56"/>
+    <circle cx="44" cy="22" r="5" fill="#FFBD2E"/>
+    <circle cx="60" cy="22" r="5" fill="#27C93F"/>
+    
+    <text x="340" y="26" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" font-weight="600" fill="#5F5F68">Apex Clinical ERP / Inpatient Ward 4B</text>
+    
+    <rect x="580" y="14" width="76" height="18" rx="9" fill="#10B981" opacity="0.15"/>
+    <text x="618" y="26" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#059669">ONLINE</text>
+
+    <!-- Persistent Patient Context Header (Key Decision) -->
+    <g transform="translate(24, 56)">
+      <rect width="632" height="56" rx="10" fill="#FAFAF7" stroke="#2F4BFF" stroke-width="1.5"/>
+      <!-- Patient Avatar -->
+      <rect x="12" y="10" width="36" height="36" rx="18" fill="#2F4BFF" opacity="0.15"/>
+      <text x="30" y="32" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#2F4BFF">JD</text>
+
+      <!-- Patient Identity -->
+      <text x="58" y="26" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#0E0E10">John Doe (Anonymized)</text>
+      <text x="58" y="42" font-family="monospace" font-size="10" fill="#5F5F68">UHID: #AP-84920 · 48Y / Male · Bed 204-B</text>
+
+      <!-- Quick Switcher trigger -->
+      <rect x="270" y="14" width="110" height="28" rx="6" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+      <text x="280" y="32" font-family="monospace" font-size="10" fill="#0E0E10">Switch [Cmd+K]</text>
+
+      <!-- Vitals chips -->
+      <rect x="400" y="14" width="68" height="28" rx="6" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+      <text x="410" y="26" font-family="monospace" font-size="8" fill="#5F5F68">BP</text>
+      <text x="410" y="38" font-family="monospace" font-size="10" font-weight="700" fill="#0E0E10">120/80</text>
+
+      <rect x="476" y="14" width="68" height="28" rx="6" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+      <text x="486" y="26" font-family="monospace" font-size="8" fill="#5F5F68">HR</text>
+      <text x="486" y="38" font-family="monospace" font-size="10" font-weight="700" fill="#10B981">72 bpm</text>
+
+      <!-- Insurance Tag -->
+      <rect x="552" y="18" width="70" height="20" rx="4" fill="#0E0E10"/>
+      <text x="587" y="31" text-anchor="middle" font-family="monospace" font-size="9" font-weight="600" fill="#FFFFFF">INSURED</text>
+    </g>
+
+    <!-- Main Clinical / Billing Workspace -->
+    <g transform="translate(24, 126)">
+      <!-- Left sidebar: Tabs -->
+      <rect width="140" height="260" rx="8" fill="#FAFAF7" stroke="#E7E5DF" stroke-width="1"/>
+      <g transform="translate(14, 20)">
+        <text x="0" y="0" font-family="monospace" font-size="9" font-weight="700" fill="#5F5F68" letter-spacing="0.5">WORKFLOW</text>
+        
+        <rect y="12" width="112" height="26" rx="5" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+        <text x="10" y="29" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" fill="#5F5F68">Clinical Notes</text>
+        
+        <rect y="44" width="112" height="26" rx="5" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+        <text x="10" y="61" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" fill="#5F5F68">Medications</text>
+
+        <!-- Active Billing Tab -->
+        <rect y="76" width="112" height="26" rx="5" fill="#2F4BFF"/>
+        <text x="10" y="93" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" fill="#FFFFFF">Billing &amp; Tariff</text>
+
+        <rect y="108" width="112" height="26" rx="5" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+        <text x="10" y="125" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" fill="#5F5F68">Discharge Plan</text>
+      </g>
+
+      <!-- Right Panel: High-Density Charges Table -->
+      <g transform="translate(152, 0)">
+        <rect width="480" height="260" rx="8" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+        
+        <!-- Table Action Bar -->
+        <rect width="480" height="36" rx="8" fill="#FAFAF7"/>
+        <line x1="0" y1="36" x2="480" y2="36" stroke="#E7E5DF" stroke-width="1"/>
+        <text x="16" y="23" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#0E0E10">Unbilled Procedures &amp; Consumables (5 items)</text>
+
+        <!-- Table Columns -->
+        <g transform="translate(16, 52)" font-family="monospace" font-size="9" fill="#5F5F68" font-weight="600">
+          <text x="0" y="0">ITEM CODE</text>
+          <text x="80" y="0">DESCRIPTION</text>
+          <text x="230" y="0">QTY</text>
+          <text x="290" y="0">TARIFF</text>
+          <text x="380" y="0">TOTAL</text>
+        </g>
+        <line x1="16" y1="60" x2="464" y2="60" stroke="#E7E5DF" stroke-width="1"/>
+
+        <!-- Table Row 1 -->
+        <g transform="translate(16, 80)" font-family="-apple-system, sans-serif" font-size="10">
+          <text x="0" y="0" font-family="monospace" fill="#5F5F68">#MED-201</text>
+          <text x="80" y="0" font-weight="600" fill="#0E0E10">Saline Infusion 500ml</text>
+          <text x="230" y="0" fill="#5F5F68">2</text>
+          <text x="290" y="0" font-family="monospace" fill="#5F5F68">$18.00</text>
+          <text x="380" y="0" font-family="monospace" font-weight="700" fill="#0E0E10">$36.00</text>
+        </g>
+        <line x1="16" y1="92" x2="464" y2="92" stroke="#F4F4F0" stroke-width="1"/>
+
+        <!-- Table Row 2 -->
+        <g transform="translate(16, 112)" font-family="-apple-system, sans-serif" font-size="10">
+          <text x="0" y="0" font-family="monospace" fill="#5F5F68">#PRC-819</text>
+          <text x="80" y="0" font-weight="600" fill="#0E0E10">Echocardiogram Screening</text>
+          <text x="230" y="0" fill="#5F5F68">1</text>
+          <text x="290" y="0" font-family="monospace" fill="#5F5F68">$240.00</text>
+          <text x="380" y="0" font-family="monospace" font-weight="700" fill="#0E0E10">$240.00</text>
+        </g>
+        <line x1="16" y1="124" x2="464" y2="124" stroke="#F4F4F0" stroke-width="1"/>
+
+        <!-- Table Row 3 -->
+        <g transform="translate(16, 144)" font-family="-apple-system, sans-serif" font-size="10">
+          <text x="0" y="0" font-family="monospace" fill="#5F5F68">#CON-104</text>
+          <text x="80" y="0" font-weight="600" fill="#0E0E10">Cardiology Specialist Visit</text>
+          <text x="230" y="0" fill="#5F5F68">1</text>
+          <text x="290" y="0" font-family="monospace" fill="#5F5F68">$150.00</text>
+          <text x="380" y="0" font-family="monospace" font-weight="700" fill="#0E0E10">$150.00</text>
+        </g>
+
+        <!-- Summary Calculation Box -->
+        <rect x="260" y="170" width="204" height="74" rx="6" fill="#FAFAF7" stroke="#E7E5DF" stroke-width="1"/>
+        <text x="274" y="190" font-family="-apple-system, sans-serif" font-size="10" fill="#5F5F68">Subtotal:</text>
+        <text x="444" y="190" text-anchor="end" font-family="monospace" font-size="10" font-weight="600" fill="#0E0E10">$426.00</text>
+        <text x="274" y="206" font-family="-apple-system, sans-serif" font-size="10" fill="#5F5F68">Insurance Pre-Auth (80%):</text>
+        <text x="444" y="206" text-anchor="end" font-family="monospace" font-size="10" font-weight="600" fill="#10B981">-$340.80</text>
+        <line x1="274" y1="214" x2="444" y2="214" stroke="#E7E5DF" stroke-width="1"/>
+        <text x="274" y="230" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#0E0E10">Patient Due:</text>
+        <text x="444" y="230" text-anchor="end" font-family="monospace" font-size="12" font-weight="700" fill="#2F4BFF">$85.20</text>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <rect width="800" height="500" fill="#F4F4F7"/>
+  <g transform="translate(60, 45)">
+    <rect width="680" height="410" rx="16" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+    <!-- Header -->
+    <rect width="680" height="44" rx="16" fill="#FAFAF7"/>
+    <line x1="0" y1="44" x2="680" y2="44" stroke="#E7E5DF"/>
+    <circle cx="28" cy="22" r="5" fill="#FF5F56"/>
+    <circle cx="44" cy="22" r="5" fill="#FFBD2E"/>
+    <circle cx="60" cy="22" r="5" fill="#27C93F"/>
+    <text x="340" y="26" text-anchor="middle" font-family="monospace" font-size="11" fill="#5F5F68">IT-ServiceDesk / Incident-Triage-Queue</text>
+
+    <!-- Command Palette (Cmd+K) Modal in Center -->
+    <g transform="translate(140, 70)">
+      <rect width="400" height="270" rx="12" fill="#FFFFFF" stroke="#2F4BFF" stroke-width="1.5" filter="drop-shadow(0 20px 25px rgba(0,0,0,0.1))"/>
+      <rect width="400" height="46" rx="12" fill="#FAFAF7"/>
+      <line x1="0" y1="46" x2="400" y2="46" stroke="#E7E5DF"/>
+      <text x="20" y="28" font-family="monospace" font-size="12" fill="#2F4BFF">&gt; Assign to DevOps &amp; Escalate Priority</text>
+      
+      <!-- List of command suggestions -->
+      <g transform="translate(20, 64)" font-family="-apple-system, sans-serif" font-size="11">
+        <rect width="360" height="34" rx="6" fill="#2F4BFF" opacity="0.08"/>
+        <text x="14" y="22" font-weight="600" fill="#2F4BFF">Assign: Cloud Infrastructure Team (Shift Lead)</text>
+        <text x="340" y="22" text-anchor="end" font-family="monospace" font-size="9" fill="#2F4BFF">[↵ Enter]</text>
+
+        <g transform="translate(0, 42)">
+          <text x="14" y="22" font-weight="500" fill="#0E0E10">Set Priority: P1 Critical (SLA: 15 min)</text>
+          <text x="340" y="22" text-anchor="end" font-family="monospace" font-size="9" fill="#5F5F68">[1]</text>
+        </g>
+
+        <g transform="translate(0, 76)">
+          <text x="14" y="22" font-weight="500" fill="#0E0E10">Add Incident Tag: #vpn-gateway-outage</text>
+          <text x="340" y="22" text-anchor="end" font-family="monospace" font-size="9" fill="#5F5F68">[2]</text>
+        </g>
+      </g>
+
+      <!-- SLA Countdown Strip -->
+      <g transform="translate(20, 210)">
+        <text x="0" y="0" font-family="monospace" font-size="9" font-weight="700" fill="#EF4444">SLA BREACH TIMER: 00:12:44</text>
+        <rect y="8" width="360" height="8" rx="4" fill="#FEE2E2"/>
+        <rect y="8" width="280" height="8" rx="4" fill="#EF4444"/>
+      </g>
+    </g>
+  </g>
+</svg>

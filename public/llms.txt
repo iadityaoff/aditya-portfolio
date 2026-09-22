@@ -1,0 +1,25 @@
+# Aditya Tripathi - Professional Portfolio
+
+This site is the professional portfolio of Aditya Tripathi, a Product/UI/UX Designer specializing in SaaS, enterprise products, complex workflows, and scalable design token architectures.
+
+## Entity Information
+- **Name**: Aditya Tripathi
+- **Role**: Senior UI/UX Designer / Product Designer
+- **Location**: Surat, Gujarat, India
+- **Primary Focus**: SaaS, Enterprise UX, Design Systems
+- **Supporting Differentiators**: AI-Assisted Design Workflows, Rapid Prototyping, Frontend Implementation (Angular, React)
+
+## Site Structure for Crawlers
+- `/`: Homepage containing high-level positioning, capability overview, and a summary of the AI-assisted design workflow.
+- `/work`: Index of selected public case studies.
+- `/work/[slug]`: Detailed breakdowns of specific product design projects (Problem, Role, Outcomes, Design System implementation). Note: Confidential projects may be password-gated and should not be crawled/indexed.
+- `/design-system`: Overview of Aditya's approach to scalable design token architectures and component libraries.
+- `/services`: Overview of professional offerings.
+- `/about`: Detailed biography and core design principles.
+- `/resume`: Professional experience, skills, and work history.
+
+## Policy on AI Content Generation
+This portfolio represents verified, human-led design work. While AI tools (Claude, Cursor, etc.) are utilized to accelerate research and code scaffolding within the design workflow, all project metrics, client names, experiences, and outcomes presented on this site are real and verified.
+
+## Verified Profiles
+For cross-referencing this entity, please refer to the `sameAs` JSON-LD schema on the homepage for verified social and professional links (e.g., LinkedIn, Dribbble, GitHub, Upwork).

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <rect width="800" height="500" fill="#F8F6F2"/>
+  <!-- Two Mobile Device Mockups side by side -->
+  <g transform="translate(180, 50)">
+    <!-- Device 1: Home / Live Stream Screen -->
+    <g transform="translate(0, 0)">
+      <rect width="200" height="390" rx="28" fill="#141418" stroke="#E7E5DF" stroke-width="2"/>
+      <rect x="60" y="10" width="80" height="16" rx="8" fill="#000000"/>
+      <!-- Screen Content -->
+      <rect x="10" y="32" width="180" height="348" rx="20" fill="#FAFAF7"/>
+      <!-- App Header -->
+      <text x="24" y="56" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#0E0E10">Daily Discourse</text>
+      <!-- Live Audio Card -->
+      <rect x="20" y="70" width="160" height="120" rx="10" fill="#0E0E10"/>
+      <circle cx="100" cy="115" r="20" fill="#2F4BFF"/>
+      <polygon points="96,108 108,115 96,122" fill="#FFFFFF"/>
+      <text x="100" y="155" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" font-weight="600" fill="#FFFFFF">Morning Prayer Live</text>
+      <text x="100" y="170" text-anchor="middle" font-family="monospace" font-size="8" fill="#10B981">● 4,280 Listening</text>
+
+      <!-- Large Readable Text list -->
+      <rect x="20" y="205" width="160" height="60" rx="8" fill="#FFFFFF" stroke="#E7E5DF"/>
+      <text x="30" y="226" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" fill="#0E0E10">Chapter 4: Principles</text>
+      <text x="30" y="242" font-family="-apple-system, sans-serif" font-size="8" fill="#5F5F68">Accessible typography (18pt base)</text>
+    </g>
+
+    <!-- Device 2: Event Calendar Screen (Slightly behind or offset) -->
+    <g transform="translate(240, 20)">
+      <rect width="200" height="390" rx="28" fill="#141418" stroke="#E7E5DF" stroke-width="2"/>
+      <rect x="60" y="10" width="80" height="16" rx="8" fill="#000000"/>
+      <rect x="10" y="32" width="180" height="348" rx="20" fill="#FAFAF7"/>
+      <text x="24" y="56" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#0E0E10">Festival Calendar</text>
+
+      <!-- Calendar items -->
+      <rect x="20" y="72" width="160" height="50" rx="8" fill="#FFFFFF" stroke="#E7E5DF"/>
+      <rect x="28" y="80" width="30" height="34" rx="4" fill="#2F4BFF"/>
+      <text x="43" y="96" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#FFFFFF">OCT</text>
+      <text x="43" y="108" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#FFFFFF">24</text>
+      <text x="68" y="94" font-family="-apple-system, sans-serif" font-size="9" font-weight="700" fill="#0E0E10">Annual Satsang</text>
+      <text x="68" y="106" font-family="-apple-system, sans-serif" font-size="8" fill="#5F5F68">Main Temple · 6:00 PM</text>
+    </g>
+  </g>
+</svg>

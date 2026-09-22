@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="ds-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5F5F0"/>
+      <stop offset="100%" stop-color="#ECEAE4"/>
+    </linearGradient>
+    <filter id="ds-shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#0E0E10" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Tinted Background Panel -->
+  <rect width="800" height="500" fill="url(#ds-bg)"/>
+  
+  <!-- Subtle Grid Pattern -->
+  <g opacity="0.3" stroke="#E7E5DF" stroke-width="1">
+    <line x1="100" y1="0" x2="100" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="500"/>
+    <line x1="300" y1="0" x2="300" y2="500"/>
+    <line x1="400" y1="0" x2="400" y2="500"/>
+    <line x1="500" y1="0" x2="500" y2="500"/>
+    <line x1="600" y1="0" x2="600" y2="500"/>
+    <line x1="700" y1="0" x2="700" y2="500"/>
+    <line x1="0" y1="100" x2="800" y2="100"/>
+    <line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="400" x2="800" y2="400"/>
+  </g>
+
+  <!-- Central UI Artboard (Desktop Frame) -->
+  <g transform="translate(60, 45)" filter="url(#ds-shadow)">
+    <!-- Browser/Canvas Frame -->
+    <rect width="680" height="410" rx="16" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+    
+    <!-- Header Bar -->
+    <rect width="680" height="44" rx="16" fill="#FAFAF7"/>
+    <path d="M0 28 Q0 44 16 44 L664 44 Q680 44 680 28 L680 44 L0 44 Z" fill="#FAFAF7"/>
+    <line x1="0" y1="44" x2="680" y2="44" stroke="#E7E5DF" stroke-width="1"/>
+    
+    <!-- Window Dots -->
+    <circle cx="28" cy="22" r="5" fill="#FF5F56"/>
+    <circle cx="44" cy="22" r="5" fill="#FFBD2E"/>
+    <circle cx="60" cy="22" r="5" fill="#27C93F"/>
+    
+    <text x="340" y="26" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" font-weight="600" fill="#5F5F68" letter-spacing="0.5">design-tokens / component-inventory.fig</text>
+
+    <!-- Sidebar: Token Hierarchy -->
+    <rect x="24" y="64" width="180" height="320" rx="10" fill="#FAFAF7" stroke="#E7E5DF" stroke-width="1"/>
+    <text x="40" y="90" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#0E0E10" letter-spacing="0.5">TOKEN PIPELINE</text>
+    
+    <!-- Token tree items -->
+    <g transform="translate(40, 108)">
+      <!-- Tier 1 -->
+      <rect width="148" height="26" rx="5" fill="#FFFFFF" stroke="#2F4BFF" stroke-width="1"/>
+      <circle cx="14" cy="13" r="4" fill="#2F4BFF"/>
+      <text x="26" y="17" font-family="monospace" font-size="10" font-weight="600" fill="#2F4BFF">global.blue.500</text>
+      
+      <!-- Arrow -->
+      <line x1="74" y1="26" x2="74" y2="38" stroke="#2F4BFF" stroke-width="1.5" stroke-dasharray="2 2"/>
+      
+      <!-- Tier 2 -->
+      <rect y="38" width="148" height="26" rx="5" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+      <circle cx="14" cy="51" r="4" fill="#0E0E10"/>
+      <text x="26" y="55" font-family="monospace" font-size="10" font-weight="600" fill="#0E0E10">semantic.interactive</text>
+      
+      <!-- Arrow -->
+      <line x1="74" y1="64" x2="74" y2="76" stroke="#2F4BFF" stroke-width="1.5" stroke-dasharray="2 2"/>
+      
+      <!-- Tier 3 -->
+      <rect y="76" width="148" height="26" rx="5" fill="#2F4BFF" stroke="#2F4BFF" stroke-width="1"/>
+      <circle cx="14" cy="89" r="4" fill="#FFFFFF"/>
+      <text x="26" y="93" font-family="monospace" font-size="10" font-weight="600" fill="#FFFFFF">btn.primary.bg</text>
+    </g>
+
+    <!-- Color Palette swatches -->
+    <g transform="translate(40, 240)">
+      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" fill="#5F5F68" letter-spacing="0.5">COLOR TOKENS</text>
+      <rect x="0" y="10" width="28" height="28" rx="6" fill="#2F4BFF"/>
+      <rect x="36" y="10" width="28" height="28" rx="6" fill="#0E0E10"/>
+      <rect x="72" y="10" width="28" height="28" rx="6" fill="#5F5F68"/>
+      <rect x="108" y="10" width="28" height="28" rx="6" fill="#E7E5DF"/>
+    </g>
+
+    <!-- Main Pane: Component Variant Matrix -->
+    <g transform="translate(224, 64)">
+      <!-- Component Header -->
+      <rect width="432" height="42" rx="8" fill="#FAFAF7" stroke="#E7E5DF" stroke-width="1"/>
+      <text x="20" y="26" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#0E0E10">Button / States &amp; Variants Matrix</text>
+      <rect x="330" y="12" width="84" height="20" rx="10" fill="#2F4BFF" opacity="0.1"/>
+      <text x="372" y="25" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#2F4BFF">62 COMPONENTS</text>
+
+      <!-- Matrix Table Headers -->
+      <g transform="translate(20, 68)" font-family="monospace" font-size="10" fill="#5F5F68">
+        <text x="0" y="0">STATE</text>
+        <text x="100" y="0">PRIMARY</text>
+        <text x="210" y="0">SECONDARY</text>
+        <text x="320" y="0">GHOST</text>
+      </g>
+      <line x1="20" y1="80" x2="412" y2="80" stroke="#E7E5DF" stroke-width="1"/>
+
+      <!-- Row 1: Default -->
+      <g transform="translate(20, 106)">
+        <text x="0" y="14" font-family="monospace" font-size="10" fill="#5F5F68">Default</text>
+        <!-- Primary -->
+        <rect x="90" y="0" width="80" height="28" rx="14" fill="#2F4BFF"/>
+        <text x="130" y="17" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" fill="#FFFFFF">Action</text>
+        <!-- Secondary -->
+        <rect x="200" y="0" width="80" height="28" rx="14" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+        <text x="240" y="17" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" fill="#0E0E10">Action</text>
+        <!-- Ghost -->
+        <text x="350" y="17" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" fill="#5F5F68">Action</text>
+      </g>
+
+      <!-- Row 2: Hover -->
+      <g transform="translate(20, 146)">
+        <text x="0" y="14" font-family="monospace" font-size="10" fill="#5F5F68">Hover</text>
+        <!-- Primary Hover -->
+        <rect x="90" y="0" width="80" height="28" rx="14" fill="#1F36D4"/>
+        <text x="130" y="17" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" fill="#FFFFFF">Action</text>
+        <!-- Secondary Hover -->
+        <rect x="200" y="0" width="80" height="28" rx="14" fill="#FAFAF7" stroke="#0E0E10" stroke-width="1"/>
+        <text x="240" y="17" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" fill="#0E0E10">Action</text>
+        <!-- Ghost Hover -->
+        <rect x="310" y="0" width="80" height="28" rx="14" fill="#E7E5DF" opacity="0.4"/>
+        <text x="350" y="17" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" fill="#0E0E10">Action</text>
+      </g>
+
+      <!-- Row 3: Focus-Visible -->
+      <g transform="translate(20, 186)">
+        <text x="0" y="14" font-family="monospace" font-size="10" fill="#2F4BFF" font-weight="600">Focus-Ring</text>
+        <!-- Primary Focus -->
+        <rect x="88" y="-2" width="84" height="32" rx="16" fill="none" stroke="#2F4BFF" stroke-width="2"/>
+        <rect x="90" y="0" width="80" height="28" rx="14" fill="#2F4BFF"/>
+        <text x="130" y="17" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" fill="#FFFFFF">Action</text>
+        <!-- Secondary Focus -->
+        <rect x="198" y="-2" width="84" height="32" rx="16" fill="none" stroke="#2F4BFF" stroke-width="2"/>
+        <rect x="200" y="0" width="80" height="28" rx="14" fill="#FFFFFF" stroke="#E7E5DF" stroke-width="1"/>
+        <text x="240" y="17" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" fill="#0E0E10">Action</text>
+      </g>
+
+      <!-- Row 4: Disabled -->
+      <g transform="translate(20, 226)">
+        <text x="0" y="14" font-family="monospace" font-size="10" fill="#5F5F68">Disabled</text>
+        <rect x="90" y="0" width="80" height="28" rx="14" fill="#E7E5DF" opacity="0.7"/>
+        <text x="130" y="17" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" fill="#5F5F68">Disabled</text>
+        <rect x="200" y="0" width="80" height="28" rx="14" fill="#FAFAF7" stroke="#E7E5DF" stroke-width="1" opacity="0.5"/>
+        <text x="240" y="17" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" fill="#5F5F68">Disabled</text>
+      </g>
+    </g>
+  </g>
+</svg>
