@@ -1,6 +1,7 @@
 import * as React from "react";
 import { DecisionItem } from "@/types";
 import { EvidenceChain } from "./evidence-chain";
+import { ScrollReveal } from "@/components/shared/scroll-reveal";
 
 export interface DecisionBlockProps {
   decisions: DecisionItem[];
@@ -23,10 +24,10 @@ export function DecisionBlock({ decisions }: DecisionBlockProps) {
 
       <div className="space-y-8">
         {decisions.map((item, idx) => (
-          <div
-            key={item.title}
-            className="p-6 sm:p-8 rounded-[20px] bg-white border border-line shadow-xs space-y-6"
-          >
+          <ScrollReveal key={item.title} delay={idx * 0.1}>
+            <div
+              className="p-6 sm:p-8 rounded-[20px] bg-white border border-line shadow-xs space-y-6"
+            >
             {/* Decision Title & Counter */}
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 pb-4 border-b border-line">
               <h3 className="text-xl sm:text-2xl font-semibold text-ink tracking-tight">
@@ -60,9 +61,10 @@ export function DecisionBlock({ decisions }: DecisionBlockProps) {
               )}
             </div>
 
-            {/* Verifiable 4-Stage Evidence Chain per spec */}
+            {/* Evidence Chain Component */}
             {item.evidence && <EvidenceChain evidence={item.evidence} />}
           </div>
+          </ScrollReveal>
         ))}
       </div>
     </section>

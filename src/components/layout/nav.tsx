@@ -43,7 +43,7 @@ export function Nav() {
             <span className="font-semibold text-lg sm:text-xl tracking-tight text-ink transition-colors duration-200 group-hover:text-accent">
               Aditya Tripathi
             </span>
-            <span className="hidden md:inline-block font-mono text-[11px] text-muted tracking-wider uppercase px-2 py-0.5 rounded-full border border-line bg-white/60">
+            <span className="hidden md:inline-block font-mono text-xs text-muted tracking-wider uppercase px-2 py-0.5 rounded-full border border-line bg-white/60">
               {siteConfig.roleTitle}
             </span>
           </Link>

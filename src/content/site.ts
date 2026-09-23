@@ -317,7 +317,7 @@ export const whatICareAbout = [
     description: "Every button, modal, and data row should belong to a disciplined token-driven system that scales with the product.",
   },
   {
-    title: "Real data over placeholder lorem ipsum",
+    title: "Real data over placeholder text",
     description: "Interfaces must be stress-tested with edge cases: long names, empty states, missing records, and 1,000-row tables.",
   },
   {

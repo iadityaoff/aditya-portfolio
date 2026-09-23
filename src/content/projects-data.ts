@@ -7,6 +7,12 @@ export const projects: Project[] = [
     subtitle: "A scalable token architecture and 60+ accessible component library unifying 4 enterprise products.",
     summary: "Standardized token pipeline, Figma library, and front-end component parity across a suite of SaaS products, cutting UI design and front-end sprint handoff time by 45%.",
     insightHeadline: "Systemizing tokens across Figma and code before scaling UI",
+    keyOutcome: { metric: "↓ 45%", label: "Handoff Time" },
+    realityCheck: { 
+      quote: "Four disparate engineering squads were building redundant UI components with inconsistent spacing, diverging color hex values, and zero shared accessibility standards.", 
+      author: "Problem Context", 
+      context: "Visual inconsistency became a major brand liability and engineering cost center." 
+    },
     industry: "Enterprise SaaS & Design Ops",
     category: "flagship",
     role: "Lead Systems Designer & Frontend Architect",
@@ -75,6 +81,28 @@ export const projects: Project[] = [
         status: "Rejected",
         reason: "Creates immediate regression when adding dark mode or secondary enterprise themes.",
       },
+    ],
+    productStory: [
+      {
+        title: "Primitive Variables",
+        description: "Establishing the core atomic scale of colors, typography, and spacing tokens in Figma.",
+        mockComponentId: "mock:design-system:0"
+      },
+      {
+        title: "Semantic Mapping",
+        description: "Mapping raw primitives to purposeful semantic roles (e.g. background-surface-interactive).",
+        mockComponentId: "mock:design-system:1"
+      },
+      {
+        title: "Component Build",
+        description: "Applying the semantic tokens to build strict, auto-layout React components.",
+        mockComponentId: "mock:design-system:2"
+      },
+      {
+        title: "Production Storybook",
+        description: "The final published components running live in the centralized Storybook library.",
+        mockComponentId: "mock:design-system:3"
+      }
     ],
     decisions: [
       {
@@ -146,6 +174,12 @@ export const projects: Project[] = [
     subtitle: "A unified clinical operations system designed for doctors, receptionists, billing teams, and ward administrators.",
     summary: "Replaced 6 fragmented clinical tools with a high-density, context-aware web application that eliminated patient context switching and reduced billing reconciliation errors by 38%.",
     insightHeadline: "Keeping patient clinical and financial context visible across all workflows",
+    keyOutcome: { metric: "↓ 38%", label: "Billing Errors" },
+    realityCheck: { 
+      quote: "Hospital audit revealed 12 instances per month of staff attaching laboratory fees to the wrong patient record due to tab switching.", 
+      author: "User Research", 
+      context: "Clinical operators frequently work on multiple cases simultaneously, making situational awareness critical." 
+    },
     industry: "Healthcare Tech & Clinical ERP",
     category: "flagship",
     role: "Lead Product Designer",
@@ -216,6 +250,28 @@ export const projects: Project[] = [
         reason: "Added 3 extra clicks per transaction and destroyed spatial orientation during high-volume discharge hours.",
       },
     ],
+    productStory: [
+      {
+        title: "Patient Dashboard",
+        description: "The initial view where doctors see the day's queued patients and urgent flags.",
+        mockComponentId: "mock:healthcare:0"
+      },
+      {
+        title: "Medical Record Entry",
+        description: "A dense but legible form layout for rapidly entering new diagnoses during a consultation.",
+        mockComponentId: "mock:healthcare:1"
+      },
+      {
+        title: "Billing Generation",
+        description: "The system automatically aggregates the recorded codes into a pre-filled invoice draft.",
+        mockComponentId: "mock:healthcare:2"
+      },
+      {
+        title: "Action & Sign-off",
+        description: "Final review and one-click submission to the centralized insurance processing queue.",
+        mockComponentId: "mock:healthcare:3"
+      }
+    ],
     decisions: [
       {
         title: "Persistent Context Header with Integrated Patient Switcher",
@@ -285,6 +341,12 @@ export const projects: Project[] = [
     subtitle: "Complex multi-tiered applicant evaluation, role-based governance, and bulk workflow platform.",
     summary: "Redesigned an enterprise intake and assessment portal processing 250,000+ candidate submissions annually, cutting application review latency by 52% through progressive disclosure and high-density batch actions.",
     insightHeadline: "Replacing 18-field modal forms with progressive evaluation flows",
+    keyOutcome: { metric: "↓ 52%", label: "Review Latency" },
+    realityCheck: { 
+      quote: "Hiring managers and enterprise evaluators were overwhelmed by massive 80-column spreadsheets and unresponsive modal dialogue forms, causing evaluation backlogs of over 3 weeks.", 
+      author: "Stakeholder Pain Point", 
+      context: "Reviewers were switching back and forth between resume PDFs, scorecards, and email threads to submit candidate decisions." 
+    },
     industry: "Enterprise HR Tech & Talent Management",
     category: "flagship",
     role: "Senior Product Designer",

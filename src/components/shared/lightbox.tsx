@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useSmoothScroll } from "@/components/layout/smooth-scroll";
 
 export interface LightboxProps {
   isOpen: boolean;
@@ -25,17 +26,22 @@ export function Lightbox({
   hasNext = false,
   hasPrev = false,
 }: LightboxProps) {
-  // Lock body scroll
+  const { lenis } = useSmoothScroll();
+
+  // Lock body scroll and pause Lenis
   React.useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      lenis?.stop();
     } else {
       document.body.style.overflow = "";
+      lenis?.start();
     }
     return () => {
       document.body.style.overflow = "";
+      lenis?.start();
     };
-  }, [isOpen]);
+  }, [isOpen, lenis]);
 
   // Handle keyboard events (Esc to close, arrows to cycle)
   React.useEffect(() => {

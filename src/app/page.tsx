@@ -9,50 +9,71 @@ import { S8AiWorkflow } from "@/components/home/s8-ai-workflow";
 import { S8KindWords } from "@/components/home/s8-kind-words";
 import { S9AboutTeaser } from "@/components/home/s9-about-teaser";
 import { CTASection } from "@/components/shared/cta-section";
+import { ScrollReveal } from "@/components/shared/scroll-reveal";
 
 export default function HomePage() {
   return (
     <>
-      {/* S1: Hero */}
+      {/* S1: Hero (has its own scroll transforms) */}
       <S1Hero />
 
       {/* S2: Proof Strip */}
-      <S2ProofStrip />
+      <ScrollReveal>
+        <S2ProofStrip />
+      </ScrollReveal>
 
       {/* S3: Selected Work */}
-      <S3SelectedWork />
+      <ScrollReveal>
+        <S3SelectedWork />
+      </ScrollReveal>
 
       {/* S4: Featured Design System */}
-      <S4FeaturedDesignSystem />
+      <ScrollReveal>
+        <S4FeaturedDesignSystem />
+      </ScrollReveal>
 
       {/* S5: What I specialize in */}
-      <S5Specializations />
+      <ScrollReveal>
+        <S5Specializations />
+      </ScrollReveal>
 
       {/* S6: How I work */}
-      <S6HowIWork />
+      <ScrollReveal>
+        <S6HowIWork />
+      </ScrollReveal>
 
       {/* S7: Design + Engineering */}
-      <S7DesignEngineering />
+      <ScrollReveal>
+        <S7DesignEngineering />
+      </ScrollReveal>
 
       {/* S8: AI Workflow */}
-      <S8AiWorkflow />
+      <ScrollReveal>
+        <S8AiWorkflow />
+      </ScrollReveal>
 
       {/* S8: Kind Words */}
-      <S8KindWords />
+      <ScrollReveal>
+        <S8KindWords />
+      </ScrollReveal>
 
       {/* S9: About Teaser */}
-      <S9AboutTeaser />
+      <ScrollReveal>
+        <S9AboutTeaser />
+      </ScrollReveal>
 
       {/* S10: Final CTA */}
-      <CTASection
-        heading="Have a complex product that needs clarity?"
-        subheading="Tell me what you're trying to improve."
-        primaryButtonText="Discuss your project"
-        primaryButtonHref="/contact"
-        secondaryButtonText="View resume"
-        secondaryButtonHref="/resume"
-        note="Open to freelance and selected full-time roles."
-      />
+      <ScrollReveal>
+        <CTASection
+          heading="Have a complex product that needs clarity?"
+          subheading="Tell me what you're trying to improve."
+          primaryButtonText="Discuss your project"
+          primaryButtonHref="/contact"
+          secondaryButtonText="View resume"
+          secondaryButtonHref="/resume"
+          note="Open to freelance and selected full-time roles."
+        />
+      </ScrollReveal>
     </>
   );
 }

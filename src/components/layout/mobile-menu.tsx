@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/content/site";
 import { cn } from "@/lib/utils";
+import { useSmoothScroll } from "@/components/layout/smooth-scroll";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -19,17 +20,22 @@ export function MobileMenu({
   navItems,
   currentPath,
 }: MobileMenuProps) {
-  // Lock body scroll when open
+  const { lenis } = useSmoothScroll();
+
+  // Lock body scroll and pause Lenis when open
   React.useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      lenis?.stop();
     } else {
       document.body.style.overflow = "";
+      lenis?.start();
     }
     return () => {
       document.body.style.overflow = "";
+      lenis?.start();
     };
-  }, [isOpen]);
+  }, [isOpen, lenis]);
 
   // Handle escape key
   React.useEffect(() => {

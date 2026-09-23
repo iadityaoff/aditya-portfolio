@@ -4,10 +4,13 @@ import * as React from "react";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useScroll, useTransform, useMotionValueEvent, useReducedMotion } from "motion/react";
 
 export function S4FeaturedDesignSystem() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [previewState, setPreviewState] = React.useState<"default" | "hover" | "focus" | "disabled">("default");
+  const sectionRef = React.useRef<HTMLElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   const pipelineSteps = [
     { name: "Figma", desc: "Variables & semantic slots", token: "global.blue.500" },
@@ -18,16 +21,30 @@ export function S4FeaturedDesignSystem() {
     { name: "Products", desc: "4 Enterprise platforms live", token: "Zero Design Drift" },
   ];
 
-  // Pipeline step sequential pulse
+  // Scroll-driven pipeline: section progress maps to active step
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const stepIndex = useTransform(scrollYProgress, [0.1, 0.9], [0, pipelineSteps.length - 1]);
+
+  useMotionValueEvent(stepIndex, "change", (latest) => {
+    const clamped = Math.round(Math.max(0, Math.min(pipelineSteps.length - 1, latest)));
+    setActiveStep(clamped);
+  });
+
+  // Fallback timer for reduced-motion users (original behavior)
   React.useEffect(() => {
+    if (!shouldReduceMotion) return;
     const timer = setInterval(() => {
       setActiveStep((prev) => (prev + 1) % pipelineSteps.length);
     }, 2800);
     return () => clearInterval(timer);
-  }, [pipelineSteps.length]);
+  }, [pipelineSteps.length, shouldReduceMotion]);
 
   return (
-    <section className="w-full bg-showcase text-white py-20 lg:py-32 relative overflow-hidden border-y border-showcase-border">
+    <section ref={sectionRef} className="w-full bg-showcase text-white py-20 lg:py-32 relative overflow-hidden border-y border-showcase-border">
       {/* Background soft glow */}
       <div
         className="absolute top-1/2 right-10 -translate-y-1/2 w-[600px] h-[500px] bg-accent/10 rounded-full blur-3xl pointer-events-none"
@@ -97,7 +114,7 @@ export function S4FeaturedDesignSystem() {
                 <span className="font-mono text-xs text-accent uppercase tracking-wider font-semibold">
                   TOKEN &amp; COMPONENT LIFECYCLE
                 </span>
-                <span className="font-mono text-[11px] text-showcase-muted">
+                <span className="font-mono text-xs text-showcase-muted">
                   STEP 0{activeStep + 1} / 06
                 </span>
               </div>
@@ -119,7 +136,7 @@ export function S4FeaturedDesignSystem() {
                     >
                       <div>
                         <div className="flex items-center justify-between">
-                          <span className="font-mono text-[10px] text-accent font-bold">
+                          <span className="font-mono text-xs text-accent font-bold">
                             0{idx + 1}
                           </span>
                           {isCurrent && (
@@ -128,7 +145,7 @@ export function S4FeaturedDesignSystem() {
                         </div>
                         <p className="font-semibold text-sm mt-1 text-white">{step.name}</p>
                       </div>
-                      <p className="font-mono text-[9px] truncate text-showcase-muted mt-2">
+                      <p className="font-mono text-xs line-clamp-2 text-showcase-muted mt-2">
                         {step.token}
                       </p>
                     </div>
@@ -138,7 +155,7 @@ export function S4FeaturedDesignSystem() {
 
               <div className="mt-4 pt-3 text-xs text-showcase-muted flex items-center justify-between">
                 <span>{pipelineSteps[activeStep].desc}</span>
-                <span className="font-mono text-accent text-[11px]">Active Pipeline Pulse</span>
+                <span className="font-mono text-accent text-xs">Active Pipeline Pulse</span>
               </div>
             </div>
 
@@ -146,7 +163,7 @@ export function S4FeaturedDesignSystem() {
             <div className="rounded-2xl bg-showcase-card border border-showcase-border p-6 sm:p-8 space-y-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="text-sm font-semibold text-white">Live Component Playground</h4>
+                  <h3 className="text-sm font-semibold text-white">Live Component Playground</h3>
                   <p className="text-xs text-showcase-muted">Test state definitions in real-time</p>
                 </div>
 
@@ -158,7 +175,7 @@ export function S4FeaturedDesignSystem() {
                       type="button"
                       onClick={() => setPreviewState(st)}
                       className={cn(
-                        "font-mono text-[10px] uppercase px-2.5 py-1 rounded-md transition-colors cursor-pointer",
+                        "font-mono text-xs uppercase px-2.5 py-1 rounded-md transition-colors cursor-pointer",
                         previewState === st
                           ? "bg-accent text-white font-bold"
                           : "text-showcase-muted hover:text-white"

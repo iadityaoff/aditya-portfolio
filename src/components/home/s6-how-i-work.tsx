@@ -24,7 +24,7 @@ export function S6HowIWork() {
         />
 
         {/* Stepper (Horizontal on desktop, vertical on mobile) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {processSteps.map((step, idx) => {
             const isActive = idx === activeStep;
 
@@ -68,7 +68,7 @@ export function S6HowIWork() {
                 <div className="pt-4 border-t border-line/60 mt-4 space-y-2">
                   <span
                     className={cn(
-                      "font-mono text-[10px] uppercase font-semibold px-2 py-1 rounded-md tracking-wider block text-center truncate",
+                      "font-mono text-xs uppercase font-semibold px-2 py-1 rounded-md tracking-wider block text-center",
                       isActive
                         ? "bg-accent/10 text-accent border border-accent/20"
                         : "bg-line/40 text-muted"
@@ -81,7 +81,7 @@ export function S6HowIWork() {
                   {step.aiTools && (
                     <span
                       className={cn(
-                        "font-mono text-[9px] px-2 py-0.5 rounded-md block text-center truncate transition-colors",
+                        "font-mono text-xs px-2 py-0.5 rounded-md block text-center transition-colors",
                         isActive
                           ? "text-accent/70 bg-accent/5"
                           : "text-muted/60"

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter_Tight, Instrument_Serif, Geist_Mono } from "next/font/google";
 import { Nav } from "@/components/layout/nav";
 import { Footer } from "@/components/layout/footer";
+import { SmoothScroll } from "@/components/layout/smooth-scroll";
+import { LenisErrorBoundary } from "@/components/layout/lenis-error-boundary";
 import { siteConfig } from "@/content/site";
 import "./globals.css";
 
@@ -139,7 +141,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${interTight.variable} ${instrumentSerif.variable} ${geistMono.variable} scroll-smooth`}
+      className={`${interTight.variable} ${instrumentSerif.variable} ${geistMono.variable}`}
     >
       <head>
         <script
@@ -156,13 +158,17 @@ export default function RootLayout({
           Skip to main content
         </a>
 
-        <Nav />
+        <LenisErrorBoundary>
+          <SmoothScroll>
+            <Nav />
 
-        <main id="main-content" className="flex-1 flex flex-col w-full">
-          {children}
-        </main>
+            <main id="main-content" className="flex-1 flex flex-col w-full">
+              {children}
+            </main>
 
-        <Footer />
+            <Footer />
+          </SmoothScroll>
+        </LenisErrorBoundary>
       </body>
     </html>
   );

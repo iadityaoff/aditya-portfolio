@@ -13,6 +13,7 @@ export interface DecisionItem {
     decision: string;
     implementation: string;
     outcome: string;
+    evidenceImages?: [string, string, string, string]; // Images corresponding to the 4 stages
   };
 }
 
@@ -46,6 +47,8 @@ export interface Project {
   subtitle?: string;
   summary: string;
   insightHeadline?: string;
+  keyOutcome?: { metric: string; label: string };
+  realityCheck?: { quote: string; author: string; context: string };
   industry: string;
   category: ProjectCategory;
   role: string;
@@ -67,6 +70,12 @@ export interface Project {
     description: string;
     status: "Kept" | "Rejected";
     reason?: string;
+  }[];
+  productStory?: {
+    title: string;
+    description: string;
+    image?: string; // Optional real image
+    mockComponentId?: string; // Fallback React component ID
   }[];
   decisions: DecisionItem[];
   breakpoints?: BreakpointData[];

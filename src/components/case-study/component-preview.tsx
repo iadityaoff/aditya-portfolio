@@ -8,9 +8,10 @@ export interface ComponentPreviewProps {
     storybookUrl?: string;
     specsDescription: string;
   };
+  storyContext?: React.ReactNode;
 }
 
-export function ComponentPreview({ systemHandoff }: ComponentPreviewProps) {
+export function ComponentPreview({ systemHandoff, storyContext }: ComponentPreviewProps) {
   if (!systemHandoff) return null;
 
   return (
@@ -57,6 +58,13 @@ export function ComponentPreview({ systemHandoff }: ComponentPreviewProps) {
           </p>
         </div>
       </div>
+
+      {storyContext && (
+        <div className="mt-8 p-5 rounded-[16px] bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30 text-emerald-800 dark:text-emerald-300 text-sm italic">
+          <strong className="font-semibold not-italic">Designer&apos;s Context: </strong>
+          {storyContext}
+        </div>
+      )}
     </section>
   );
 }

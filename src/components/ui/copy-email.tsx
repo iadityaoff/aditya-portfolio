@@ -21,10 +21,10 @@ export function CopyEmail({ email, className, tone = "light" }: CopyEmailProps) 
       onClick={() => copy(email)}
       aria-label={`Copy email address ${email} to clipboard`}
       className={cn(
-        "group relative inline-flex items-center gap-2.5 px-3.5 py-2 rounded-lg font-mono text-xs sm:text-sm transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+        "group relative inline-flex items-center justify-center gap-2 px-5 py-2.5 min-h-[46px] rounded-full font-medium text-sm transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.98]",
         isDark
-          ? "bg-showcase-card border border-showcase-border text-white hover:border-white/30"
-          : "bg-white border border-line text-ink hover:border-ink/30 shadow-xs",
+          ? "bg-showcase-card border border-showcase-border text-white hover:border-white/30 hover:bg-white/5"
+          : "bg-white border border-line text-ink hover:border-ink/30 hover:bg-black/5 shadow-sm",
         className
       )}
     >

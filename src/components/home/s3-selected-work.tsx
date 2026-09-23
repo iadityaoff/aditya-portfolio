@@ -12,7 +12,7 @@ export function S3SelectedWork() {
     <section id="selected-work" className="w-full py-20 lg:py-32 bg-background">
       <Container size="default">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <div className="mb-16 space-y-6">
           <SectionHeading
             eyebrow="SELECTED CASE STUDIES"
             title={
@@ -25,7 +25,7 @@ export function S3SelectedWork() {
 
           <Link
             href="/work"
-            className="inline-flex items-center gap-2 font-medium text-sm text-accent hover:text-accent-hover group shrink-0 pb-1"
+            className="inline-flex items-center gap-2 font-medium text-sm text-accent hover:text-accent-hover group w-fit"
           >
             <span>See all 8 projects</span>
             <span className="transition-transform group-hover:translate-x-1" aria-hidden="true">

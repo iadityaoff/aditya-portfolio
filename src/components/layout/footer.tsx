@@ -5,17 +5,50 @@ import Link from "next/link";
 import { siteConfig } from "@/content/site";
 import { CopyEmail } from "@/components/ui/copy-email";
 import { Button } from "@/components/ui/button";
+import { useSmoothScroll } from "@/components/layout/smooth-scroll";
+import { cn } from "@/lib/utils";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
+  const { lenis } = useSmoothScroll();
+
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (lenis) {
+      lenis.scrollTo(0);
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
+  const [showScrollTop, setShowScrollTop] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 800);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <footer className="w-full bg-[#FAFAF7] border-t border-line pt-20 pb-12 transition-colors duration-300">
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+    <>
+      {/* Sticky Back to Top Button */}
+      <button
+        onClick={scrollToTop}
+        className={cn(
+          "fixed bottom-6 right-6 z-50 p-3 rounded-full bg-ink text-white shadow-lg shadow-black/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+          showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
+        )}
+        aria-label="Back to top"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 19V5M5 12l7-7 7 7" />
+        </svg>
+      </button>
+
+      <footer className="w-full bg-[#FAFAF7] border-t border-line pt-20 pb-12 transition-colors duration-300">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Large closing statement */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-line">
           <div className="lg:col-span-7 space-y-6">
@@ -138,5 +171,6 @@ export function Footer() {
         </div>
       </div>
     </footer>
+    </>
   );
 }

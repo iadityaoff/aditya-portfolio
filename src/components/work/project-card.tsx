@@ -63,6 +63,17 @@ export function ProjectCard({
               </Link>
             </h3>
 
+            {project.keyOutcome && (
+              <div className="inline-flex items-center gap-3 bg-surface border border-line rounded-lg px-4 py-2 mt-2 w-max">
+                <span className="font-semibold text-lg sm:text-xl text-emerald-600 dark:text-emerald-400">
+                  {project.keyOutcome.metric}
+                </span>
+                <span className="font-mono text-xs sm:text-sm text-muted">
+                  {project.keyOutcome.label}
+                </span>
+              </div>
+            )}
+
             {/* One-line Problem & One-line Outcome */}
             <div className="space-y-3 text-sm sm:text-base">
               <div className="flex items-start gap-2">

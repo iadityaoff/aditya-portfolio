@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform, useReducedMotion } from "motion/react"
 import { siteConfig } from "@/content/site";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
+import { useSmoothScroll } from "@/components/layout/smooth-scroll";
 
 export function S1Hero() {
   const heroRef = React.useRef<HTMLDivElement>(null);
@@ -21,11 +22,20 @@ export function S1Hero() {
   const yLayer2 = useTransform(scrollYProgress, [0, 1], [0, -60]);
   const yLayer3 = useTransform(scrollYProgress, [0, 1], [0, -90]);
 
+  // Hero scroll handoff: text fades/lifts, product visual gains emphasis
+  const textOpacity = useTransform(scrollYProgress, [0, 0.5, 0.8], [1, 1, 0]);
+  const textY = useTransform(scrollYProgress, [0, 0.8], [0, -40]);
+  const visualScale = useTransform(scrollYProgress, [0, 0.6], [1, 1.02]);
+
+  const { lenis } = useSmoothScroll();
+
   const scrollToWork = (e: React.MouseEvent) => {
     e.preventDefault();
-    const workSection = document.getElementById("selected-work");
-    if (workSection) {
-      workSection.scrollIntoView({ behavior: "smooth" });
+    const target = document.getElementById("selected-work");
+    if (target && lenis) {
+      lenis.scrollTo(target, { offset: 0 });
+    } else if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -41,12 +51,15 @@ export function S1Hero() {
       />
 
       <Container size="default" className="relative z-10">
-        <div className="flex flex-col items-center text-center max-w-4xl mx-auto space-y-6">
+        <motion.div
+          style={{ y: shouldReduceMotion ? 0 : textY, opacity: shouldReduceMotion ? 1 : textOpacity }}
+          className="flex flex-col items-center text-center max-w-4xl mx-auto space-y-6"
+        >
           {/* Eyebrow (mono) */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-line bg-white/80 shadow-2xs">
             <span className="w-2 h-2 rounded-full bg-accent" />
-            <span className="font-mono text-xs font-semibold uppercase tracking-widest text-ink">
-              SENIOR UI/UX DESIGNER · PRODUCT DESIGN · DESIGN SYSTEMS
+            <span className="font-mono text-xs font-semibold tracking-widest text-ink">
+              Senior UI/UX Designer · Product Design · Design Systems
             </span>
           </div>
 
@@ -84,13 +97,16 @@ export function S1Hero() {
           </div>
 
           {/* Credibility line under buttons */}
-          <p className="font-mono text-xs text-muted/80 tracking-widest uppercase pt-2">
-            {siteConfig.credibilityText}
+          <p className="font-mono text-xs text-muted/80 tracking-widest pt-2">
+            5+ Years · SaaS &amp; Enterprise · Design Systems · Figma · AI-Assisted Implementation
           </p>
-        </div>
+        </motion.div>
 
         {/* Hero Visual: Layered composition of 5 real screens */}
-        <div className="mt-16 lg:mt-24 relative max-w-5xl mx-auto">
+        <motion.div
+          style={{ scale: shouldReduceMotion ? 1 : visualScale }}
+          className="mt-16 lg:mt-24 relative max-w-5xl mx-auto origin-bottom"
+        >
           {/* Layer 1: Central Dashboard in browser-less frame on tinted panel */}
           <motion.div
             style={{ y: shouldReduceMotion ? 0 : yLayer1 }}
@@ -164,7 +180,7 @@ export function S1Hero() {
             className="hidden lg:flex items-center gap-2 absolute top-12 -left-12 px-3.5 py-2 rounded-lg bg-ink text-white shadow-xl"
           >
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-mono text-[10px] font-medium">Workflow: Pruned 38 → 9 steps</span>
+            <span className="font-mono text-xs font-medium">Workflow: Pruned 38 → 9 steps</span>
           </motion.div>
 
           {/* Layer 5: Mobile UI Overlapping Lower Right Corner */}
@@ -182,7 +198,7 @@ export function S1Hero() {
               />
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       </Container>
     </section>
   );

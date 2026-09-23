@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { useSmoothScroll } from "@/components/layout/smooth-scroll";
 
 const SECTIONS = [
   { id: "tldr", label: "Overview" },
@@ -35,9 +36,13 @@ export function CaseStudyNav() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const { lenis } = useSmoothScroll();
+
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
-    if (el) {
+    if (el && lenis) {
+      lenis.scrollTo(el, { offset: -100 });
+    } else if (el) {
       el.scrollIntoView({ behavior: "smooth" });
     }
   };

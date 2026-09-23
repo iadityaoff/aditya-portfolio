@@ -94,26 +94,26 @@ export function S7DesignEngineering() {
                         <span>Save &amp; Continue</span>
                         <span>→</span>
                       </div>
-                      <p className="font-mono text-[11px] text-muted">
+                      <p className="font-mono text-xs text-muted">
                         Auto Layout: Horizontal (Gap: 8px, Pad: 12px 24px)
                       </p>
                     </div>
 
                     <div className="grid grid-cols-2 gap-3 text-xs font-mono">
                       <div className="p-2.5 rounded-lg bg-line/20 border border-line/60">
-                        <span className="text-muted block text-[10px]">VARIANT</span>
+                        <span className="text-muted block text-xs">VARIANT</span>
                         <span className="text-ink font-semibold">variant = &quot;primary&quot;</span>
                       </div>
                       <div className="p-2.5 rounded-lg bg-line/20 border border-line/60">
-                        <span className="text-muted block text-[10px]">CORNER RADIUS</span>
+                        <span className="text-muted block text-xs">CORNER RADIUS</span>
                         <span className="text-ink font-semibold">radius = 9999px</span>
                       </div>
                       <div className="p-2.5 rounded-lg bg-line/20 border border-line/60">
-                        <span className="text-muted block text-[10px]">COLOR VARIABLE</span>
+                        <span className="text-muted block text-xs">COLOR VARIABLE</span>
                         <span className="text-accent font-semibold">var(--color-accent)</span>
                       </div>
                       <div className="p-2.5 rounded-lg bg-line/20 border border-line/60">
-                        <span className="text-muted block text-[10px]">STATES</span>
+                        <span className="text-muted block text-xs">STATES</span>
                         <span className="text-ink font-semibold">6 explicit variants</span>
                       </div>
                     </div>

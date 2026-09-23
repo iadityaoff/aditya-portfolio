@@ -13,6 +13,8 @@ import { BreakpointTable } from "@/components/case-study/breakpoint-table";
 import { ComponentPreview } from "@/components/case-study/component-preview";
 import { OutcomeList } from "@/components/case-study/outcome-list";
 import { Reflection } from "@/components/case-study/reflection";
+import { ProductStorySequence } from "@/components/case-study/product-story-sequence";
+import { RealityCheck } from "@/components/case-study/reality-check";
 import { NextProject } from "@/components/shared/next-project";
 import { CaseStudyNav } from "@/components/case-study/case-study-nav";
 import { CTASection } from "@/components/shared/cta-section";
@@ -118,6 +120,15 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
                 constraints={project.constraints}
               />
 
+              {/* The Messy Reality */}
+              {project.realityCheck && (
+                <RealityCheck 
+                  quote={project.realityCheck.quote}
+                  author={project.realityCheck.author}
+                  context={project.realityCheck.context}
+                />
+              )}
+
               {/* Roles & Personas */}
               <RoleCards roles={project.roles} />
 
@@ -126,6 +137,11 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
 
               {/* Exploration & Low-Fi Wireframes */}
               <WireframeGallery wireframes={project.wireframes} />
+
+              {/* Product Story Sequence (§16) */}
+              {project.productStory && (
+                <ProductStorySequence story={project.productStory} />
+              )}
 
               {/* Key Decisions with 4-Stage Evidence Chains */}
               <DecisionBlock decisions={project.decisions} />

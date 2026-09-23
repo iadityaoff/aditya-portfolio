@@ -3,6 +3,7 @@ import { Container } from "@/components/layout/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { specializations } from "@/content/site";
+import { cn } from "@/lib/utils";
 
 export function S5Specializations() {
   const tools = [
@@ -36,7 +37,12 @@ export function S5Specializations() {
           {specializations.map((spec, index) => (
             <div
               key={spec.title}
-              className="p-8 rounded-[20px] bg-white border border-line card-hover flex flex-col justify-between space-y-6"
+              className={cn(
+                "p-8 rounded-[20px] border card-hover flex flex-col justify-between space-y-6",
+                index === 0 
+                  ? "bg-accent/[0.02] border-accent/20 shadow-sm" 
+                  : "bg-white border-line"
+              )}
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">

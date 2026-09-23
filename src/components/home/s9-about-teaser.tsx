@@ -78,9 +78,9 @@ export function S9AboutTeaser() {
                   <span className="font-mono text-xs font-bold text-accent block mb-2">
                     0{idx + 1}
                   </span>
-                  <h4 className="text-sm font-semibold text-ink mb-1.5">
+                  <h3 className="text-sm font-semibold text-ink mb-1.5">
                     {principle.title}
-                  </h4>
+                  </h3>
                   <p className="text-xs text-muted leading-relaxed">
                     {principle.description}
                   </p>
