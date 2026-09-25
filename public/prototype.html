@@ -886,8 +886,8 @@ html.cine .work-head{z-index:5}
 .cm blockquote{font-family:var(--serif);font-size:clamp(1.3rem,1.7vw,1.6rem);line-height:1.28;letter-spacing:-.005em}
 
 /* About: a statement set at poster scale, with an editorial first-line indent */
-.statement{position:relative;font-size:clamp(2.6rem,5.4vw,5.8rem);max-width:19ch;text-indent:2.6em;margin-bottom:84px}
-.statement::before{content:"About — Aditya";position:absolute;left:0;top:.62em;text-indent:0;font-family:var(--mono);font-size:.72rem;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink)}
+.statement{position:relative;font-size:clamp(2.6rem,5.4vw,5.8rem);max-width:19ch;margin-bottom:84px}
+.statement::before{content:"About — Aditya";display:block;margin-bottom:14px;font-family:var(--mono);font-size:.72rem;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink)}
 /* key phrases: a hairline underline sweep in accent, instead of a highlighter block */
 .statement .kp{--hl:var(--accent);background-position:0 94%;background-size:calc(var(--h)*100%) .065em}
 .pr small{font-family:var(--sans);font-size:2rem;font-weight:600;letter-spacing:-.04em;line-height:1;color:transparent;-webkit-text-stroke:1px var(--accent)}
@@ -903,7 +903,7 @@ html.cine .work-head{z-index:5}
 .final-ghost{position:absolute;left:50%;bottom:-.18em;transform:translateX(-50%);z-index:1;pointer-events:none;white-space:nowrap;
   font-size:clamp(6rem,19vw,22rem);font-weight:600;letter-spacing:-.06em;line-height:1;color:transparent;-webkit-text-stroke:1px color-mix(in srgb,var(--on-accent) 22%,transparent)}
 .mail-a{background:linear-gradient(currentColor,currentColor) no-repeat 0 100%/100% 1px;padding-bottom:6px}
-@media (max-width:899px){.final-ghost{display:none}.statement{text-indent:0}.statement::before{position:static;display:block;margin-bottom:14px}}
+@media (max-width:899px){.final-ghost{display:none}}
 
 /* =========================================================
    15. THEME BUILDER — typography, texture, experiences
@@ -1458,7 +1458,7 @@ html[data-skin="code"] .bx.big::after,html[data-skin="code"] .studio-pin::before
 
 <!-- ============ ABOUT ============ -->
 <section class="about wrap" id="about" data-zone="paper" data-flow="7">
-  <p class="statement" id="statement"><span class="kp">Designer</span> by role. <span class="kp">Builder</span> by mindset. I untangle <span class="kp">complex domains</span> so <span class="kp">operators move faster</span> and engineers ship with confidence.</p>
+  <p class="statement" id="statement"><span class="kp">Designer</span> by role.<br><span class="kp">Builder</span> by mindset. I untangle <span class="kp">complex domains</span> so <span class="kp">operators move faster</span> and engineers ship with confidence.</p>
   <div class="ab-grid">
     <aside class="ab-card">
       <div class="mono-av">AT</div>

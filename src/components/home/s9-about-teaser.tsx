@@ -35,7 +35,8 @@ export function S9AboutTeaser() {
             </p>
 
             <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-ink leading-tight">
-              Designer by role. <em className="font-serif font-normal italic">Builder by mindset.</em>
+              Designer by role.<br />
+              <em className="font-serif font-normal italic">Builder by mindset.</em>
             </h2>
 
             <div className="space-y-3 text-base sm:text-lg text-muted leading-relaxed">

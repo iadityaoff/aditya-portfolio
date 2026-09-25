@@ -84,7 +84,8 @@ export default function AboutPage() {
             <Badge variant="accent">BIOGRAPHY &amp; PERSPECTIVE</Badge>
 
             <FrameHeading frame="About" className="text-3xl sm:text-5xl font-semibold tracking-tight text-ink leading-tight">
-              Designer by role. <em className="font-serif font-normal italic">Builder by mindset.</em>
+              Designer by role.<br />
+              <em className="font-serif font-normal italic">Builder by mindset.</em>
             </FrameHeading>
 
             <Reveal className="space-y-4 text-base sm:text-lg text-muted leading-relaxed pt-6">

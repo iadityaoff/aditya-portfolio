@@ -477,7 +477,7 @@ export const PROTOTYPE_HTML = `
 
 <!-- ============ ABOUT ============ -->
 <section class="about wrap" id="about" data-zone="paper" data-flow="7">
-  <p class="statement" id="statement">Designer by role. Builder by mindset. I untangle complex domains so operators move faster and engineers ship with confidence.</p>
+  <p class="statement" id="statement">Designer by role.<br>Builder by mindset. I untangle complex domains so operators move faster and engineers ship with confidence.</p>
   <div class="ab-grid">
     <aside class="ab-card">
       <div class="mono-av">AT</div>

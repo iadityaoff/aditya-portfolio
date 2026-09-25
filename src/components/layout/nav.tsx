@@ -53,11 +53,11 @@ export function Nav() {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-40 border-b transition-all duration-[450ms] ease-[cubic-bezier(.16,1,.3,1)]",
+          "fixed top-0 left-0 right-0 z-40 transition-all duration-[450ms] ease-[cubic-bezier(.16,1,.3,1)]",
           isHidden ? "-translate-y-full" : "translate-y-0",
           scrolled
-            ? "bg-[#FAFAF7]/90 backdrop-blur-md border-line shadow-xs py-3.5"
-            : "bg-transparent border-transparent shadow-none py-5"
+            ? "bg-background/80 backdrop-blur-lg py-4"
+            : "bg-transparent py-6"
         )}
       >
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -77,7 +77,7 @@ export function Nav() {
 
           {/* Desktop Center Navigation */}
           <nav
-            className="hidden md:flex items-center gap-1 lg:gap-2 px-3 py-1.5 rounded-full border border-line/60 bg-white/70 backdrop-blur-xs shadow-xs"
+            className="hidden md:flex items-center gap-4 lg:gap-8"
             aria-label="Main Navigation"
           >
             {siteConfig.navItems.map((item) => {
@@ -92,26 +92,21 @@ export function Nav() {
                   href={item.href}
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
-                    "relative px-3.5 py-1.5 text-xs lg:text-sm font-medium whitespace-nowrap transition-colors duration-200 rounded-full",
+                    "relative py-1 text-sm font-medium whitespace-nowrap transition-colors duration-300",
+                    "after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:rounded-full after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.16,1,0.3,1)] after:origin-left",
                     isActive
-                      ? "text-accent font-semibold"
-                      : "text-muted hover:text-ink hover:bg-black/5"
+                      ? "text-ink after:scale-x-100 after:bg-accent"
+                      : "text-muted hover:text-ink after:scale-x-0 hover:after:scale-x-100 after:bg-ink/30"
                   )}
                 >
                   {item.label}
-                  {isActive && (
-                    <span
-                      className="absolute bottom-1 left-3.5 right-3.5 h-[2px] bg-accent rounded-full"
-                      aria-hidden="true"
-                    />
-                  )}
                 </Link>
               );
             })}
           </nav>
 
           {/* Right CTA */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-4">
             <ThemeBuilderButton />
             <ThemeToggle />
             <button
@@ -119,13 +114,13 @@ export function Nav() {
               onClick={openCommandPalette}
               aria-label="Open command palette"
               aria-keyshortcuts="Meta+K Control+K"
-              className="group inline-flex items-center justify-center gap-2 h-9 w-9 lg:w-auto lg:pl-3 lg:pr-1.5 rounded-full border border-line bg-white/70 backdrop-blur-xs text-muted hover:text-ink hover:border-ink/25 transition-colors duration-300 cursor-pointer"
+              className="group inline-flex items-center gap-2 text-muted hover:text-ink transition-colors duration-300 cursor-pointer"
             >
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3.5 h-3.5" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4" aria-hidden="true">
                 <circle cx="7" cy="7" r="4.5" /><path d="M10.5 10.5L14 14" strokeLinecap="round" />
               </svg>
-              <span className="hidden xl:inline text-xs">Search</span>
-              <kbd className="hidden lg:inline-block font-mono text-[10px] px-1.5 py-0.5 rounded-full border border-line bg-[#FAFAF7] text-muted group-hover:text-ink transition-colors">
+              <span className="hidden xl:inline text-sm font-medium">Search</span>
+              <kbd className="hidden lg:inline-flex items-center justify-center font-mono text-[10px] h-5 px-1.5 rounded border border-line/60 text-muted group-hover:border-ink/20 group-hover:text-ink transition-colors">
                 {modKey} K
               </kbd>
             </button>

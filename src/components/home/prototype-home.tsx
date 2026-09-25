@@ -38,7 +38,7 @@ export function PrototypeHome() {
     <iframe
       ref={iframeRef}
       id="prototype-frame"
-      src="/prototype.html"
+      src="/prototype.html?v=2"
       title="Aditya Tripathi — Senior UI/UX Designer Studio"
       className="w-full border-0 block"
       style={{

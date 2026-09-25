@@ -151,14 +151,13 @@ export function Reveal({
   section?: string;
 }) {
   const reduce = useReducedMotionConfig();
-  if (reduce) return <div className={className} data-section={section}>{children}</div>;
   return (
     <motion.div
       className={className}
       data-section={section}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.12, margin: "0px 0px -6% 0px" }}
+      viewport={{ once: true, amount: "some", margin: "0px 0px -6% 0px" }}
       transition={{ duration: T.reveal, ease: EASE_OUT, delay }}
     >
       {children}
@@ -183,7 +182,6 @@ export function Stagger({
   delay?: number;
 }) {
   const reduce = useReducedMotionConfig();
-  if (reduce) return <div className={className}>{children}</div>;
   return (
     <motion.div
       className={className}
@@ -205,7 +203,6 @@ export function StaggerItem({
   className?: string;
 }) {
   const reduce = useReducedMotionConfig();
-  if (reduce) return <div className={className}>{children}</div>;
   return (
     <motion.div className={className} variants={staggerItem}>
       {children}

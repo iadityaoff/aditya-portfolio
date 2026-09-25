@@ -18,8 +18,13 @@ export interface ProductStorySequenceProps {
 
 export function ProductStorySequence({ story }: ProductStorySequenceProps) {
   const shouldReduceMotion = useReducedMotionConfig();
+  const [mounted, setMounted] = React.useState(false);
 
-  if (shouldReduceMotion) {
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (mounted && shouldReduceMotion) {
     return <ProductStoryStatic story={story} />;
   }
 

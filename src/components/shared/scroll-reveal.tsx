@@ -39,13 +39,8 @@ export function ScrollReveal({
     [0, 1]
   );
 
-  if (shouldReduceMotion) {
-    return (
-      <div ref={ref} className={className}>
-        {children}
-      </div>
-    );
-  }
+  // Framer Motion automatically respects reduced motion for transforms/opacity
+
 
   return (
     <motion.div ref={ref} style={{ y, opacity }} className={className}>
@@ -77,13 +72,8 @@ export function ParallaxLayer({
 
   const y = useTransform(scrollYProgress, [0, 1], [0, offset]);
 
-  if (shouldReduceMotion) {
-    return (
-      <div ref={ref} className={className}>
-        {children}
-      </div>
-    );
-  }
+  // Framer Motion automatically respects reduced motion for transforms
+
 
   return (
     <motion.div ref={ref} style={{ y }} className={className}>
