@@ -4,6 +4,7 @@ import { Container } from "@/components/layout/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { CTASection } from "@/components/shared/cta-section";
+import { DotGrid, FrameHeading, PageToolbar, Reveal } from "@/components/motion/studio";
 import { services, faqs } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -68,16 +69,18 @@ export default function ServicesPage() {
   ];
 
   return (
-    <div className="w-full pt-32 pb-24 lg:pt-40 lg:pb-32 bg-background min-h-screen">
+    <div className="relative isolate w-full pt-32 pb-24 lg:pt-40 lg:pb-32 bg-background min-h-screen">
+      <DotGrid className="h-[680px]" />
+      <PageToolbar frame="Services" />
       <Container size="default">
         {/* Page Header */}
-        <div className="max-w-3xl mb-16 space-y-4">
+        <div className="max-w-3xl mb-16 space-y-4" data-section="Overview">
           <Badge variant="accent">SERVICES &amp; CAPABILITIES</Badge>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-ink leading-tight">
+          <FrameHeading frame="Services" className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-ink leading-tight">
             Specialized design services for{" "}
             <em className="font-serif font-normal italic">enterprise software.</em>
-          </h1>
-          <p className="text-base sm:text-lg text-muted leading-relaxed">
+          </FrameHeading>
+          <p className="text-base sm:text-lg text-muted leading-relaxed pt-6">
             I partner with founders, product directors, and engineering leads to design mission-critical software, untangle complex operational debt, and institute shared design systems.
           </p>
         </div>
@@ -85,10 +88,8 @@ export default function ServicesPage() {
         {/* 4 Service Blocks */}
         <div className="space-y-12">
           {services.map((service, idx) => (
-            <div
-              key={service.id}
-              className="p-8 sm:p-10 lg:p-12 rounded-[24px] bg-white border border-line card-hover"
-            >
+            <Reveal key={service.id} section={`Service 0${idx + 1}`}>
+            <div className="p-8 sm:p-10 lg:p-12 rounded-[24px] bg-white border border-line card-hover">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
                 {/* Left overview */}
                 <div className="lg:col-span-5 space-y-4">
@@ -157,11 +158,13 @@ export default function ServicesPage() {
                 </div>
               </div>
             </div>
+            </Reveal>
           ))}
         </div>
 
         {/* How Engagements Work */}
-        <section className="my-24 space-y-10">
+        <section className="my-24 space-y-10" data-section="Engagement">
+          <Reveal className="space-y-10">
           <SectionHeading
             eyebrow="ENGAGEMENT MODEL"
             title={
@@ -190,10 +193,12 @@ export default function ServicesPage() {
               </div>
             ))}
           </div>
+          </Reveal>
         </section>
 
         {/* Frequently Asked Questions */}
-        <section className="my-24 space-y-10">
+        <section className="my-24 space-y-10" data-section="FAQ">
+          <Reveal className="space-y-10">
           <SectionHeading
             eyebrow="FREQUENTLY ASKED QUESTIONS"
             title={
@@ -218,6 +223,7 @@ export default function ServicesPage() {
               </div>
             ))}
           </div>
+          </Reveal>
         </section>
       </Container>
 

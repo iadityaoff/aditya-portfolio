@@ -6,24 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CTASection } from "@/components/shared/cta-section";
 import { cn } from "@/lib/utils";
+import { ComponentLab } from "@/components/design-system/component-lab";
+import { useSiteTheme } from "@/lib/site-theme";
+import { DotGrid, FrameHeading, PageToolbar, Reveal } from "@/components/motion/studio";
 
 export default function DesignSystemPage() {
-  const [activeTheme, setActiveTheme] = React.useState<"light" | "dark" | "cobalt">("light");
-
-  const componentInventory = [
-    { name: "Button", count: 18, category: "Actions" },
-    { name: "Input & Textarea", count: 12, category: "Forms" },
-    { name: "Checkbox & Radio", count: 8, category: "Forms" },
-    { name: "Select & Combobox", count: 14, category: "Forms" },
-    { name: "Tabs & Steppers", count: 10, category: "Navigation" },
-    { name: "Dialog & Modal", count: 8, category: "Overlays" },
-    { name: "Drawer / Sheet", count: 6, category: "Overlays" },
-    { name: "Data Table & Header", count: 16, category: "Data Display" },
-    { name: "Pagination", count: 6, category: "Navigation" },
-    { name: "Badge & Tag", count: 9, category: "Data Display" },
-    { name: "Avatar & Identity", count: 8, category: "Data Display" },
-    { name: "Toast & Alert", count: 12, category: "Feedback" },
-  ];
+  const siteTheme = useSiteTheme();
 
   const atomicLayers = [
     {
@@ -49,16 +37,18 @@ export default function DesignSystemPage() {
   ];
 
   return (
-    <div className="w-full pt-32 pb-24 lg:pt-40 lg:pb-32 bg-background min-h-screen">
+    <div className="relative isolate w-full pt-32 pb-24 lg:pt-40 lg:pb-32 bg-background min-h-screen">
+      <DotGrid className="h-[720px]" />
+      <PageToolbar frame="Design System" />
       <Container size="default">
         {/* Hero Section */}
-        <div className="max-w-3xl mb-16 space-y-4">
+        <div className="max-w-3xl mb-16 space-y-4" data-section="Overview">
           <Badge variant="accent">PORTFOLIO DESIGN SYSTEM</Badge>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-ink leading-tight">
+          <FrameHeading frame="Design System" className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-ink leading-tight">
             Designing systems,{" "}
             <em className="font-serif font-normal italic">not just screens.</em>
-          </h1>
-          <p className="text-base sm:text-lg text-muted leading-relaxed">
+          </FrameHeading>
+          <p className="text-base sm:text-lg text-muted leading-relaxed pt-6">
             A comprehensive reference of the token hierarchy, component states, atomic architecture, and documentation standards applied across my enterprise portfolio.
           </p>
           <div className="pt-2 flex flex-wrap gap-4">
@@ -72,7 +62,8 @@ export default function DesignSystemPage() {
         </div>
 
         {/* 1. Foundations Board */}
-        <section className="my-20 space-y-8">
+        <section className="my-20" data-section="Foundations">
+          <Reveal className="space-y-8">
           <div>
             <span className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">
               01 · FOUNDATIONS BOARD
@@ -105,10 +96,10 @@ export default function DesignSystemPage() {
                 </div>
                 <div className="flex items-center justify-between p-2 rounded-lg bg-accent/10 border border-accent/20">
                   <div className="flex items-center gap-2">
-                    <span className="w-4 h-4 rounded-full bg-[#2F4BFF]" />
-                    <span className="font-mono text-xs text-accent font-bold">Accent Cobalt</span>
+                    <span className="w-4 h-4 rounded-full bg-accent" />
+                    <span className="font-mono text-xs text-accent font-bold">Accent · live</span>
                   </div>
-                  <span className="font-mono text-xs text-accent">#2F4BFF</span>
+                  <span className="font-mono text-xs text-accent uppercase">{siteTheme.accent}</span>
                 </div>
                 <div className="flex items-center justify-between p-2 rounded-lg bg-[#0B0B0F] border border-showcase-border">
                   <div className="flex items-center gap-2">
@@ -172,10 +163,12 @@ export default function DesignSystemPage() {
               </div>
             </div>
           </div>
+          </Reveal>
         </section>
 
         {/* 2. Token Architecture Diagram */}
-        <section className="my-20 space-y-8">
+        <section className="my-20" data-section="Tokens">
+          <Reveal className="space-y-8">
           <div>
             <span className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">
               02 · TOKEN ARCHITECTURE PIPELINE
@@ -195,7 +188,7 @@ export default function DesignSystemPage() {
                   Raw hex values and unit increments with zero contextual semantics.
                 </p>
                 <div className="font-mono text-[11px] p-2 bg-white rounded border border-line/80 space-y-1">
-                  <p>color.blue.500: #2F4BFF</p>
+                  <p>color.primary.500: <span className="uppercase">{siteTheme.accent}</span></p>
                   <p>color.gray.900: #0E0E10</p>
                   <p>spacing.4: 16px</p>
                 </div>
@@ -230,51 +223,33 @@ export default function DesignSystemPage() {
               </div>
             </div>
           </div>
+          </Reveal>
         </section>
 
-        {/* 3. Component Inventory Grid */}
-        <section id="components" className="my-20 space-y-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        {/* 3. Component Inventory — live examples */}
+        <section id="components" className="my-20 space-y-10" data-section="Components">
+          <Reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
               <span className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">
-                03 · COMPONENT INVENTORY
+                03 · COMPONENT LIBRARY &amp; THEME BUILDER
               </span>
               <h2 className="text-2xl sm:text-3xl font-semibold text-ink mt-1">
                 Core Library Primitives (62 Components)
               </h2>
+              <p className="text-sm text-muted mt-2 max-w-xl">
+                Every card is the component itself. Switch its variants, then re-theme the whole library from the builder: one set of tokens drives all of it.
+              </p>
             </div>
             <span className="font-mono text-xs text-muted">
               Figma Auto-Layout &amp; TypeScript Parity
             </span>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            {componentInventory.map((comp) => (
-              <div
-                key={comp.name}
-                className="p-5 rounded-xl bg-white border border-line card-hover flex flex-col justify-between space-y-3"
-              >
-                <div>
-                  <span className="font-mono text-[10px] uppercase font-bold text-muted block mb-1">
-                    {comp.category}
-                  </span>
-                  <h4 className="text-base font-semibold text-ink">
-                    {comp.name}
-                  </h4>
-                </div>
-                <div className="flex items-center justify-between pt-2 border-t border-line/60">
-                  <span className="font-mono text-[11px] text-accent font-semibold">
-                    {comp.count} Variants
-                  </span>
-                  <span className="text-xs text-muted">Ready</span>
-                </div>
-              </div>
-            ))}
-          </div>
+          </Reveal>
+          <ComponentLab />
         </section>
 
         {/* 4. Atomic Architecture */}
-        <section className="my-20 space-y-8">
+        <section className="my-20" data-section="Atomic">
+          <Reveal className="space-y-8">
           <div>
             <span className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">
               04 · ATOMIC ARCHITECTURE
@@ -303,101 +278,15 @@ export default function DesignSystemPage() {
               </div>
             ))}
           </div>
-        </section>
-
-        {/* 5. Live Theme Switcher */}
-        <section className="my-20 space-y-8">
-          <div>
-            <span className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">
-              05 · THEME ARCHITECTURE
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-semibold text-ink mt-1">
-              Live Theme Swapping
-            </h2>
-            <p className="text-muted text-base mt-2">
-              Demonstrating semantic token resolution across Light, Dark, and High-Contrast Cobalt palettes.
-            </p>
-          </div>
-
-          <div className="p-6 sm:p-8 rounded-[20px] bg-white border border-line space-y-6">
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-xs font-bold text-ink">
-                ACTIVE PALETTE:
-              </span>
-              <div className="flex items-center gap-2">
-                {(["light", "dark", "cobalt"] as const).map((t) => (
-                  <button
-                    key={t}
-                    type="button"
-                    onClick={() => setActiveTheme(t)}
-                    className={cn(
-                      "px-3.5 py-1.5 rounded-full font-mono text-xs uppercase font-semibold transition-colors cursor-pointer",
-                      activeTheme === t
-                        ? "bg-accent text-white"
-                        : "bg-line/40 text-muted hover:text-ink"
-                    )}
-                  >
-                    {t} Theme
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Preview Box Styled According to Active Theme */}
-            <div
-              className={cn(
-                "p-8 rounded-xl transition-colors duration-300 border space-y-6",
-                activeTheme === "light" && "bg-[#FAFAF7] text-[#0E0E10] border-[#E7E5DF]",
-                activeTheme === "dark" && "bg-[#0B0B0F] text-white border-[#23232C]",
-                activeTheme === "cobalt" && "bg-[#1E2E8C] text-white border-[#3F59FF]"
-              )}
-            >
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div>
-                  <h4 className="text-lg font-bold">Clinical Record #AP-84920</h4>
-                  <p className="text-xs opacity-75">Theme tokens applied without DOM re-render</p>
-                </div>
-                <span
-                  className={cn(
-                    "font-mono text-xs px-3 py-1 rounded-full",
-                    activeTheme === "light" && "bg-accent text-white",
-                    activeTheme === "dark" && "bg-white text-black font-bold",
-                    activeTheme === "cobalt" && "bg-amber-400 text-black font-bold"
-                  )}
-                >
-                  TOKEN RESOLVED
-                </span>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-xs">
-                <div className="p-3 rounded bg-black/5 dark:bg-white/5">
-                  <span className="opacity-60 block">--color-surface</span>
-                  <span className="font-bold">
-                    {activeTheme === "light" ? "#FAFAF7" : activeTheme === "dark" ? "#0B0B0F" : "#1E2E8C"}
-                  </span>
-                </div>
-                <div className="p-3 rounded bg-black/5 dark:bg-white/5">
-                  <span className="opacity-60 block">--color-text</span>
-                  <span className="font-bold">
-                    {activeTheme === "light" ? "#0E0E10" : "#FFFFFF"}
-                  </span>
-                </div>
-                <div className="p-3 rounded bg-black/5 dark:bg-white/5">
-                  <span className="opacity-60 block">--color-action</span>
-                  <span className="font-bold">
-                    {activeTheme === "cobalt" ? "#FBBF24" : "#2F4BFF"}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* 6. AI-Assisted System Workflow */}
-        <section className="my-20 space-y-8">
+        <section className="my-20" data-section="AI workflow">
+          <Reveal className="space-y-8">
           <div>
             <span className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">
-              06 · AI-ASSISTED SYSTEM WORKFLOW
+              05 · AI-ASSISTED SYSTEM WORKFLOW
             </span>
             <h2 className="text-2xl sm:text-3xl font-semibold text-ink mt-1">
               Figma → Tokens → AI Scaffold → Code → Storybook → Product
@@ -448,6 +337,7 @@ export default function DesignSystemPage() {
               </p>
             </div>
           </div>
+          </Reveal>
         </section>
       </Container>
 

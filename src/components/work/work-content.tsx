@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { Project } from "@/types";
 import { FilterChips } from "./filter-chips";
 import { ProjectCard } from "./project-card";
+import { FigmaFrame, FocusGroup, Reveal, Stagger, StaggerItem } from "@/components/motion/studio";
 
 interface WorkContentProps {
   initialProjects: Project[];
@@ -110,23 +111,29 @@ export function WorkContent({ initialProjects }: WorkContentProps) {
         <>
           {/* Flagship Projects (Large Cards) */}
           {flagships.length > 0 && (
-            <div className="space-y-10">
+            <FocusGroup className="space-y-14" key={`flag-${activeFilter}`}>
               {flagships.map((project, idx) => (
-                <ProjectCard
-                  key={project.slug}
-                  project={project}
-                  index={idx}
-                  variant="large"
-                  reverse={idx % 2 === 1}
-                />
+                <Reveal key={project.slug} section={idx === 0 ? "Flagship work" : undefined}>
+                  <FigmaFrame
+                    name={`${String(idx + 1).padStart(2, "0")} — ${project.title}`}
+                    meta="1200 × 740"
+                  >
+                    <ProjectCard
+                      project={project}
+                      index={idx}
+                      variant="large"
+                      reverse={idx % 2 === 1}
+                    />
+                  </FigmaFrame>
+                </Reveal>
               ))}
-            </div>
+            </FocusGroup>
           )}
 
           {/* More Work Group (Compact & Card Projects per §2.2) */}
           {secondary.length > 0 && (
             <div className="pt-12 border-t border-line space-y-8">
-              <div>
+              <Reveal section="More work">
                 <span className="font-mono text-xs font-semibold text-accent uppercase tracking-widest">
                   COMPACT CASE STUDIES &amp; PRODUCTION APPS
                 </span>
@@ -136,17 +143,15 @@ export function WorkContent({ initialProjects }: WorkContentProps) {
                 <p className="text-sm text-muted mt-1">
                   Targeted redesigns, mobile companion apps, and operational utility modules.
                 </p>
-              </div>
+              </Reveal>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" key={`more-${activeFilter}`}>
                 {secondary.map((project) => (
-                  <ProjectCard
-                    key={project.slug}
-                    project={project}
-                    variant="compact"
-                  />
+                  <StaggerItem key={project.slug}>
+                    <ProjectCard project={project} variant="compact" />
+                  </StaggerItem>
                 ))}
-              </div>
+              </Stagger>
             </div>
           )}
         </>

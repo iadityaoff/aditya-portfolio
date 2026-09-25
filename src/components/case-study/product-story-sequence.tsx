@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion, useScroll, useTransform, useMotionValueEvent, useReducedMotion } from "motion/react";
+import { motion, useScroll, useTransform, useMotionValueEvent, useReducedMotionConfig } from "motion/react";
 import { cn } from "@/lib/utils";
 import { trackScrollMilestone } from "@/lib/analytics";
 
@@ -17,18 +17,62 @@ export interface ProductStorySequenceProps {
 }
 
 export function ProductStorySequence({ story }: ProductStorySequenceProps) {
+  const shouldReduceMotion = useReducedMotionConfig();
+
+  if (shouldReduceMotion) {
+    return <ProductStoryStatic story={story} />;
+  }
+
+  return <ProductStoryAnimated story={story} />;
+}
+
+/** Reduced-motion fallback — no scroll hooks, no refs. */
+function ProductStoryStatic({ story }: ProductStorySequenceProps) {
+  return (
+    <section className="my-16 border-t border-line/80 pt-12 space-y-10">
+      <div>
+        <span className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">
+          04 · PRODUCT EVOLUTION
+        </span>
+        <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-ink mt-2">
+          The Complete Core Workflow
+        </h2>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {story.map((step) => {
+          const MockComp = step.mockComponentId ? MockComponentRegistry[step.mockComponentId] : null;
+          return (
+            <div key={step.title} className="space-y-4">
+              <div className="aspect-[4/3] rounded-xl overflow-hidden border border-line shadow-sm bg-surface relative">
+                {MockComp ? (
+                  <MockComp />
+                ) : (
+                  <img src={step.image} alt={step.title} className="w-full h-full object-cover" />
+                )}
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg text-ink">{step.title}</h3>
+                <p className="text-sm text-muted mt-1 leading-relaxed">{step.description}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+/** Full animation — useScroll ref is always attached to the DOM here. */
+function ProductStoryAnimated({ story }: ProductStorySequenceProps) {
   const containerRef = React.useRef<HTMLDivElement>(null);
-  const shouldReduceMotion = useReducedMotion();
   const [activeStep, setActiveStep] = React.useState(0);
   const prevStepRef = React.useRef(0);
 
-  // Scroll progress for the entire 2-column section
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start center", "end center"],
   });
 
-  // Map scroll progress to active step
   const stepIndex = useTransform(scrollYProgress, [0, 1], [0, story.length - 1]);
 
   useMotionValueEvent(stepIndex, "change", (latest) => {
@@ -43,42 +87,6 @@ export function ProductStorySequence({ story }: ProductStorySequenceProps) {
   // Detect if all visual assets are identical (e.g., using a single cover image placeholder)
   const uniqueVisuals = new Set(story.map((s) => s.mockComponentId || s.image));
   const isStaticVisual = uniqueVisuals.size <= 1;
-
-  if (shouldReduceMotion) {
-    // Fallback: simple stacked layout for reduced motion
-    return (
-      <section className="my-16 border-t border-line/80 pt-12 space-y-10">
-        <div>
-          <span className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">
-            04 · PRODUCT EVOLUTION
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-ink mt-2">
-            The Complete Core Workflow
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {story.map((step) => {
-            const MockComp = step.mockComponentId ? MockComponentRegistry[step.mockComponentId] : null;
-            return (
-              <div key={step.title} className="space-y-4">
-                <div className="aspect-[4/3] rounded-xl overflow-hidden border border-line shadow-sm bg-surface relative">
-                  {MockComp ? (
-                    <MockComp />
-                  ) : (
-                    <img src={step.image} alt={step.title} className="w-full h-full object-cover" />
-                  )}
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg text-ink">{step.title}</h3>
-                  <p className="text-sm text-muted mt-1 leading-relaxed">{step.description}</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section ref={containerRef} className="my-16 border-t border-line/80 pt-12 relative">

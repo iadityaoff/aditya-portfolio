@@ -129,7 +129,7 @@ export function ProjectCard({
               {/* Desktop Hover "View" cursor pill */}
               <div
                 className={cn(
-                  "hidden lg:flex absolute bottom-4 right-4 items-center gap-1.5 px-3 py-1.5 rounded-full bg-ink text-white font-mono text-xs font-medium shadow-lg transition-opacity duration-200 pointer-events-none",
+                  "hidden lg:flex absolute bottom-4 right-4 items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent text-white font-mono text-xs font-medium shadow-lg transition-opacity duration-200 pointer-events-none",
                   isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1"
                 )}
               >

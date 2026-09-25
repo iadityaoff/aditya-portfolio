@@ -6,21 +6,12 @@ import { siteConfig } from "@/content/site";
 import { CopyEmail } from "@/components/ui/copy-email";
 import { Button } from "@/components/ui/button";
 import { useSmoothScroll } from "@/components/layout/smooth-scroll";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
-
+  const pathname = usePathname();
   const { lenis } = useSmoothScroll();
-
-  const scrollToTop = () => {
-    if (lenis) {
-      lenis.scrollTo(0);
-    } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  };
-
   const [showScrollTop, setShowScrollTop] = React.useState(false);
 
   React.useEffect(() => {
@@ -31,13 +22,26 @@ export function Footer() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const currentYear = new Date().getFullYear();
+
+  const scrollToTop = () => {
+    if (lenis) {
+      lenis.scrollTo(0);
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  // Don't render the global Footer on the home page — it uses the prototype's built-in footer
+  if (pathname === "/") return null;
+
   return (
     <>
       {/* Sticky Back to Top Button */}
       <button
         onClick={scrollToTop}
         className={cn(
-          "fixed bottom-6 right-6 z-50 p-3 rounded-full bg-ink text-white shadow-lg shadow-black/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+          "fixed bottom-6 right-6 z-50 p-3 rounded-full bg-accent text-white hover:bg-accent-hover shadow-lg shadow-black/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
           showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
         )}
         aria-label="Back to top"

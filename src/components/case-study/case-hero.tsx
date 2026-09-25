@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Project } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import { MetaGrid } from "./meta-grid";
+import { DotGrid, FrameHeading, Reveal } from "@/components/motion/studio";
 
 export interface CaseHeroProps {
   project: Project;
@@ -10,7 +11,8 @@ export interface CaseHeroProps {
 
 export function CaseHero({ project }: CaseHeroProps) {
   return (
-    <header className="w-full pt-32 pb-16 lg:pt-40 lg:pb-24 border-b border-line bg-white/40">
+    <header className="relative isolate w-full pt-32 pb-16 lg:pt-40 lg:pb-20 border-b border-line" data-section="Intro">
+      <DotGrid className="h-[640px]" />
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Eyebrow & Confidentiality notice */}
         <div className="flex flex-wrap items-center justify-between gap-3">
@@ -30,12 +32,12 @@ export function CaseHero({ project }: CaseHeroProps) {
 
         {/* Title & Insight Headline */}
         <div className="max-w-4xl space-y-4">
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-ink leading-[1.15]">
+          <FrameHeading frame={`Case study · ${project.slug}`} className="text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-ink leading-[1.15]">
             {project.title}
-          </h1>
+          </FrameHeading>
 
           {project.insightHeadline && (
-            <p className="font-serif italic text-xl sm:text-2xl text-accent font-normal">
+            <p className="font-serif italic text-xl sm:text-2xl text-accent font-normal pt-6">
               &ldquo;{project.insightHeadline}&rdquo;
             </p>
           )}
@@ -46,10 +48,13 @@ export function CaseHero({ project }: CaseHeroProps) {
         </div>
 
         {/* Meta Grid (Role, Platform, Scope, Tools, Timeline) */}
-        <MetaGrid project={project} />
+        <Reveal delay={0.2}>
+          <MetaGrid project={project} />
+        </Reveal>
 
-        {/* Full-width Cover Visual */}
-        <div className="relative w-full rounded-2xl overflow-hidden border border-line bg-[#ECEAE4] aspect-[16/9] shadow-xl mt-8">
+        {/* Full-width Cover Visual — on large, tall, motion-enabled screens the
+            CaseCoverBuild sequence (rendered after this header) replaces it */}
+        <div className="relative w-full rounded-2xl overflow-hidden border border-line bg-[#ECEAE4] aspect-[16/9] shadow-xl mt-8 lg:hidden motion-reduce:!block reduced:!block [@media(max-height:699px)]:!block">
           <Image
             src={project.cover}
             alt={project.title}

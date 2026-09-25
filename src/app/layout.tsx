@@ -1,10 +1,28 @@
 import type { Metadata } from "next";
-import { Inter_Tight, Instrument_Serif, Geist_Mono } from "next/font/google";
+import {
+  Inter_Tight,
+  Instrument_Serif,
+  Geist_Mono,
+  Geist,
+  Inter,
+  Space_Grotesk,
+  Fraunces,
+  JetBrains_Mono,
+  Plus_Jakarta_Sans,
+  Newsreader,
+  Playfair_Display,
+  IBM_Plex_Mono,
+} from "next/font/google";
 import { Nav } from "@/components/layout/nav";
 import { Footer } from "@/components/layout/footer";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
 import { LenisErrorBoundary } from "@/components/layout/lenis-error-boundary";
 import { siteConfig } from "@/content/site";
+import { getAllProjects } from "@/content/projects-data";
+import { CommandPalette } from "@/components/layout/command-palette";
+import { ThemeDrawer } from "@/components/layout/theme-drawer";
+import { SiteMotion } from "@/components/layout/site-motion";
+import { SITE_THEME_BOOT } from "@/lib/site-theme-boot";
 import "./globals.css";
 
 const interTight = Inter_Tight({
@@ -26,6 +44,22 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
   display: "swap",
 });
+
+/* Theme Builder typography options. preload:false — a face is only fetched
+   when a visitor picks a pairing that uses it (see theme-engine.ts FONTS).
+   next/font options must be literal objects (no spreads). */
+const geist = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap", preload: false });
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap", preload: false });
+const spaceGrotesk = Space_Grotesk({ variable: "--font-space-grotesk", subsets: ["latin"], display: "swap", preload: false });
+const fraunces = Fraunces({ variable: "--font-fraunces", style: ["normal", "italic"], subsets: ["latin"], display: "swap", preload: false });
+const jetbrainsMono = JetBrains_Mono({ variable: "--font-jetbrains-mono", style: ["normal", "italic"], subsets: ["latin"], display: "swap", preload: false });
+const plusJakarta = Plus_Jakarta_Sans({ variable: "--font-plus-jakarta", subsets: ["latin"], display: "swap", preload: false });
+const newsreader = Newsreader({ variable: "--font-newsreader", style: ["normal", "italic"], subsets: ["latin"], display: "swap", preload: false });
+const playfair = Playfair_Display({ variable: "--font-playfair", style: ["normal", "italic"], subsets: ["latin"], display: "swap", preload: false });
+const plexMono = IBM_Plex_Mono({ variable: "--font-ibm-plex-mono", weight: ["400", "500", "600"], subsets: ["latin"], display: "swap", preload: false });
+const themeFonts = [geist, inter, spaceGrotesk, fraunces, jetbrainsMono, plusJakarta, newsreader, playfair, plexMono]
+  .map((f) => f.variable)
+  .join(" ");
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://adityatripathi.design"),
@@ -141,9 +175,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${interTight.variable} ${instrumentSerif.variable} ${geistMono.variable}`}
+      className={`${interTight.variable} ${instrumentSerif.variable} ${geistMono.variable} ${themeFonts}`}
+      // the theme boot script sets data-theme + CSS variables on <html> before hydration
+      suppressHydrationWarning
     >
       <head>
+        {/* Apply the visitor's saved site theme before first paint (no flash) */}
+        <script dangerouslySetInnerHTML={{ __html: SITE_THEME_BOOT }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -160,13 +198,21 @@ export default function RootLayout({
 
         <LenisErrorBoundary>
           <SmoothScroll>
-            <Nav />
+            <SiteMotion>
+              <Nav />
 
-            <main id="main-content" className="flex-1 flex flex-col w-full">
-              {children}
-            </main>
+              <main id="main-content" className="flex-1 flex flex-col w-full">
+                {children}
+              </main>
 
-            <Footer />
+              <Footer />
+              <CommandPalette
+                projects={getAllProjects()
+                  .filter((p) => p.published)
+                  .map(({ slug, title, industry }) => ({ slug, title, industry }))}
+              />
+              <ThemeDrawer />
+            </SiteMotion>
           </SmoothScroll>
         </LenisErrorBoundary>
       </body>

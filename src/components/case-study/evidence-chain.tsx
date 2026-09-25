@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion, useScroll, useTransform, useMotionValueEvent, useReducedMotion } from "motion/react";
+import { motion, useScroll, useTransform, useMotionValueEvent, useReducedMotionConfig } from "motion/react";
 import { cn } from "@/lib/utils";
 
 import { trackScrollMilestone } from "@/lib/analytics";
@@ -17,8 +17,47 @@ export interface EvidenceChainProps {
 }
 
 export function EvidenceChain({ evidence }: EvidenceChainProps) {
+  const shouldReduceMotion = useReducedMotionConfig();
+
+  if (shouldReduceMotion) {
+    return <EvidenceChainStatic evidence={evidence} />;
+  }
+
+  return <EvidenceChainAnimated evidence={evidence} />;
+}
+
+/** Reduced-motion fallback — no scroll hooks, no refs. */
+function EvidenceChainStatic({ evidence }: EvidenceChainProps) {
+  const steps = [
+    { label: "1. Problem Evidence", text: evidence.problem, tag: "AUDIT DATA" },
+    { label: "2. Design Decision", text: evidence.decision, tag: "ARCHITECTURAL CHOICE" },
+    { label: "3. Implementation Evidence", text: evidence.implementation, tag: "SPEC / STORYBOOK" },
+    { label: "4. Outcome Evidence", text: evidence.outcome, tag: "SHIPPED RESULT" },
+  ];
+
+  return (
+    <div className="mt-8 pt-8 border-t border-line/80 space-y-4">
+      <span className="font-mono text-[11px] uppercase tracking-wider font-bold text-accent">
+        EVIDENCE CHAIN (VERIFIABLE PROOF)
+      </span>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        {steps.map((step) => (
+          <div key={step.label} className="p-4 rounded-xl bg-surface border border-line space-y-2">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="font-mono text-[10px] uppercase font-bold text-ink">{step.label}</span>
+              <span className="font-mono text-[8px] px-1.5 py-0.5 rounded bg-line/60 text-muted font-semibold">{step.tag}</span>
+            </div>
+            <p className="text-xs text-muted leading-relaxed">{step.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Full animation — useScroll ref is always attached to the DOM here. */
+function EvidenceChainAnimated({ evidence }: EvidenceChainProps) {
   const containerRef = React.useRef<HTMLDivElement>(null);
-  const shouldReduceMotion = useReducedMotion();
   const [activeStep, setActiveStep] = React.useState(0);
   const prevStepRef = React.useRef(0);
 
@@ -29,13 +68,11 @@ export function EvidenceChain({ evidence }: EvidenceChainProps) {
     { label: "4. Outcome Evidence", text: evidence.outcome, tag: "SHIPPED RESULT" },
   ];
 
-  // Scroll progress for the entire 2-column section
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start center", "end center"],
   });
 
-  // Map scroll progress to active step (0, 1, 2, 3)
   const stepIndex = useTransform(scrollYProgress, [0, 1], [0, steps.length - 1]);
 
   useMotionValueEvent(stepIndex, "change", (latest) => {
@@ -46,28 +83,6 @@ export function EvidenceChain({ evidence }: EvidenceChainProps) {
       prevStepRef.current = clamped;
     }
   });
-
-  if (shouldReduceMotion) {
-    // Fallback: simple stacked layout for reduced motion
-    return (
-      <div className="mt-8 pt-8 border-t border-line/80 space-y-4">
-        <span className="font-mono text-[11px] uppercase tracking-wider font-bold text-accent">
-          EVIDENCE CHAIN (VERIFIABLE PROOF)
-        </span>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          {steps.map((step) => (
-            <div key={step.label} className="p-4 rounded-xl bg-surface border border-line space-y-2">
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="font-mono text-[10px] uppercase font-bold text-ink">{step.label}</span>
-                <span className="font-mono text-[8px] px-1.5 py-0.5 rounded bg-line/60 text-muted font-semibold">{step.tag}</span>
-              </div>
-              <p className="text-xs text-muted leading-relaxed">{step.text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div ref={containerRef} className="mt-12 pt-8 border-t border-line/80 relative">

@@ -3,6 +3,7 @@ import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CTASection } from "@/components/shared/cta-section";
+import { DotGrid, FrameHeading, PageToolbar, Reveal } from "@/components/motion/studio";
 import { capabilities, experiences, whatICareAbout } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -44,10 +45,12 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="w-full pt-32 pb-24 lg:pt-40 lg:pb-32 bg-background min-h-screen">
+    <div className="relative isolate w-full pt-32 pb-24 lg:pt-40 lg:pb-32 bg-background min-h-screen">
+      <DotGrid className="h-[720px]" />
+      <PageToolbar frame="About" />
       <Container size="default">
         {/* Top Profile Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start pb-20 border-b border-line">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start pb-20 border-b border-line" data-section="Biography">
           {/* Portrait Column */}
           <div className="lg:col-span-4">
             <div className="p-8 rounded-[24px] bg-white border border-line shadow-md space-y-6 text-center max-w-sm mx-auto lg:mx-0">
@@ -80,11 +83,11 @@ export default function AboutPage() {
           <div className="lg:col-span-8 space-y-6">
             <Badge variant="accent">BIOGRAPHY &amp; PERSPECTIVE</Badge>
 
-            <h1 className="text-3xl sm:text-5xl font-semibold tracking-tight text-ink leading-tight">
+            <FrameHeading frame="About" className="text-3xl sm:text-5xl font-semibold tracking-tight text-ink leading-tight">
               Designer by role. <em className="font-serif font-normal italic">Builder by mindset.</em>
-            </h1>
+            </FrameHeading>
 
-            <div className="space-y-4 text-base sm:text-lg text-muted leading-relaxed">
+            <Reveal className="space-y-4 text-base sm:text-lg text-muted leading-relaxed pt-6">
               <p>
                 For over five years, I have worked at the intersection of complex operational workflows and rigorous design systems, currently driving product design at OctaNode. My work focuses on platforms where users make high-consequence decisions under time pressure — clinical hospital administrators managing patient wards, hiring panels screening thousands of candidates, and support engineers triaging incident queues.
               </p>
@@ -97,12 +100,13 @@ export default function AboutPage() {
               <p>
                 I partner with distributed squads, collaborating asynchronously via Figma and Storybook, leading design reviews, and working side-by-side with frontend engineers to ensure that what gets shipped to users is exactly what was designed.
               </p>
-            </div>
+            </Reveal>
           </div>
         </div>
 
         {/* Capabilities (Plain Text Chips - No Percentage Bars per §1.6) */}
-        <section className="my-20 space-y-8">
+        <section className="my-20 space-y-8" data-section="Capabilities">
+          <Reveal className="space-y-8">
           <div>
             <span className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">
               TOOLING &amp; METHODOLOGY
@@ -137,10 +141,12 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
+          </Reveal>
         </section>
 
         {/* Experience Timeline */}
-        <section className="my-20 space-y-8">
+        <section className="my-20 space-y-8" data-section="Experience">
+          <Reveal className="space-y-8">
           <div>
             <span className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">
               CAREER TIMELINE
@@ -170,10 +176,12 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
+          </Reveal>
         </section>
 
         {/* Education, Certifications & Languages */}
-        <section className="my-20 space-y-8">
+        <section className="my-20 space-y-8" data-section="Education">
+          <Reveal className="space-y-8">
           <div>
             <span className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">
               BACKGROUND &amp; CREDENTIALS
@@ -220,10 +228,12 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
+          </Reveal>
         </section>
 
         {/* What I Care About (5 Principles) */}
-        <section className="my-20 space-y-8">
+        <section className="my-20 space-y-8" data-section="What I Care About">
+          <Reveal className="space-y-8">
           <div>
             <span className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">
               DESIGN PHILOSOPHY
@@ -253,16 +263,19 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
+          </Reveal>
         </section>
 
         {/* Personal Note */}
-        <section className="my-20 p-8 rounded-[24px] bg-line/20 border border-line space-y-3 max-w-3xl">
+        <section className="my-20 max-w-3xl" data-section="Outside work">
+          <Reveal className="p-8 rounded-[24px] bg-line/20 border border-line space-y-3 max-w-3xl">
           <h3 className="font-mono text-xs uppercase tracking-wider text-ink font-bold">
             Outside of Design Work
           </h3>
           <p className="text-sm text-muted leading-relaxed">
             When I&apos;m not analyzing data tables or organizing Figma auto-layout variants, you&apos;ll find me reading about systems engineering, studying industrial typography and Swiss editorial layouts, or exploring specialty espresso beans.
           </p>
+          </Reveal>
         </section>
       </Container>
 

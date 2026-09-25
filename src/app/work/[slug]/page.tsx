@@ -18,6 +18,8 @@ import { RealityCheck } from "@/components/case-study/reality-check";
 import { NextProject } from "@/components/shared/next-project";
 import { CaseStudyNav } from "@/components/case-study/case-study-nav";
 import { CTASection } from "@/components/shared/cta-section";
+import { CaseCoverBuild } from "@/components/case-study/case-cover-build";
+import { PageToolbar, Reveal } from "@/components/motion/studio";
 import {
   getAllProjects,
   getProjectBySlug,
@@ -102,6 +104,10 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
       {/* Hero Section */}
       <CaseHero project={project} />
 
+      {/* The cover builds itself: wireframe → components → UI → prototype → outcome */}
+      <CaseCoverBuild project={project} />
+      <PageToolbar frame="Case study" />
+
       {/* Main Content Layout with Sticky Side Nav */}
       <div className="w-full bg-background py-16">
         <Container size="default">
@@ -112,13 +118,17 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
             {/* Main Content Spine */}
             <article className="flex-1 w-full max-w-4xl space-y-4">
               {/* TL;DR Executive Summary */}
-              <TLDR tldr={project.tldr} />
+              <Reveal section="Overview">
+                <TLDR tldr={project.tldr} />
+              </Reveal>
 
               {/* Context and Hard Constraints */}
-              <ConstraintList
+              <Reveal section="Context">
+                <ConstraintList
                 context={project.context}
                 constraints={project.constraints}
               />
+              </Reveal>
 
               {/* The Messy Reality */}
               {project.realityCheck && (
@@ -130,13 +140,19 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
               )}
 
               {/* Roles & Personas */}
-              <RoleCards roles={project.roles} />
+              <Reveal section="Roles">
+                <RoleCards roles={project.roles} />
+              </Reveal>
 
               {/* Information Architecture & Flow */}
-              <FlowDiagram keyFlow={project.keyFlow} />
+              <Reveal section="Structure">
+                <FlowDiagram keyFlow={project.keyFlow} />
+              </Reveal>
 
               {/* Exploration & Low-Fi Wireframes */}
-              <WireframeGallery wireframes={project.wireframes} />
+              <Reveal section="Exploration">
+                <WireframeGallery wireframes={project.wireframes} />
+              </Reveal>
 
               {/* Product Story Sequence (§16) */}
               {project.productStory && (
@@ -144,19 +160,29 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
               )}
 
               {/* Key Decisions with 4-Stage Evidence Chains */}
-              <DecisionBlock decisions={project.decisions} />
+              <Reveal section="Decisions">
+                <DecisionBlock decisions={project.decisions} />
+              </Reveal>
 
               {/* Responsive Behavior Table */}
-              <BreakpointTable breakpoints={project.breakpoints} />
+              <Reveal section="Responsive">
+                <BreakpointTable breakpoints={project.breakpoints} />
+              </Reveal>
 
               {/* System Handoff & Tokens */}
-              <ComponentPreview systemHandoff={project.systemHandoff} />
+              <Reveal section="Handoff">
+                <ComponentPreview systemHandoff={project.systemHandoff} />
+              </Reveal>
 
               {/* Verified Measurable Outcomes */}
-              <OutcomeList outcomes={project.outcomes} />
+              <Reveal section="Outcomes">
+                <OutcomeList outcomes={project.outcomes} />
+              </Reveal>
 
               {/* Retrospective */}
-              <Reflection reflection={project.reflection} />
+              <Reveal section="Retrospective">
+                <Reflection reflection={project.reflection} />
+              </Reveal>
 
               {/* Next Case Study Link */}
               {next && <NextProject project={next} />}

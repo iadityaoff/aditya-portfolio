@@ -63,3 +63,72 @@ All motion respects the user's OS-level accessibility settings (`prefers-reduced
 If you need to isolate scroll bugs, you can disable Lenis entirely:
 - Add `?scroll=native` to the URL.
 - Set `NEXT_PUBLIC_DISABLE_SMOOTH_SCROLL=true` in `.env`.
+
+---
+
+## Homepage prototype (`public/prototype.html`)
+
+The `/` route renders `public/prototype.html` in an iframe (`src/components/home/prototype-home.tsx`). It runs its own GSAP + ScrollTrigger + Lenis stack, independent of the React layers above.
+
+### Rhythm
+| Level | Use | Timing |
+|---|---|---|
+| Micro | hover, press, focus, component state | 0.3–0.45s (`--t-micro`, `--t-ui`) |
+| Reveal | section / content entrance | 0.85–0.9s (`--t-scene`, `M.reveal`) |
+| Story | pinned sequences | 2–4 viewports |
+| Cinema | camera / build sequences | ≤ 5 viewports |
+
+Pinned lengths live in one place: `VH = { studio:5, stats:3, work:5, system:3.5 }` (Process is sized to its track, min 2vh).
+
+### Rules
+- **Scroll-linked state is a pure function of scroll position.** Stats transforms, counts and mini-charts, theme colours, design-system steps and About highlights are all computed from progress, so reverse scrolling replays the scene exactly. Don't add one-shot `onEnter` state for anything scroll-linked.
+- **Theme** is blended per zone boundary (`BLEND` ranges). Surfaces interpolate across the whole range; text tokens (`--fg`, `--fg2`) flip in a narrow window around the midpoint to keep contrast. Sections with `.local` paint their own background (Work, Voices, Contact).
+- **Stats spacing:** cards sit on one row with a fixed 48px gap between *scaled* edges; the final grid is the untransformed layout, and the assemble phase interpolates linearly between the two, so cards can't overlap.
+- **Zoom readout** (`setZoom`) is owned only by the camera moments: Studio hero-out, Work, Final. The HUD flashes; the toolbar keeps the value.
+- **Gating:** `html.motion` (no reduced-motion) enables scroll motion; `html.cine` (≥900px + hover) enables pins. Touch/small screens get plain layouts with reversible fills; reduced motion gets finished static states.
+- **Debugging in a hidden tab:** scroll events and rAF don't fire, so dispatch `scroll` and call `ScrollTrigger.update()` manually; scrubbed tweens won't advance without frames.
+
+---
+
+## Studio motion kit (inner pages)
+
+`src/components/motion/studio.tsx` brings the homepage language to the Next.js pages. Timing matches the prototype (micro 0.3–0.45s, reveal 0.9s expo-out, scene 1.1s expo-in-out); everything is static under reduced motion.
+
+| Component | Use |
+|---|---|
+| `FrameHeading` | Page `h1`: selection box drags open with handles and a live W × H label, headline revealed inside. Leave ~24px below it for the label (`pt-6` on the next element). |
+| `Reveal` / `Stagger` + `StaggerItem` | Entrances, once. `Reveal section="Label"` also registers a toolbar step. |
+| `FigmaFrame` | Frame name above a card, selection box + handles on hover/focus. |
+| `FocusGroup` | One item dominant: siblings dim while another is nearest the viewport centre (≥1024px). |
+| `DotGrid` | Canvas dot texture behind a hero (parent needs `relative isolate`). |
+| `PageToolbar` | Bottom workflow toolbar; reads `[data-section]` elements (ignores hidden subtrees, re-scans late mounts), hides when the footer arrives. |
+
+- **Header:** transparent at the top of every page; background + border after scroll. The homepage iframe posts `{ type: "proto-scroll", scrolled }` to the parent.
+- **Case studies:** `CaseCoverBuild` runs Wireframe → Components → UI → Prototype → Outcome on the project's cover, using its own data for captions. Desktop (≥1024px wide, ≥700px tall) with motion only; otherwise `CaseHero` shows the static cover.
+- **Resume:** no reveals inside the printable article — unrevealed content would print blank.
+
+### Command palette
+`src/components/layout/command-palette.tsx`, mounted once in the root layout. Opens with ⌘K / Ctrl+K, the header's search button (`openCommandPalette()` → `cmdk:open` event), or from inside the homepage iframe (`proto-cmdk` message). Lists pages, case studies (titles only are passed from the layout), sections on the current page (`[data-section]`, or the prototype's fixed list on `/`), and actions (copy email, LinkedIn, GitHub, layout grid, back to top). On `/` it drives the prototype with `proto-goto` and `proto-grid` messages. Smooth scroll pauses while it's open, and focus returns to where it was (including the iframe) on close.
+
+---
+
+## Site theme (ThemeBuilder → whole portfolio)
+
+The builder on `/design-system` themes every page. Accent + mode are site-wide; radius + density apply to the component artboard only.
+
+- **Compile once:** `theme-engine.ts` → `compileSite()` (Tailwind tokens for the Next pages) and `compilePrototype()` (root accent vars + the four scroll zones for `public/prototype.html`). Contrast is enforced there: `--color-accent-text` is stepped until it passes 4.5:1, `--color-on-accent` picks white or ink.
+- **Store:** `src/lib/site-theme.ts` saves `{ theme, site, proto }` to `localStorage["at-site-theme"]`. `SITE_THEME_BOOT` (in `site-theme-boot.ts`, server-safe) applies `site` in `<head>` before first paint; the prototype applies `proto` in its own head script and re-themes live on the `storage` event.
+- **Dark mode on inner pages:** `globals.css` maps fixed light surfaces (`bg-white`, `bg-[#FAFAF7]`…) to `--surface` / `--surface-2` under `html[data-theme="dark"]`. New components should prefer `bg-(--surface)` / theme tokens over literal whites.
+- **Controls:** builder on `/design-system`, the same builder as a drawer on every page (`theme-drawer.tsx`, nav palette button), nav sun/moon toggle (`theme-toggle.tsx`), and ⌘K "Theme" commands.
+
+### Theme dimensions
+| Option | Values | Where it lands |
+|---|---|---|
+| Experience (`skin`) | studio · newspaper · figma · code | `html[data-skin]` → skin CSS in `globals.css` and `prototype.html` §15, plus a palette per skin × mode in `theme-engine.ts` |
+| Typography (`font`) | studio · geist · inter · grotesk · jakarta · editorial · mono | `--font-sans/-display/-serif/-mono` (Next, next/font with `preload:false`) and `--sans/--display/--serif/--mono` (homepage, Google Fonts). Headline tracking scales from `--display-tracking`. |
+| Accent / mode | any hex · light, dark | as above |
+| Motion | full · reduced | `html[data-motion]`; `SiteMotion` sets `MotionConfig reducedMotion="always"`; use `useReducedMotionConfig()` (not `useReducedMotion`) and the `reduced:` variant. The homepage reloads on change (pinning is set up at boot). |
+| Texture | on · off | `html[data-texture]` toggles the film grain |
+| Radius / density | 0–24 · compact…roomy | component-lab artboard only |
+
+New fonts: add the `next/font` instance in `layout.tsx` (literal options only, no spreads), the family to the homepage's Google Fonts link, and an entry in `FONTS`.

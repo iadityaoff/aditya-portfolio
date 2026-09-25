@@ -1,0 +1,2224 @@
+<!doctype html><html lang="en"><head>
+<style>
+  header.nav { display: none !important; }
+</style><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"></head><body>
+<title>Aditya Tripathi Studio</title>
+<meta name="description" content="Aditya Tripathi — Senior UI/UX & Product Designer for SaaS and enterprise. A portfolio that builds itself as you scroll.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500&display=swap">
+<!-- Theme Builder typography options: faces are only downloaded when a pairing is in use -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script>
+  /* Motion gate: runs before paint so layouts never flash. */
+  (function(){
+    var d=document.documentElement; d.classList.add('js');
+    var st=null; try{st=JSON.parse(localStorage.getItem('at-site-theme')||'null');}catch(e){}
+    /* the Theme Builder's Motion → Reduced counts as a reduced-motion request */
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches || !!(st&&st.proto&&st.proto.motion==='reduced');
+    if(!reduce) d.classList.add('motion');
+    /* pinned storytelling needs room: wide, hover-capable AND tall enough that pinned frames never clip */
+    if(window.matchMedia('(min-width: 900px) and (min-height: 700px) and (hover: hover)').matches && !reduce) d.classList.add('cine');
+    /* saved site theme (ThemeBuilder) before first paint: accent vars + the opening zone */
+    try{if(st&&st.proto){var p=st.proto,k;for(k in p.root)d.style.setProperty(k,p.root[k]);for(k in p.zones.paper)d.style.setProperty(k,p.zones.paper[k]);d.style.colorScheme=p.mode;d.dataset.mode=p.mode;d.dataset.skin=p.skin||'studio';d.dataset.texture=p.texture===false?'off':'on';}}catch(e){}
+  })();
+</script>
+<style>
+/* =========================================================
+   1. TOKENS — colour, type, space, motion
+   Colours come from Aditya's existing system (paper #FAFAF7,
+   ink #0E0E10, line #E7E5DF, accent #2F4BFF).
+   ========================================================= */
+:root{
+  color-scheme: light;
+  --paper:#fafaf7; --ink:#0e0e10; --line:#e7e5df; --accent:#2f4bff; --accent-600:#2438d6; --accent-100:#e3e7ff; --accent-dk:#8fa0ff;
+  --canvas:#0f0f12; --canvas-2:#17171c; --canvas-3:#1f1f26;
+  --component:#9747ff; /* Figma component purple */
+  --redline:#f24e7a;   /* spacing annotations */
+  --ok:#12a150; --warn:#d98a0b; --bad:#e5484d;
+
+  /* live theme (tweened by scroll) */
+  --bg:var(--paper); --fg:var(--ink); --fg2:#5f5e5a; --rule:var(--line); --panel:#ffffff; --panel2:#f3f2ee; --dot:rgba(14,14,16,.09);
+
+  --sans:"Inter Tight","Inter Tight Fallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --serif:"Instrument Serif","Instrument Serif Fallback",Georgia,"Times New Roman",serif;
+  --mono:"Geist Mono","Geist Mono Fallback",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+
+  /* type scale (fluid) */
+  --t-mega:clamp(2.6rem,min(8vw,12vh),8.4rem);   /* width AND height, so the hero always fits */
+  --t-d1:clamp(2.6rem,6.4vw,6rem);
+  --t-d2:clamp(2rem,4.4vw,4rem);
+  --t-h3:clamp(1.35rem,2vw,1.75rem);
+  --t-body:1.0625rem; --t-small:.875rem; --t-label:.72rem;
+
+  --gutter:clamp(16px,3vw,40px);
+  --radius:18px;
+
+  /* MOTION SYSTEM — one language everywhere */
+  --ease-out:cubic-bezier(.16,1,.3,1);      /* entrances, reveals */
+  --ease-inout:cubic-bezier(.65,0,.35,1);   /* camera, morphs */
+  --ease-snap:cubic-bezier(.34,1.56,.64,1); /* components snapping into place */
+  --t-micro:300ms;  /* hover, press, focus        (0.3–0.5s) */
+  --t-ui:450ms;     /* component state changes    (0.3–0.5s) */
+  --t-scene:850ms;  /* section reveals, stages    (0.7–1s)   */
+  --hl:#e3e7ff;     /* phrase highlight marker */
+  --display:var(--sans); --display-tracking:-.035em; /* Theme Builder typography */
+  --on-accent:#fff; /* label colour on accent fills (site theme may flip it) */
+  /* accent as TEXT, by surface (all contrast-guaranteed by theme-engine.ts; see themebuilder.md) */
+  --accent-ink:#2f4bff;      /* on the themed page, cards, tints, blueprint */
+  --accent-onlight:#2f4bff;  /* on always-light product mocks / frames */
+  --accent-tint-light:#e3e7ff; /* accent tint that stays light inside those mocks */
+  --hl-text:#2f4bff;
+}
+html:not(.js) [data-zone="canvas"], html:not(.js) [data-zone="blueprint"], html:not(.js) [data-zone="accent"]{background:var(--bg);color:var(--fg)}
+[data-zone="canvas"].local{background:var(--bg);color:var(--fg)}
+[data-zone="paper"].local{--bg:#fafaf7;--fg:#0e0e10;--fg2:#5f5e5a;--rule:#e7e5df;--panel:#fff;--panel2:#f3f2ee;--dot:rgba(14,14,16,.09);background:var(--bg);color:var(--fg)}
+[data-zone="accent"].local{--bg:#2f4bff;--fg:#fff;--fg2:#cdd4ff;--rule:rgba(255,255,255,.22);--panel:#2438d6;--panel2:#1f31c0;--dot:rgba(255,255,255,.12);background:var(--bg);color:var(--fg)}
+[data-zone="canvas"].local, html:not(.js) [data-zone="canvas"]{--bg:var(--canvas);--fg:#f3f2ee;--fg2:#9b9aa4;--rule:#26262d;--panel:#17171c;--panel2:#1f1f26;--dot:rgba(255,255,255,.07)}
+html:not(.js) [data-zone="blueprint"]{--bg:#eef0fb;--fg:#0e0e10;--fg2:#525874;--rule:#d8dcf3;--panel:#fff;--panel2:#f5f6fd;--dot:color-mix(in srgb,var(--accent) 12%,transparent)}
+html:not(.js) [data-zone="accent"]{--bg:#2f4bff;--fg:#fff;--fg2:#cdd4ff;--rule:rgba(255,255,255,.22);--panel:#2438d6;--panel2:#1f31c0;--dot:rgba(255,255,255,.12)}
+
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:var(--t-body);line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:clip}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+h1,h2,h3,h4{margin:0;font-family:var(--display);font-weight:600;letter-spacing:var(--display-tracking);line-height:1.02;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+button{font:inherit;color:inherit}
+.serif{font-family:var(--serif);font-weight:400;font-style:italic;letter-spacing:-.01em}
+.mono{font-family:var(--mono);font-size:var(--t-label);letter-spacing:.08em;text-transform:uppercase}
+.label{font-family:var(--mono);font-size:var(--t-label);letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink)}
+[data-zone="canvas"] .label, [data-zone="accent"] .label{color:var(--accent-dk)}
+[data-zone="accent"] .label{color:var(--on-accent)}
+.muted{color:var(--fg2)}
+.wrap{padding-inline:var(--gutter);max-width:1440px;margin-inline:auto}
+section{position:relative}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tab{font-variant-numeric:tabular-nums}
+
+/* Buttons */
+.btn{--bb:var(--fg);--bf:var(--bg);display:inline-flex;align-items:center;gap:.6em;height:48px;padding:0 22px;border-radius:999px;border:1px solid var(--bb);background:var(--bb);color:var(--bf);font-weight:500;font-size:.95rem;text-decoration:none;cursor:pointer;transition:background var(--t-ui) var(--ease-out),color var(--t-ui) var(--ease-out),border-color var(--t-ui);will-change:transform;position:relative;overflow:hidden}
+.btn .arr{display:inline-block;transition:transform var(--t-ui) var(--ease-out)}
+.btn:hover .arr{transform:translateX(4px)}
+.btn.ghost{background:transparent;color:var(--fg);border-color:var(--rule)}
+.btn.accent{--bb:var(--accent);--bf:var(--on-accent)}
+.btn::after{content:"";position:absolute;inset:0;background:radial-gradient(120px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.28),transparent 60%);opacity:0;transition:opacity var(--t-ui)}
+.btn:hover::after{opacity:1}
+
+/* =========================================================
+   2. CHROME — nav, toolbar, cursor, layout grid
+   ========================================================= */
+.nav{position:fixed;inset:0 0 auto 0;z-index:60;padding:calc(env(safe-area-inset-top,0px) + 14px) var(--gutter) 14px;display:flex;align-items:center;justify-content:space-between;gap:16px;pointer-events:none}
+.nav>*{pointer-events:auto}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;letter-spacing:-.02em;font-size:1.05rem}
+.brand .chip{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--rule);padding:4px 8px;border-radius:999px;color:var(--fg2);font-weight:400}
+.links{display:flex;gap:2px;padding:5px;border-radius:999px;background:color-mix(in srgb,var(--bg) 72%,transparent);border:1px solid var(--rule);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.links a{text-decoration:none;font-size:.9rem;padding:8px 14px;border-radius:999px;color:var(--fg2);transition:color var(--t-micro),background var(--t-micro)}
+.links a:hover,.links a.on{color:var(--fg);background:color-mix(in srgb,var(--fg) 7%,transparent)}
+.nav .btn{height:40px;padding:0 18px;font-size:.88rem}
+html[data-zone-now="accent"] .nav .btn{--bb:#fff;--bf:#1a2ccc}
+.w-code{padding-left:70px}
+@media (max-width:899px){.links{display:none}.brand .chip{display:none}}
+
+/* Workflow toolbar = progress indicator */
+.flow{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:14px;padding:8px 10px 8px 14px;border-radius:14px;background:#141418;color:#f3f2ee;box-shadow:0 12px 40px rgba(0,0,0,.25),inset 0 0 0 1px rgba(255,255,255,.08);font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;max-width:calc(100vw - 32px)}
+.flow-now{display:flex;flex-direction:column;gap:2px;min-width:132px}
+.flow-now b{font-weight:500;color:#fff;letter-spacing:.06em;font-size:.7rem;white-space:nowrap}
+.flow-now span{color:#8b8a94}
+.flow-steps{display:flex;gap:4px}
+.flow-steps button{all:unset;cursor:pointer;width:26px;height:26px;border-radius:7px;display:grid;place-items:center;color:#8b8a94;position:relative;transition:background var(--t-micro),color var(--t-micro)}
+.flow-steps button:hover{background:rgba(255,255,255,.08);color:#fff}
+.flow-steps button:focus-visible{outline:2px solid var(--accent-dk)}
+.flow-steps button.done{color:color-mix(in srgb,var(--accent-dk) 70%,#fff)}
+.flow-steps button.on{background:var(--accent);color:var(--on-accent)}
+.flow-steps button svg{width:14px;height:14px}
+.flow-steps button .tip{position:absolute;bottom:34px;left:50%;transform:translate(-50%,4px);background:#fff;color:#111;padding:4px 7px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity var(--t-micro),transform var(--t-micro) var(--ease-out)}
+.flow-steps button:hover .tip{opacity:1;transform:translate(-50%,0)}
+.flow-bar{position:absolute;left:12px;right:12px;bottom:3px;height:2px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden}
+.flow-bar i{position:absolute;inset:0;background:var(--accent-dk);transform-origin:left;transform:scaleX(var(--p,0))}
+.flow-zoom{padding-left:12px;border-left:1px solid rgba(255,255,255,.1);color:#cfcfd6;min-width:44px;text-align:right}
+.flow-kbd{color:#8b8a94;padding-left:12px;border-left:1px solid rgba(255,255,255,.1);white-space:nowrap}
+.flow-kbd kbd{font:inherit;border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:1px 5px;color:#fff}
+@media (max-width:899px){.flow-steps,.flow-kbd{display:none}.flow{gap:10px;padding:10px 14px}.flow-now{min-width:0}}
+
+/* Custom cursor (fine pointers only) */
+.cur{position:fixed;left:0;top:0;z-index:100;pointer-events:none;opacity:0;transition:opacity .3s}
+html.has-cur .cur{opacity:1}
+html.has-cur, html.has-cur a, html.has-cur button{cursor:none}
+.cur svg{width:22px;height:22px;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));transition:transform var(--t-ui) var(--ease-snap)}
+.cur-tag{position:absolute;left:16px;top:18px;background:var(--accent);color:var(--on-accent);font-size:.72rem;font-weight:500;padding:4px 9px;border-radius:4px 10px 10px 10px;white-space:nowrap;transform-origin:0 0;transform:scale(.6);opacity:0;transition:transform var(--t-ui) var(--ease-snap),opacity var(--t-micro)}
+.cur.is-label .cur-tag{transform:scale(1);opacity:1}
+.cur.is-label svg{transform:scale(.8)}
+.cur.is-down svg{transform:scale(.7)}
+
+/* Layout grid overlay (press G) */
+.lgrid{position:fixed;inset:0;z-index:55;pointer-events:none;padding-inline:var(--gutter);display:grid;grid-template-columns:repeat(12,1fr);gap:24px;opacity:0;transition:opacity var(--t-ui)}
+.lgrid i{background:rgba(242,78,122,.07);border-inline:1px solid rgba(242,78,122,.18)}
+html.show-grid .lgrid{opacity:1}
+@media (max-width:899px){.lgrid{grid-template-columns:repeat(4,1fr);gap:16px}}
+
+.dotgrid{position:absolute;inset:0;background-image:radial-gradient(var(--dot) 1px,transparent 1.2px);background-size:24px 24px;pointer-events:none}
+
+/* Canvas zoom HUD — only visible at the few major "camera" transitions */
+.zoomhud{position:fixed;right:var(--gutter);top:calc(env(safe-area-inset-top,0px) + 84px);z-index:58;display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;background:#141418;color:#f3f2ee;font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;box-shadow:0 8px 24px rgba(0,0,0,.18);opacity:0;transform:translateY(-6px);transition:opacity var(--t-ui) var(--ease-out),transform var(--t-ui) var(--ease-out);pointer-events:none}
+.zoomhud.show{opacity:1;transform:none}
+.zoomhud i{width:10px;height:10px;border:1.5px solid currentColor;border-radius:50%;position:relative}
+.zoomhud i::after{content:"";position:absolute;width:5px;height:1.5px;background:currentColor;right:-5px;bottom:-2px;transform:rotate(45deg)}
+.zoomhud b{font-weight:500;min-width:3.2em;text-align:right}
+@media (max-width:899px){.zoomhud{display:none}}
+
+/* Hero → build handoff: the headline's selection box travels onto the frame */
+.handoff{position:absolute;left:0;top:0;z-index:4;border:1.5px solid var(--accent);pointer-events:none;opacity:0;will-change:transform,width,height}
+.handoff i{position:absolute;width:9px;height:9px;background:#fff;border:1.5px solid var(--accent)}
+.handoff i:nth-child(1){left:-5px;top:-5px}.handoff i:nth-child(2){right:-5px;top:-5px}.handoff i:nth-child(3){left:-5px;bottom:-5px}.handoff i:nth-child(4){right:-5px;bottom:-5px}
+.handoff span{position:absolute;left:50%;bottom:-30px;transform:translateX(-50%);background:var(--accent);color:var(--on-accent);font-family:var(--mono);font-size:.66rem;padding:3px 7px;border-radius:4px;white-space:nowrap}
+html:not(.motion) .handoff{display:none}
+
+/* =========================================================
+   3. STUDIO — Blank canvas → Wireframe → … → Product
+   ========================================================= */
+.studio{padding-top:110px}
+.studio-pin{position:relative}
+.hero{position:relative;z-index:3;text-align:center;padding:40px var(--gutter) 60px;display:flex;flex-direction:column;align-items:center;gap:28px}
+.frame-name{position:absolute;left:var(--gutter);top:4px;display:flex;gap:10px;color:var(--fg2)}
+.frame-name b{color:var(--accent-ink);font-weight:500}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:7px 14px;border-radius:999px;border:1px solid var(--rule);background:var(--panel);font-family:var(--mono);font-size:.74rem;letter-spacing:.06em}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent)}
+.sel{position:relative;padding:14px 22px}
+.sel-box{position:absolute;inset:0;border:1.5px solid var(--accent);pointer-events:none;transform-origin:0 0}
+.sel-box i{position:absolute;width:9px;height:9px;background:#fff;border:1.5px solid var(--accent)}
+.sel-box i:nth-child(1){left:-5px;top:-5px}.sel-box i:nth-child(2){right:-5px;top:-5px}.sel-box i:nth-child(3){left:-5px;bottom:-5px}.sel-box i:nth-child(4){right:-5px;bottom:-5px}
+.sel-box i:nth-child(5){left:calc(50% - 4px);top:-5px}.sel-box i:nth-child(6){left:calc(50% - 4px);bottom:-5px}.sel-box i:nth-child(7){left:-5px;top:calc(50% - 4px)}.sel-box i:nth-child(8){right:-5px;top:calc(50% - 4px)}
+.sel-size{position:absolute;left:50%;bottom:-30px;transform:translateX(-50%);background:var(--accent);color:var(--on-accent);font-family:var(--mono);font-size:.66rem;padding:3px 7px;border-radius:4px;letter-spacing:.04em;white-space:nowrap}
+.hero-title{font-size:var(--t-mega);letter-spacing:-.055em;line-height:.95;font-weight:600}
+.hero-title .ln{display:block;overflow:hidden;padding-bottom:.06em}
+.hero-title .ln>span{display:inline-block}
+.hero-title .serif{font-weight:400;letter-spacing:-.03em}
+.hero-sub{max-width:60ch;font-size:clamp(1.02rem,1.4vw,1.2rem);color:var(--fg2);line-height:1.55;text-wrap:pretty}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.hero-meta{color:var(--fg2);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center}
+.hero-meta span+span::before{content:"·";margin-right:18px;color:var(--rule)}
+.float{position:absolute;z-index:2;pointer-events:none}
+.fl-card{background:var(--panel);border:1px solid var(--rule);border-radius:12px;box-shadow:0 18px 50px rgba(14,14,16,.08);padding:12px 14px;font-family:var(--mono);font-size:.68rem;color:var(--fg2)}
+.fl-card b{color:var(--fg);font-weight:500}
+.fl-card .row{display:flex;justify-content:space-between;gap:22px;padding:3px 0}
+.fl-dark{background:#141418;color:#e9e9ee;border-color:#141418}
+.fl-tokens{right:4%;top:18%}
+.fl-steps{left:3%;top:34%}
+.fl-size{left:9%;top:12%}
+.fl-density{left:5%;bottom:10%}
+.fl-mobile{right:6%;bottom:12%}
+.fl-mobile .ph{width:86px;height:150px;border-radius:16px;border:5px solid #141418;background:linear-gradient(#fff 0 22%,#eef0fb 22% 60%,#fff 60%);box-shadow:0 18px 40px rgba(0,0,0,.15)}
+@media (max-width:899px){.float{display:none}}
+/* narrower desktops: the side artefacts would sit on the headline's selection box */
+@media (max-width:1240px){.fl-steps,.fl-tokens,.fl-mobile,.fl-density{display:none}}
+
+/* Build area */
+.build{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);gap:clamp(24px,4vw,64px);align-items:center;padding:40px var(--gutter) 80px;max-width:1500px;margin:0 auto}
+.caps{position:relative;display:grid}
+.cap{grid-area:1/1;display:flex;flex-direction:column;gap:14px;transition:opacity var(--t-ui) var(--ease-out),transform var(--t-scene) var(--ease-out)}
+.cap .serif{font-size:clamp(1.3rem,2vw,1.7rem);color:var(--accent-ink)}
+.cap h2{font-size:var(--t-d2)}
+.cap p{color:var(--fg2);max-width:42ch}
+.cap .n{font-family:var(--mono);font-size:.7rem;color:var(--fg2);letter-spacing:.1em}
+.cap-bar{height:2px;background:var(--rule);border-radius:2px;overflow:hidden;max-width:220px;margin-top:8px}
+.cap-bar i{display:block;height:100%;background:var(--accent);transform-origin:left;transform:scaleX(var(--cp,1))}
+html:not(.motion) .cap{position:static}
+html:not(.motion) .caps{gap:28px}
+html:not(.motion) .cap{grid-area:auto}
+html:not(.motion) .cap-bar{display:none}
+.studio[data-stage] .cap{opacity:0;transform:translateY(24px);pointer-events:none}
+.studio[data-stage="1"] .cap[data-s="1"],.studio[data-stage="2"] .cap[data-s="2"],.studio[data-stage="3"] .cap[data-s="3"],.studio[data-stage="4"] .cap[data-s="4"],.studio[data-stage="5"] .cap[data-s="5"]{opacity:1;transform:none;pointer-events:auto}
+@media (max-width:899px){.build{grid-template-columns:1fr}}
+
+/* Fit helper: fixed design-size boards scaled to their column */
+.fit{position:relative;width:100%}
+.fit>.board{position:absolute;left:0;top:0;transform-origin:0 0;transform:scale(var(--s,1))}
+
+/* Device (the product being built) */
+.device{width:960px;height:600px;border-radius:16px;background:var(--dv-bg,#fff);border:1px solid #e3e1db;box-shadow:0 40px 120px rgba(14,14,16,.14),0 2px 6px rgba(14,14,16,.05);overflow:hidden;color:#0e0e10;font-family:var(--sans);font-size:14px;line-height:1.35;transition:filter var(--t-scene) var(--ease-out),border-color var(--t-scene),box-shadow var(--t-scene)}
+.dv-top{height:46px;display:flex;align-items:center;gap:14px;padding:0 16px;border-bottom:1px solid #eeede8;background:#fbfbf9}
+.lights{display:flex;gap:6px}.lights i{width:11px;height:11px;border-radius:50%;background:#ff5f57}.lights i:nth-child(2){background:#febc2e}.lights i:nth-child(3){background:#28c840}
+.dv-url{flex:1;text-align:center;font-weight:500;color:#55544f;font-size:13px}
+.dv-url small{font-family:var(--mono);font-size:11px;color:#9a9892;margin-left:8px}
+.online{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:#0d7a3c;background:#e3f5ea;padding:4px 10px;border-radius:999px;display:flex;align-items:center;gap:6px}
+.online i{width:6px;height:6px;border-radius:50%;background:#12a150;animation:pulse 2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 5px rgba(18,161,80,.18)}}
+.dv-body{display:grid;grid-template-columns:200px 1fr;grid-template-rows:auto 1fr;gap:16px;padding:18px;height:calc(100% - 46px)}
+.u{position:relative;border-radius:12px;border:1px solid transparent;transition:background var(--t-scene) var(--ease-out),border-color var(--t-scene) var(--ease-out),box-shadow var(--t-scene),transform var(--t-ui) var(--ease-snap)}
+.u>*{transition:opacity var(--t-ui) var(--ease-out) calc(var(--i,0)*60ms),transform var(--t-ui) var(--ease-out) calc(var(--i,0)*60ms)}
+.pt{grid-column:1/-1;display:flex;align-items:center;gap:14px;padding:12px 14px;border:1.5px solid var(--accent);background:#fff}
+.av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--accent-tint-light);color:var(--accent-onlight);font-weight:600;flex:none}
+.pt-name b{display:block;font-size:17px;letter-spacing:-.01em}
+.pt-name span{font-family:var(--mono);font-size:11.5px;color:#6f6e69}
+.cmdk{margin-left:auto;font-family:var(--mono);font-size:12px;border:1px solid #e3e1db;border-radius:8px;padding:8px 12px;color:#55544f;background:#fff}
+.vit{border:1px solid #e3e1db;border-radius:8px;padding:5px 12px;font-family:var(--mono);min-width:84px}
+.vit small{display:block;font-size:10px;color:#8b8a85;letter-spacing:.08em}
+.vit b{font-size:14px}.vit b.g{color:#0d9a52}
+.ins{background:#0e0e10;color:#fff;font-family:var(--mono);font-size:11.5px;padding:9px 12px;border-radius:6px;letter-spacing:.06em}
+.side{background:#f6f6f3;border:1px solid #ecebe6;padding:14px;display:flex;flex-direction:column;gap:9px}
+.side h5{margin:0 0 4px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:#6f6e69;font-weight:500}
+.nb{position:relative;border:1px solid #e3e1db;background:#fff;border-radius:9px;padding:9px 12px;font-weight:500;font-size:13.5px;transition:background var(--t-ui),color var(--t-ui),border-color var(--t-ui)}
+.nb.on{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.main{border:1px solid #ecebe6;background:#fff;padding:16px 18px;display:flex;flex-direction:column;gap:6px;overflow:hidden}
+.main h4{font-size:16px;letter-spacing:-.01em;margin-bottom:6px}
+.tbl{display:grid;grid-template-columns:90px 1fr 50px 80px 80px;font-size:13px}
+.tbl>div{display:contents}
+.tbl span{padding:10px 0;border-bottom:1px solid #f0efea}
+.tbl .h span{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:#6f6e69}
+.tbl .c{font-family:var(--mono);color:#55544f}
+.tbl b{font-weight:600}
+.sum{align-self:flex-end;margin-top:auto;width:300px;border:1px solid #ecebe6;background:#fbfbf9;border-radius:10px;padding:12px 14px;display:grid;gap:5px;font-size:13px}
+.sum div{display:flex;justify-content:space-between}
+.sum .neg{color:#0d9a52;font-family:var(--mono)}
+.sum .due{font-weight:700;font-size:15px}.sum .due b{color:var(--accent-onlight)}
+.row-in{transition:opacity var(--t-ui) var(--ease-out),transform var(--t-ui) var(--ease-out)}
+
+/* Component tags (Figma purple) */
+.u[data-c]::before{content:"◆ " attr(data-c);position:absolute;left:-1px;top:-19px;font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--component);white-space:nowrap;opacity:0;transition:opacity var(--t-ui)}
+/* Wireframe hatch */
+.u::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity var(--t-ui);background:linear-gradient(to top right,transparent calc(50% - .5px),#cfcdc6 50%,transparent calc(50% + .5px)),linear-gradient(to top left,transparent calc(50% - .5px),#cfcdc6 50%,transparent calc(50% + .5px))}
+
+/* stage 1 — wireframe */
+.studio[data-stage="1"] .device{filter:grayscale(1);box-shadow:0 20px 60px rgba(14,14,16,.06)}
+.studio[data-stage="1"] .u{background:#efeee9!important;border:1px dashed #c9c7c0!important;box-shadow:none}
+.studio[data-stage="1"] .u::after{opacity:1}
+.studio[data-stage="1"] .u>*{opacity:0;transform:translateY(6px)}
+.studio[data-stage="1"] .dv-top>*{opacity:.15}
+.studio[data-stage="1"] .online{opacity:0}
+/* stage 2 — components */
+.studio[data-stage="2"] .device{filter:grayscale(1)}
+.studio[data-stage="2"] .u{border:1px solid var(--component)!important;box-shadow:0 0 0 3px rgba(151,71,255,.08)}
+.studio[data-stage="2"] .u[data-c]::before{opacity:1}
+.studio[data-stage="2"] .online{opacity:0}
+.studio[data-stage="2"] .nb{border-color:#d8c4ff}
+/* stage 3 — UI design (colour + type land) */
+.studio[data-stage="3"] .u{transform:none}
+/* stage 4 — prototype */
+.noodle{position:absolute;inset:0;pointer-events:none;z-index:5;overflow:visible}
+.noodle path{fill:none;stroke:var(--accent);stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.1s var(--ease-inout) .2s}
+.noodle circle{fill:var(--accent);opacity:0;transition:opacity .3s .2s}
+.noodle .ix{opacity:0;transition:opacity .4s .9s}
+.studio[data-stage="4"] .noodle path{stroke-dashoffset:0}
+.studio[data-stage="4"] .noodle circle,.studio[data-stage="4"] .noodle .ix{opacity:1}
+.studio[data-stage="4"] .nb.hot{outline:2px solid var(--accent);outline-offset:3px}
+.studio[data-stage="4"] .row-in{animation:rowIn .6s var(--ease-out) both;animation-delay:calc(1.6s + var(--i)*80ms)}
+@keyframes rowIn{from{opacity:0;transform:translateX(18px)}}
+/* stage 5 — product */
+.outcome{position:absolute;right:-26px;bottom:-30px;z-index:6;background:#0e0e10;color:#fff;border-radius:14px;padding:16px 18px;width:250px;box-shadow:0 30px 60px rgba(0,0,0,.25);transition:opacity var(--t-ui) var(--ease-out),transform var(--t-scene) var(--ease-snap)}
+.outcome small{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:#9b9aa4}
+.outcome .big{font-size:34px;font-weight:600;letter-spacing:-.03em;display:flex;align-items:baseline;gap:8px}
+.outcome .big s{font-size:18px;color:#6f6e79;text-decoration-thickness:1px}
+.outcome .ok{color:#6fe3a1;font-family:var(--mono);font-size:12px}
+.studio[data-stage]:not([data-stage="5"]) .outcome{opacity:0;transform:translateY(30px) scale(.9)}
+.inspect{position:absolute;left:-40px;top:56%;z-index:6;width:210px;background:#fff;border:1px solid #e3e1db;border-radius:12px;box-shadow:0 20px 50px rgba(14,14,16,.12);padding:12px;font-family:var(--mono);font-size:10.5px;color:#55544f;display:grid;gap:8px;transition:opacity var(--t-ui),transform var(--t-scene) var(--ease-snap)}
+.inspect h6{margin:0;font-size:10px;letter-spacing:.12em;color:#8b8a85;font-weight:500}
+.inspect .r{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.inspect .sw{width:14px;height:14px;border-radius:4px;background:var(--accent);display:inline-block;vertical-align:-3px;margin-right:6px}
+.studio:not([data-stage="3"]) .inspect{opacity:0;transform:translateX(-20px) scale(.95);pointer-events:none}
+.proto-chip{position:absolute;right:16px;top:58px;z-index:6;background:var(--accent);color:var(--on-accent);font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;padding:6px 10px;border-radius:6px;transition:opacity var(--t-ui)}
+.studio:not([data-stage="4"]) .proto-chip{opacity:0}
+/* multiplayer cursors */
+.mp{position:absolute;z-index:7;display:flex;align-items:flex-start;gap:2px;transition:opacity var(--t-ui),transform 1.4s var(--ease-inout)}
+.mp svg{width:18px;height:18px}
+.mp span{font-size:11.5px;font-weight:500;color:#fff;padding:4px 8px;border-radius:3px 9px 9px 9px;margin-top:12px;white-space:nowrap}
+.mp.pm{left:62%;top:30%}.mp.pm span{background:#e5484d}.mp.pm svg path{fill:#e5484d}
+.mp.dev{left:22%;top:78%}.mp.dev span{background:#12a150}.mp.dev svg path{fill:#12a150}
+.mp.me{left:12%;top:56%}.mp.me span{background:var(--accent)}.mp.me svg path{fill:var(--accent)}
+.studio[data-stage]:not([data-stage="5"]) .mp.pm,.studio[data-stage]:not([data-stage="5"]) .mp.dev{opacity:0;transform:translate(40px,30px)}
+.studio:not([data-stage="4"]) .mp.me{opacity:0}
+.studio[data-stage="4"] .mp.me{animation:meClick 2.2s var(--ease-inout) .5s both}
+@keyframes meClick{0%{transform:translate(260px,180px)}60%{transform:translate(0,0)}70%{transform:translate(0,0) scale(.85)}80%,100%{transform:translate(0,0) scale(1)}}
+.devwrap{position:relative}
+
+/* Studio cinematic layout (desktop/tablet with motion): one pinned 100vh stage */
+html.motion .studio{padding-top:0}
+html.motion .studio-pin{height:100vh;height:100svh;overflow:hidden}
+/* keep hero content clear of the site nav (~64px) above and the workflow toolbar (~84px) below */
+html.motion .hero{position:absolute;inset:0;justify-content:center;padding-top:92px;padding-bottom:100px;gap:clamp(14px,3.2vh,28px)}
+html.motion .frame-name{top:86px}
+.fl-size{top:max(12%,114px)}
+@media (max-height:760px){
+  /* short windows: drop the two lines that repeat elsewhere (nav badge, stats) rather than clip */
+  .hero-meta,html.motion .frame-name{display:none}
+  :root{--t-mega:clamp(2.4rem,min(8vw,10.5vh),8.4rem)}
+  .hero-sub{max-width:80ch;font-size:1rem}
+  .sel{padding:10px 18px}
+}
+html.motion .build{position:absolute;inset:0;padding-top:96px;padding-bottom:96px;align-content:center;max-width:none;width:min(1500px,100%);margin:0 auto}
+html.motion .studio[data-stage="0"] .build{pointer-events:none}
+@media (max-width:899px){
+  html.motion .build{align-content:start;padding-top:84px;gap:18px}
+  html.motion .hero{gap:22px}
+  .cap h2{font-size:1.9rem}.cap p{font-size:.95rem}
+  .outcome{right:6px;bottom:-40px;width:200px;padding:12px}.outcome .big{font-size:26px}
+  .inspect{display:none}
+}
+
+/* =========================================================
+   4. STATS — auto layout frame
+   ========================================================= */
+.stats{padding-block:72px 80px}
+.al-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:34px}
+.al-head h2{font-size:var(--t-d2);max-width:16ch}
+.al-meta{display:flex;gap:8px;flex-wrap:wrap}
+.al-meta span{font-family:var(--mono);font-size:.7rem;padding:6px 10px;border-radius:6px;background:var(--panel);border:1px solid var(--rule);color:var(--fg2);letter-spacing:.04em}
+.al-meta span b{color:var(--component);font-weight:500}
+.al{position:relative;display:grid;grid-template-columns:repeat(4,1fr);align-content:center;align-items:stretch;gap:20px;padding:20px;border:1px dashed color-mix(in srgb,var(--component) 50%,transparent);border-radius:20px;transition:border-color var(--t-ui),background-color var(--t-ui)}
+.al::before{content:"Frame · Auto layout";position:absolute;top:-22px;left:0;font-family:var(--mono);font-size:.66rem;color:var(--component);letter-spacing:.06em}
+.al.snapped{border-style:solid;border-color:var(--component);background-color:color-mix(in srgb,var(--component) 4%,transparent)}
+.st{position:relative;background:var(--panel);border:1px solid var(--rule);border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;gap:6px;transform-origin:50% 50%;transition:border-color var(--t-ui),box-shadow var(--t-ui)}
+.st.is-focus{border-color:var(--accent);box-shadow:0 24px 60px color-mix(in srgb,var(--accent) 12%,transparent)}
+.st-top{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--fg2);margin-bottom:8px}
+.st-top em{font-style:normal;color:var(--component)}
+.st b{font-size:clamp(2.2rem,3.6vw,3.4rem);letter-spacing:-.05em;font-weight:600;line-height:1}
+.st span{font-weight:500}
+.st small{color:var(--fg2);font-size:.85rem}
+/* mini data-viz per metric; --k (0→1) is driven by scroll so it reverses cleanly */
+.st-viz{--k:1;height:40px;margin-top:14px;display:flex;align-items:flex-end;gap:4px}
+.vz-years i{flex:1;height:6px;border-radius:3px;background:var(--rule);position:relative;overflow:hidden;align-self:center}
+.vz-years i::after{content:"";position:absolute;inset:0;background:var(--accent);transform-origin:left;transform:scaleX(clamp(0,calc(var(--k)*5 - var(--j)),1))}
+.vz-dots{display:grid!important;grid-template-columns:repeat(7,12px);gap:6px;align-content:end;height:auto!important;min-height:40px}
+.vz-dots i{width:12px;height:12px;border-radius:50%;background:var(--accent);opacity:clamp(.12,calc(var(--k)*14 - var(--j)),1);transform:scale(clamp(.5,calc(.5 + (var(--k)*14 - var(--j))*.5),1))}
+.vz-bars i{flex:1;border-radius:2px 2px 0 0;background:var(--component);height:calc(var(--h) * clamp(.08,calc(var(--k)*1.4 - var(--j)*.04),1));opacity:.85}
+.vz-plat{gap:8px!important;align-items:flex-end}
+.vz-plat i{border:1.5px solid var(--fg);border-radius:4px;opacity:clamp(0,calc(var(--k)*2 - var(--j)),1);transform:translateY(calc((1 - clamp(0,calc(var(--k)*2 - var(--j)),1))*8px))}
+.vz-plat i:nth-child(1){width:64px;height:38px}.vz-plat i:nth-child(2){width:20px;height:34px;border-radius:5px}
+.vz-plat small{margin-left:auto;font-family:var(--mono);font-size:.6rem!important;letter-spacing:.08em}
+@media (max-width:899px){.al{grid-template-columns:1fr 1fr;gap:16px;padding:16px}}
+@media (max-width:520px){.al{grid-template-columns:1fr}}
+/* pinned storytelling (desktop cinematic only) */
+html.cine .stats{padding-top:0}
+html.cine .stats-pin{height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center;padding-block:96px 104px}
+html.cine .al{min-height:max(300px,42vh)}
+@media (max-height:860px){
+  html.cine .stats-pin{padding-block:80px 100px}
+  html.cine .al-head{margin-bottom:26px}
+  html.cine .proc-pin{gap:22px;padding-block:76px 96px}
+  html.cine .proc .sec-head>p{display:none}
+  html.cine .pf{min-height:0;padding:22px;gap:10px}
+  html.cine .pf .num{font-size:2.6rem}
+}
+html.cine .st{will-change:transform,opacity}
+.marq{margin-top:56px;border-block:1px solid var(--rule);overflow:hidden;padding-block:22px;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.marq-t{display:flex;gap:56px;width:max-content;animation:marq 38s linear infinite}
+.marq-t span{font-size:1.4rem;font-weight:600;letter-spacing:-.03em;white-space:nowrap;display:flex;align-items:center;gap:14px}
+.marq-t small{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;color:var(--accent-ink);font-weight:400}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* =========================================================
+   5. FOCUS — bento that re-flows
+   ========================================================= */
+.focus{padding-block:80px 140px}
+.sec-head{display:grid;gap:18px;margin-bottom:44px;max-width:900px}
+.sec-head h2{font-size:var(--t-d1)}
+.sec-head p{color:var(--fg2);max-width:58ch;font-size:1.1rem}
+.bento{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.bx{position:relative;grid-column:span 1;background:var(--panel);border:1px solid var(--rule);border-radius:var(--radius);padding:24px;display:flex;flex-direction:column;gap:14px;min-height:320px;overflow:hidden;cursor:pointer;outline:none}
+.bx.big{grid-column:span 2}
+.bx .ic{font-size:1.5rem;color:var(--accent-ink)}
+.bx h3{font-size:var(--t-h3)}
+.bx p{color:var(--fg2);font-size:.95rem}
+.bx .tags{margin-top:auto;display:flex;gap:6px;flex-wrap:wrap}
+.bx .tags span{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;padding:5px 8px;border-radius:6px;background:var(--panel2);color:var(--fg2)}
+.bx .n{position:absolute;right:20px;top:18px;font-family:var(--mono);font-size:.7rem;color:var(--fg2)}
+.bx .viz{height:90px;display:flex;align-items:end;gap:6px;opacity:.9}
+.bx .viz i{flex:1;background:var(--accent-100);border-radius:4px;height:var(--h);transition:height var(--t-scene) var(--ease-out),background var(--t-ui)}
+.bx.big .viz i{background:var(--accent)}
+.tooling{margin-top:40px;display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center}
+.tooling b{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;color:var(--fg2);font-weight:400;margin-right:8px}
+.tooling span{padding:8px 14px;border-radius:999px;border:1px solid var(--rule);font-size:.9rem;background:var(--panel)}
+@media (max-width:899px){.bento{grid-template-columns:1fr}.bx,.bx.big{grid-column:span 1;min-height:0}}
+
+/* =========================================================
+   6. WORK — the Figma canvas camera
+   ========================================================= */
+.work{padding-block:120px}
+.work-head{margin-bottom:48px;display:grid;gap:18px}
+.work-head h2{font-size:var(--t-d1)}
+.work-head p{color:var(--fg2);max-width:60ch}
+.world{display:grid;gap:28px}
+.fr{position:relative}
+.fr-name{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.7rem;color:var(--fg2);margin-bottom:8px;letter-spacing:.04em}
+.fr-name b{color:var(--fg);font-weight:500}
+.fr-body{background:#fafaf7;color:#0e0e10;border-radius:20px;padding:clamp(20px,3.5vw,48px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(20px,3vw,44px);align-items:center;box-shadow:0 30px 80px rgba(0,0,0,.35);transition:box-shadow var(--t-scene),opacity var(--t-scene) var(--ease-out)}
+.fr.is-active .fr-body{box-shadow:0 0 0 2px var(--accent-dk),0 30px 80px rgba(0,0,0,.35)}
+/* one project dominant: siblings recede while a frame is in focus */
+.fr-name{transition:opacity var(--t-scene) var(--ease-out)}
+html.motion .world.has-active .fr:not(.is-active) .fr-body{opacity:.42}
+html.motion .world.has-active .fr:not(.is-active) .fr-name{opacity:.4}
+.fr-info>*{transition:opacity var(--t-ui) var(--ease-out),transform var(--t-ui) var(--ease-out);transition-delay:calc(var(--i,0)*70ms)}
+html.motion .world.has-active .fr:not(.is-active) .fr-info>*{opacity:.5;transform:translateY(10px);transition-delay:0ms}
+.fr-info{display:flex;flex-direction:column;gap:16px}
+.fr-tag{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.fr-tag .ix{font-family:var(--mono);font-size:.75rem;color:var(--accent-onlight)}
+.fr-tag span{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border-radius:6px;background:#efeee9;color:#55544f}
+.fr-info h3{font-size:clamp(1.7rem,2.6vw,2.4rem)}
+.metric{display:inline-flex;align-items:baseline;gap:10px;border:1px solid #e3e1db;border-radius:12px;padding:10px 14px;align-self:flex-start;background:#fff}
+.metric b{font-size:1.6rem;color:#0d9a52;letter-spacing:-.03em}
+.metric span{font-family:var(--mono);font-size:.72rem;color:#6f6e69}
+.po{display:grid;grid-template-columns:90px 1fr;gap:6px 14px;font-size:.93rem;color:#3d3c39}
+.po dt{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:#6f6e69;padding-top:3px}
+.po dt.o{color:var(--accent-onlight)}
+.po dd{margin:0}
+.po dd.o{color:#0e0e10;font-weight:500}
+.fr-info .btn{--bb:#0e0e10;--bf:#fff;align-self:flex-start}
+.mk{background:#f0efea;border-radius:16px;overflow:hidden}
+@media (max-width:899px){.fr-body{grid-template-columns:1fr}}
+/* Cinematic canvas mode */
+html.cine .work{padding:0}
+html.cine .work-pin{height:100vh;overflow:hidden;position:relative}
+html.cine .work-head{position:absolute;z-index:4;left:var(--gutter);top:110px;margin:0;pointer-events:none;max-width:560px}
+html.cine .work-head h2{font-size:var(--t-d2)}
+html.cine .work-head .btn{pointer-events:auto}
+html.cine .world{position:absolute;left:0;top:0;width:2600px;height:1680px;display:block;transform-origin:0 0;will-change:transform}
+html.cine .fr{position:absolute;width:1200px;height:740px}
+html.cine .fr:nth-of-type(1){left:0;top:0}html.cine .fr:nth-of-type(2){left:1400px;top:0}html.cine .fr:nth-of-type(3){left:0;top:940px}html.cine .fr:nth-of-type(4){left:1400px;top:940px}
+html.cine .fr-body{height:calc(100% - 26px);grid-template-columns:500px 1fr}
+html.cine .fr-name{font-size:14px}
+.work-dots{position:absolute;inset:-2000px;background-image:radial-gradient(rgba(255,255,255,.08) 1.5px,transparent 1.6px);background-size:40px 40px;pointer-events:none}
+html:not(.cine) .work-dots{display:none}
+
+html.cine .sys{min-height:100vh;display:grid;align-content:center;padding-block:90px 70px}
+#devFit{margin-inline:auto}
+@property --v{syntax:'<number>';inherits:true;initial-value:56}
+/* Case overlay (card → full screen) */
+.case{position:fixed;z-index:80;inset:0;display:none}
+.case.open{display:block}
+.case-bg{position:absolute;inset:0;background:rgba(10,10,12,.55);backdrop-filter:blur(6px);opacity:0}
+.case-sheet{position:absolute;background:#fafaf7;color:#0e0e10;overflow:auto;border-radius:20px;overscroll-behavior:contain}
+.case-in{max-width:1180px;margin:0 auto;padding:clamp(24px,5vw,72px) var(--gutter) 120px;display:grid;gap:40px}
+.case-top{display:flex;justify-content:space-between;align-items:center;gap:16px;position:sticky;top:0;padding:14px 0;background:linear-gradient(#fafaf7 70%,transparent);z-index:2}
+.case-close{all:unset;cursor:pointer;display:inline-flex;gap:8px;align-items:center;height:40px;padding:0 16px;border-radius:999px;background:#0e0e10;color:#fff;font-size:.9rem}
+.case-close:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.case h2{font-size:var(--t-d1)}
+.case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.case-grid div{border:1px solid #e3e1db;border-radius:16px;padding:22px;background:#fff;display:grid;gap:10px;align-content:start}
+.case-grid h4{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;color:#6f6e69;font-weight:500}
+.case-grid ul{margin:0;padding-left:1.1em;display:grid;gap:6px;color:#3d3c39}
+.case-mk .fit{max-width:760px;margin:0 auto}
+.case .note{font-family:var(--mono);font-size:.7rem;color:#8b8a85}
+@media (max-width:899px){.case-grid{grid-template-columns:1fr}}
+
+/* Mockup internals (boards 580×520) */
+.mb{width:580px;height:520px;padding:22px;font-family:var(--sans);font-size:12.5px;color:#0e0e10;display:flex;flex-direction:column;gap:12px}
+.win{background:#fff;border:1px solid #e3e1db;border-radius:12px;box-shadow:0 20px 50px rgba(14,14,16,.08);overflow:hidden;flex:1;display:flex;flex-direction:column}
+.win-t{height:32px;display:flex;align-items:center;gap:10px;padding:0 12px;border-bottom:1px solid #eeede8;font-family:var(--mono);font-size:10.5px;color:#8b8a85}
+.win-t .lights i{width:8px;height:8px}
+.win-b{flex:1;padding:14px;display:flex;gap:12px;min-height:0}
+.mono10{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:#8b8a85;text-transform:uppercase}
+/* m1 design system */
+.m1-side{width:150px;display:flex;flex-direction:column;gap:8px;border:1px solid #eeede8;border-radius:10px;padding:10px}
+.tk{font-family:var(--mono);font-size:10px;padding:6px 8px;border-radius:6px;border:1px solid #e3e1db;display:flex;gap:6px;align-items:center}
+.tk i{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.tk.a{border-color:var(--accent);color:var(--accent-onlight)}
+.sws{display:flex;gap:6px}.sws i{width:22px;height:22px;border-radius:6px}
+.m1-mx{flex:1;display:grid;grid-template-columns:70px repeat(3,1fr);gap:8px;align-content:start;align-items:center}
+.m1-mx .mono10{font-size:9px}
+.mbtn{height:28px;border-radius:999px;display:grid;place-items:center;font-size:11px;font-weight:500;transition:transform var(--t-ui) var(--ease-snap),box-shadow var(--t-ui)}
+.mbtn.p{background:var(--accent);color:var(--on-accent)}.mbtn.p.h{background:var(--accent-600)}
+.mbtn.s{border:1.5px solid #0e0e10}.mbtn.g{color:#0e0e10}
+.mbtn.f{box-shadow:0 0 0 3px #fff,0 0 0 5px var(--accent)}
+.mbtn.d{background:#ecebe6;color:#a3a29c;border:0}
+.m1-mx .mbtn.pulse{animation:cell 3.2s var(--ease-out) infinite;animation-delay:calc(var(--i)*.4s)}
+@keyframes cell{0%,12%{transform:scale(1)}6%{transform:scale(1.12)}}
+/* m2 erp */
+.m2-v{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.m2-v div{border:1px solid #e3e1db;border-radius:10px;padding:10px}
+.m2-v b{display:block;font-size:20px;letter-spacing:-.02em;margin-top:4px}
+.m2-rows{display:grid;gap:6px}
+.m2-rows div{display:flex;justify-content:space-between;padding:9px 10px;border-radius:8px;background:#f7f7f4;transition:transform var(--t-ui) var(--ease-out),opacity var(--t-ui);transition-delay:calc(var(--i)*90ms)}
+.fr:not(.is-active) .m2-rows div{transform:translateX(16px);opacity:.3}
+.m2-timer{display:flex;align-items:center;justify-content:space-between;background:#0e0e10;color:#fff;border-radius:10px;padding:12px}
+.m2-timer b{font-size:22px}.m2-timer s{color:#7d7c85;margin-right:8px}
+/* m3 hr */
+.m3{position:relative;flex:1}
+.m3-sheet{position:absolute;inset:0;display:grid;grid-template-columns:repeat(16,1fr);gap:2px;transition:opacity var(--t-scene) var(--ease-out),transform var(--t-scene) var(--ease-out)}
+.m3-sheet i{background:#e2e0d9;border-radius:2px}
+.m3-card{position:absolute;inset:14px 40px;background:#fff;border:1px solid #e3e1db;border-radius:14px;box-shadow:0 24px 60px rgba(14,14,16,.14);padding:16px;display:flex;flex-direction:column;gap:10px;transition:opacity var(--t-scene) var(--ease-out),transform var(--t-scene) var(--ease-snap)}
+.fr:not(.is-active) .m3-card{opacity:0;transform:scale(.9) translateY(20px)}
+.fr.is-active .m3-sheet{opacity:.25;transform:scale(.96)}
+.crit{display:grid;grid-template-columns:110px 1fr 28px;gap:8px;align-items:center}
+.crit u{display:block;height:6px;border-radius:6px;background:#efeee9;position:relative;text-decoration:none}
+.crit u::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--w);background:var(--accent);border-radius:6px;transition:width 1s var(--ease-out) .4s}
+.fr:not(.is-active) .crit u::after{width:0}
+.m3-act{display:flex;gap:8px;margin-top:auto}
+.m3-act span{flex:1;text-align:center;padding:9px;border-radius:999px;border:1px solid #e3e1db;font-weight:500}
+.m3-act span.y{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+/* m4 events */
+.m4-steps{display:flex;gap:6px;align-items:center}
+.m4-steps i{height:6px;border-radius:6px;background:#e3e1db;flex:1;transition:flex var(--t-scene) var(--ease-inout),background var(--t-ui),opacity var(--t-scene)}
+.fr.is-active .m4-steps i:nth-child(n+3){flex:0;opacity:0}
+.fr.is-active .m4-steps i{background:var(--accent)}
+.m4-tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.m4-tiers div{border:1px solid #e3e1db;border-radius:10px;padding:12px;display:grid;gap:4px}
+.m4-tiers div.on{border:1.5px solid var(--accent);background:#f5f6ff}
+.m4-bot{display:flex;gap:10px;align-items:center}
+.ring{width:96px;height:96px;border-radius:50%;background:conic-gradient(var(--accent) calc(var(--v)*1%),#ecebe6 0);display:grid;place-items:center;transition:--v 1.2s}
+.ring b{width:74px;height:74px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:20px;letter-spacing:-.02em}
+.badge{flex:1;background:#0e0e10;color:#fff;border-radius:12px;padding:14px;display:grid;gap:4px}
+.badge b{font-size:22px}
+
+/* =========================================================
+   7. DESIGN SYSTEM — live component library
+   ========================================================= */
+.sys{padding-block:130px}
+.sys-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.4fr);gap:clamp(24px,4vw,64px);align-items:center}
+.sys-left{display:flex;flex-direction:column;gap:22px}
+.sys-left h2{font-size:var(--t-d1)}
+.sys-left>p{color:var(--fg2);max-width:46ch}
+.steps{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:4px}
+.steps li{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:.82rem;color:var(--fg2);padding:9px 12px;border-radius:10px;position:relative;overflow:hidden;transition:color var(--t-ui),background var(--t-ui)}
+.steps li::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.5}
+.steps li.on{color:var(--fg);background:var(--panel)}
+.steps li.on::before{background:var(--accent);opacity:1}
+.steps li i{position:absolute;left:0;bottom:0;height:2px;background:var(--accent);width:calc(var(--sp,0)*100%)}
+@media (max-width:899px){.sys-grid{grid-template-columns:1fr}}
+@media (max-height:860px){html.cine .sys-left{gap:14px}html.cine .sys-left h2{font-size:var(--t-d2)}html.cine .sys{padding-bottom:96px}}
+.lib{width:720px;height:600px;border-radius:18px;background:#fff;color:#0e0e10;border:1px solid color-mix(in srgb,var(--accent) 16%,#fff);box-shadow:0 40px 100px color-mix(in srgb,var(--accent) 14%,transparent);display:grid;grid-template-rows:40px 1fr;overflow:hidden;font-size:12.5px;transition:background var(--t-scene) var(--ease-inout),color var(--t-scene),border-color var(--t-scene)}
+.lib-t{display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid color-mix(in srgb,var(--accent) 8%,#fff);font-family:var(--mono);font-size:10.5px;color:color-mix(in srgb,var(--accent) 12%,#77777f);letter-spacing:.06em;transition:border-color var(--t-scene)}
+.lib-b{display:grid;grid-template-columns:1.3fr 1fr;grid-template-rows:auto 1fr auto;gap:12px;padding:14px}
+.zone{border-radius:12px;border:1px solid color-mix(in srgb,var(--accent) 8%,#fff);padding:12px;position:relative;transition:opacity var(--t-ui) var(--ease-out),border-color var(--t-ui),box-shadow var(--t-ui),background var(--t-scene)}
+.zone>.mono10{margin-bottom:10px;display:block}
+/* tokens → component → variants → states → final UI */
+.lib[data-step] .zone{opacity:.32}
+.lib[data-step="1"] :is(.z1,.z2),.lib[data-step="2"] .z3,.lib[data-step="3"] :is(.z3,.z4),.lib[data-step="4"] :is(.z3,.z4),.lib[data-step="5"] .zone{opacity:1}
+.lib[data-step="1"] :is(.z1,.z2),.lib[data-step="2"] .z3,.lib[data-step="3"] .z4,.lib[data-step="4"] .z3,.lib[data-step="5"] .z5{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 8%,transparent)}
+.prims{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.prim{display:grid;gap:6px}
+.prim i{aspect-ratio:1;border-radius:10px;background:var(--c);transition:transform var(--t-ui) var(--ease-snap);transition-delay:calc(var(--i)*50ms)}
+.lib[data-step="1"] .prim i{animation:pop .6s var(--ease-snap) both;animation-delay:calc(var(--i)*70ms)}
+@keyframes pop{from{transform:scale(.4);opacity:0}}
+.prim span{font-family:var(--mono);font-size:9px;color:color-mix(in srgb,var(--accent) 12%,#77777f)}
+.toks{display:grid;gap:6px}
+.tok{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:10.5px;padding:6px 8px;border-radius:7px;background:color-mix(in srgb,var(--accent) 4%,#fff);transition:background var(--t-scene),color var(--t-scene)}
+.tok em{font-style:normal;color:color-mix(in srgb,var(--accent) 12%,#77777f);display:flex;align-items:center;gap:6px}
+.tok em i{width:10px;height:10px;border-radius:3px;background:var(--c)}
+.lib[data-step="1"] .tok{animation:slide .5s var(--ease-out) both;animation-delay:calc(200ms + var(--i)*80ms)}
+@keyframes slide{from{opacity:0;transform:translateX(-14px)}}
+.typescale{display:flex;align-items:baseline;gap:14px;margin-top:10px}
+.typescale span{font-weight:600;letter-spacing:-.03em}
+.z3{display:grid;place-items:center;min-height:210px;background-image:radial-gradient(color-mix(in srgb,var(--accent) 12%,#fff) 1px,transparent 1.2px);background-size:14px 14px}
+.dsb-wrap{position:relative;display:inline-flex}
+.dsb{--h:44px;--px:22px;--fs:14px;height:var(--h);padding:0 var(--px);border-radius:999px;border:1.5px solid var(--accent);background:var(--accent);color:var(--on-accent);font-weight:500;font-size:var(--fs);display:inline-flex;align-items:center;gap:8px;transition:all var(--t-ui) var(--ease-snap);position:relative}
+.dsb[data-size="sm"]{--h:34px;--px:14px;--fs:12.5px}.dsb[data-size="lg"]{--h:54px;--px:30px;--fs:16px}
+.dsb[data-variant="secondary"]{background:transparent;color:#0e0e10;border-color:#0e0e10}
+.dsb[data-variant="ghost"]{background:transparent;color:var(--accent-onlight);border-color:transparent}
+.dsb[data-state="hover"]{background:var(--accent-600);border-color:var(--accent-600)}
+.dsb[data-variant="secondary"][data-state="hover"]{background:#0e0e10;color:#fff;border-color:#0e0e10}
+.dsb[data-variant="ghost"][data-state="hover"]{background:var(--accent-tint-light);color:var(--accent-onlight);border-color:transparent}
+.dsb[data-state="pressed"]{transform:scale(.95)}
+.dsb[data-state="focus"]{box-shadow:0 0 0 3px #fff,0 0 0 5.5px var(--accent)}
+.dsb[data-state="disabled"]{background:#ecebe6;border-color:#ecebe6;color:#a3a29c}
+.dsb svg{width:14px;height:14px}
+.redx{position:absolute;top:50%;height:1px;background:var(--redline);width:var(--px,22px);transition:width var(--t-ui) var(--ease-snap)}
+.redx::after{content:attr(data-v);position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:9px;color:var(--redline)}
+.redx.l{left:0}.redx.r{right:0}
+.dsb-sel{position:absolute;inset:-6px;border:1px solid var(--component);pointer-events:none;transition:opacity var(--t-ui) var(--ease-out),transform var(--t-ui) var(--ease-snap)}
+.dsb-sel::before{content:"◆ Button";position:absolute;top:-17px;left:-1px;font-family:var(--mono);font-size:9.5px;color:var(--component)}
+.dsb-sel i{position:absolute;width:7px;height:7px;background:#fff;border:1px solid var(--component)}
+.dsb-sel i:nth-child(1){left:-4px;top:-4px}.dsb-sel i:nth-child(2){right:-4px;top:-4px}.dsb-sel i:nth-child(3){left:-4px;bottom:-4px}.dsb-sel i:nth-child(4){right:-4px;bottom:-4px}
+.dsb-sel b{position:absolute;left:50%;bottom:-24px;transform:translateX(-50%);font-family:var(--mono);font-size:9px;font-weight:500;background:var(--component);color:#fff;padding:2px 6px;border-radius:3px;white-space:nowrap}
+.dsb-wrap{transition:opacity var(--t-ui) var(--ease-out),transform var(--t-ui) var(--ease-snap)}
+.redx{transition:width var(--t-ui) var(--ease-snap),opacity var(--t-ui)}
+.lib[data-step="1"] .dsb-wrap{opacity:.25;transform:scale(.9)}
+.lib:is([data-step="1"],[data-step="5"]) .dsb-sel{opacity:0;transform:scale(1.08)}
+.lib:is([data-step="1"],[data-step="4"],[data-step="5"]) .redx{opacity:0}
+.z3-grid{position:absolute;inset:34px 12px 12px;background-image:linear-gradient(to right,rgba(242,78,122,.12) 1px,transparent 1px),linear-gradient(rgba(242,78,122,.12) 1px,transparent 1px);background-size:24px 24px;opacity:0;transition:opacity var(--t-ui);pointer-events:none;border-radius:6px}
+.lib:is([data-step="2"],[data-step="3"]) .z3-grid{opacity:1}
+.fig-cur{position:absolute;left:0;top:0;z-index:3;display:flex;align-items:flex-start;gap:2px;pointer-events:none;opacity:0;transition:transform .7s var(--ease-inout),opacity var(--t-ui)}
+.lib[data-step="4"] .fig-cur{opacity:1}
+.fig-cur svg{width:16px;height:16px;transition:transform var(--t-micro) var(--ease-snap)}
+.fig-cur em{font-style:normal;font-size:10px;font-weight:500;color:#fff;background:var(--redline);padding:2px 6px;border-radius:2px 8px 8px 8px;margin-top:11px;white-space:nowrap}
+.fig-cur.down svg{transform:scale(.8)}
+.ins-r{transition:background var(--t-ui),box-shadow var(--t-ui)}
+.ins-r.hot{background:color-mix(in srgb,var(--accent) 6%,transparent);box-shadow:inset 2px 0 0 var(--accent)}
+.z4{display:grid;gap:4px;align-content:start}
+.ins-r{display:grid;grid-template-columns:70px 1fr;gap:8px;align-items:center;padding:4px 0;border-bottom:1px solid color-mix(in srgb,var(--accent) 6%,#fff)}
+.ins-r span{font-family:var(--mono);font-size:10px;color:color-mix(in srgb,var(--accent) 12%,#77777f)}
+.seg{display:flex;gap:3px;flex-wrap:wrap}
+.seg button{all:unset;cursor:pointer;font-family:var(--mono);font-size:9.5px;padding:4px 7px;border-radius:5px;background:color-mix(in srgb,var(--accent) 4%,#fff);color:color-mix(in srgb,var(--accent) 14%,#51525a);transition:background var(--t-micro),color var(--t-micro)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.seg button:focus-visible{outline:2px solid var(--accent)}
+.ins-r code{font-family:var(--mono);font-size:10px;color:#0e0e10}
+.z5{grid-column:1/-1}
+.dg{display:grid;gap:4px}
+.dg-r{display:grid;grid-template-columns:90px 1fr 90px 80px;gap:10px;align-items:center;padding:7px 10px;border-radius:8px;background:color-mix(in srgb,var(--accent) 3%,#fff);font-size:11.5px;transition:background var(--t-scene)}
+.dg-r .id{font-family:var(--mono);font-size:10.5px;color:color-mix(in srgb,var(--accent) 14%,#51525a)}
+.st-b{justify-self:start;font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;padding:3px 8px;border-radius:999px}
+.st-b.ok{background:#e3f5ea;color:#0d7a3c}.st-b.wa{background:#fdf1dc;color:#9a5d00}.st-b.no{background:#fde6e7;color:#b3261e}
+.dg-r b{justify-self:end;font-variant-numeric:tabular-nums}
+/* theme compile (step 5) */
+.lib[data-theme-mode="dark"]{background:#141418;color:#f3f2ee;border-color:#2a2a33}
+.lib[data-theme-mode="dark"] .lib-t{border-color:#26262d;color:#8b8a94}
+.lib[data-theme-mode="dark"] .zone{border-color:#26262d}
+.lib[data-theme-mode="dark"] .tok,.lib[data-theme-mode="dark"] .dg-r,.lib[data-theme-mode="dark"] .seg button{background:#1f1f26;color:#d7d6de}
+.lib[data-theme-mode="dark"] .ins-r code{color:#f3f2ee}
+.lib[data-theme-mode="dark"] .ins-r{border-color:#26262d}
+.lib[data-theme-mode="dark"] .z3{background-image:radial-gradient(#2a2a33 1px,transparent 1.2px)}
+.lib[data-theme-mode="dark"] .dsb{--accent:var(--accent-dk);--accent-onlight:var(--accent-dk);--on-accent:#0e0e10;--accent-tint-light:color-mix(in srgb,var(--accent-dk) 18%,#141418)}
+.lib[data-theme-mode="dark"] .dsb:not([data-variant="primary"]){color:#f3f2ee;border-color:#f3f2ee}
+.lib[data-theme-mode="dark"] .dsb[data-variant="primary"]{color:#0e0e10}
+.lib[data-theme-mode="dark"] .dg-r .id,.lib[data-theme-mode="dark"] .prim span{color:#8b8a94}
+.compile{position:absolute;right:14px;bottom:14px;font-family:var(--mono);font-size:10px;background:#0e0e10;color:var(--accent-dk);padding:8px 10px;border-radius:8px;opacity:0;transform:translateY(8px);transition:opacity var(--t-ui),transform var(--t-ui) var(--ease-out)}
+.lib[data-step="5"] .compile{opacity:1;transform:none}
+
+/* =========================================================
+   8. PROCESS — prototype flow (horizontal)
+   ========================================================= */
+.proc{padding-block:120px}
+.track{display:grid;gap:18px}
+.pf{position:relative;background:var(--panel);border:1px solid var(--rule);border-radius:20px;padding:26px;display:flex;flex-direction:column;gap:14px;transition:border-color var(--t-ui),transform var(--t-ui) var(--ease-out)}
+.pf .num{font-family:var(--mono);font-size:3.2rem;letter-spacing:-.04em;color:var(--accent-dk);line-height:1}
+.pf h3{font-size:1.7rem}
+.pf .tools{font-family:var(--mono);font-size:.72rem;color:var(--fg2);letter-spacing:.06em}
+.pf p{color:var(--fg2)}
+.pf .art{margin-top:auto;display:flex;gap:10px;align-items:center;padding-top:14px;border-top:1px solid var(--rule)}
+.pf .art small{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;color:var(--fg2)}
+.pf .art b{font-family:var(--mono);font-size:.78rem;font-weight:500;background:var(--panel2);padding:6px 10px;border-radius:6px}
+.pf.on{border-color:var(--accent-dk)}
+.pf-link{display:none}
+html.cine .proc{padding:0}
+html.cine .proc-pin{height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:28px;padding-block:84px 88px}
+html.cine .proc .sec-head h2{font-size:var(--t-d2)}
+html.cine .proc .sec-head{margin:0;padding-inline:var(--gutter)}
+html.cine .track{display:flex;gap:120px;padding-inline:var(--gutter);width:max-content;will-change:transform}
+html.cine .pf{width:380px;min-height:340px;flex:none;transition:border-color var(--t-ui),opacity var(--t-ui) var(--ease-out),scale var(--t-ui) var(--ease-out)}
+html.cine .pf:not(.on){opacity:.7}
+html.cine .pf.past{opacity:.35;scale:.93}
+html.cine .pf.on{box-shadow:0 30px 80px rgba(0,0,0,.35)}
+/* timeline rail: where you are in the process at a glance */
+.rail{display:none}
+html.cine .rail{display:block;position:relative;padding-inline:var(--gutter);margin-top:-8px}
+.rail-line{position:absolute;left:var(--gutter);right:var(--gutter);top:5px;height:2px;border-radius:2px;background:var(--rule);overflow:hidden}
+.rail-line i{position:absolute;inset:0;background:var(--accent-dk);transform-origin:left;transform:scaleX(var(--rp,0))}
+.rail ol{list-style:none;margin:0;padding:0;display:flex;justify-content:space-between;position:relative}
+.rail li{display:flex;flex-direction:column;gap:10px;align-items:flex-start;font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--fg2);transition:color var(--t-ui)}
+.rail li:last-child{align-items:flex-end}
+.rail li::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--rule);transition:background var(--t-ui),border-color var(--t-ui),transform var(--t-ui) var(--ease-snap)}
+.rail li.done{color:var(--fg)}
+.rail li.done::before{background:var(--accent-dk);border-color:var(--accent-dk)}
+.rail li.on{color:#fff}
+.rail li.on::before{border-color:var(--accent-dk);background:var(--bg);transform:scale(1.35);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent-dk) 25%,transparent)}
+html.cine .pf-link{display:block;position:absolute;left:100%;top:50%;width:120px;height:60px;transform:translateY(-50%);overflow:visible}
+html.cine .pf-link path{fill:none;stroke:var(--accent-dk);stroke-width:2;stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--d,0))}
+html.cine .pf-link circle{fill:var(--accent-dk)}
+html:not(.cine) .track{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* =========================================================
+   9. BRIDGE — design ↔ code wipe
+   ========================================================= */
+.bridge{padding-block:120px}
+.br-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(24px,4vw,64px);align-items:center}
+.br-grid h2{font-size:var(--t-d2)}
+.br-copy{display:grid;gap:18px}
+.br-copy p{color:var(--fg2)}
+.br-copy .note{border-left:2px solid var(--accent-dk);padding-left:14px;color:var(--fg)}
+@media (max-width:899px){.br-grid{grid-template-columns:1fr}}
+.wipe{width:760px;height:460px;position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--rule)}
+.wipe>div{position:absolute;inset:0}
+.w-design{background:#fafaf7;color:#0e0e10;display:grid;place-items:center;background-image:radial-gradient(#e2e0d9 1px,transparent 1.2px);background-size:16px 16px}
+.w-code{background:#101014;color:#d7d6de;clip-path:inset(0 0 0 var(--wx,50%));font-family:var(--mono);font-size:13.5px;line-height:1.75;padding:34px 40px;white-space:pre}
+.w-code .k{color:#c792ea}.w-code .s{color:#a5e3a0}.w-code .t{color:#8fa0ff}.w-code .c{color:#6b6a76}.w-code .a{color:#ffcb6b}
+.w-line{position:absolute;top:0;bottom:0;left:var(--wx,50%);width:2px;background:#fff;box-shadow:0 0 18px 4px color-mix(in srgb,var(--accent-dk) 90%,transparent),0 0 50px 10px color-mix(in srgb,var(--accent-dk) 35%,transparent);z-index:3}
+.w-line span{position:absolute;top:14px;left:10px;font-family:var(--mono);font-size:10px;background:#fff;color:#111;padding:3px 7px;border-radius:4px;white-space:nowrap}
+.w-card{position:relative;display:grid;gap:14px;justify-items:center}
+.w-ann{position:absolute;font-family:var(--mono);font-size:10.5px;color:var(--redline);white-space:nowrap}
+.w-props{position:absolute;left:30px;bottom:26px;display:grid;gap:4px;font-family:var(--mono);font-size:10.5px;color:#55544f;background:#fff;border:1px solid #e3e1db;border-radius:10px;padding:10px 12px}
+.w-props b{color:#0e0e10;font-weight:500}
+.w-lab{position:absolute;top:14px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:#8b8a85;z-index:2}
+
+/* =========================================================
+   10. AI — terminal written by scroll
+   ========================================================= */
+.ai{padding-block:120px}
+.ai-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(24px,4vw,64px);align-items:start}
+.ai-grid h2{font-size:var(--t-d2)}
+.phases{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.phases span{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;padding:7px 11px;border-radius:8px;border:1px solid var(--rule);color:var(--fg2);transition:all var(--t-ui)}
+.phases span.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.assist{display:grid;gap:8px;margin-top:6px;padding:0;list-style:none}
+.assist li{display:flex;gap:10px;color:var(--fg2)}
+.assist li::before{content:"→";color:var(--accent-dk)}
+.term{background:#0a0a0c;border:1px solid #26262d;border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.4)}
+.term-t{height:36px;display:flex;align-items:center;gap:10px;padding:0 14px;border-bottom:1px solid #1f1f26;font-family:var(--mono);font-size:11px;color:#6b6a76}
+.term-t .lights i{width:9px;height:9px}
+.term pre{margin:0;padding:22px;font-family:var(--mono);font-size:13px;line-height:1.8;color:#d7d6de;min-height:300px;white-space:pre-wrap}
+.term .e{color:#ff6b6b}.term .g{color:#6fe3a1}.term .d{color:#6b6a76}.term .t{color:#8fa0ff}
+.caret{display:inline-block;width:8px;height:15px;background:var(--accent-dk);vertical-align:-2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.tools-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:18px;overflow:hidden;margin-top:56px}
+.tools-g div{background:var(--bg);padding:22px;display:grid;gap:6px;transition:background var(--t-ui)}
+.tools-g div:hover{background:var(--panel)}
+.tools-g b{font-weight:600}
+.tools-g p{color:var(--fg2);font-size:.9rem}
+.gains{margin-top:40px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.gains span{font-size:.92rem;padding:14px;border-radius:12px;background:var(--panel);border:1px solid var(--rule)}
+@media (max-width:899px){.ai-grid{grid-template-columns:1fr}.tools-g{grid-template-columns:1fr}.gains{grid-template-columns:1fr 1fr}}
+
+/* =========================================================
+   11. VOICES — comments on the canvas
+   ========================================================= */
+.voices{padding-block:140px 100px}
+.board-c{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.cm{display:flex;gap:12px;align-items:flex-start}
+.cm .pin{flex:none;width:36px;height:36px;border-radius:50% 50% 50% 4px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font-weight:600;font-size:.8rem;box-shadow:0 8px 20px color-mix(in srgb,var(--accent) 30%,transparent)}
+.cm .bub{background:var(--panel);border:1px solid var(--rule);border-radius:4px 16px 16px 16px;padding:20px;display:grid;gap:14px;box-shadow:0 20px 50px rgba(14,14,16,.06);transition:transform var(--t-ui) var(--ease-out),box-shadow var(--t-ui)}
+.cm:hover .bub{transform:translateY(-4px);box-shadow:0 30px 60px rgba(14,14,16,.1)}
+.cm blockquote{margin:0;font-size:1.05rem;line-height:1.5}
+.cm cite{font-style:normal;display:grid;font-size:.85rem}
+.cm cite b{font-weight:600}
+.cm cite span{color:var(--fg2)}
+.cm:nth-child(2){margin-top:60px}.cm:nth-child(3){margin-top:120px}
+@media (max-width:899px){.board-c{grid-template-columns:1fr}.cm:nth-child(n){margin-top:0}}
+
+/* =========================================================
+   12. ABOUT
+   ========================================================= */
+.about{padding-block:100px 140px}
+.statement{font-size:var(--t-d1);letter-spacing:-.045em;line-height:1.02;font-weight:600;max-width:15ch;margin-bottom:60px}
+/* key phrases get a marker sweep in sequence; the rest stays fully readable */
+.statement .kp{--h:1;color:color-mix(in srgb,var(--accent) calc(var(--h)*100%),var(--fg));background-image:linear-gradient(var(--hl),var(--hl));background-repeat:no-repeat;background-position:0 88%;background-size:calc(var(--h)*100%) .3em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+html.motion .statement .kp{--h:0}
+.ab-grid{display:grid;grid-template-columns:minmax(0,400px) 1fr;gap:clamp(24px,4vw,64px);align-items:start}
+.ab-card{background:var(--panel);border:1px solid var(--rule);border-radius:20px;padding:22px;display:grid;gap:14px;align-content:start;position:sticky;top:110px}
+.mono-av{width:84px;height:84px;border-radius:20px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font-size:1.8rem;font-weight:600;letter-spacing:-.04em}
+.avail{display:inline-flex;gap:8px;align-items:center;font-size:.85rem;color:var(--fg2)}
+.avail i{width:8px;height:8px;border-radius:50%;background:var(--ok);animation:pulse 2s infinite}
+.ab-text{display:grid;gap:12px;font-size:1rem;line-height:1.6;padding-top:18px;margin-top:4px;border-top:1px solid var(--rule)}
+.ab-text p{color:var(--fg2)}
+.pr{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:18px;overflow:hidden}
+.pr div{background:var(--bg);padding:22px;display:grid;gap:6px;align-content:start}
+.pr small{font-family:var(--mono);color:var(--accent-ink);font-size:.7rem}
+.pr b{font-size:1.08rem;letter-spacing:-.01em}
+.pr p{font-size:.92rem;color:var(--fg2)}
+@media (max-width:899px){.ab-grid{grid-template-columns:1fr}.ab-card{position:static}.pr{grid-template-columns:1fr}}
+
+/* =========================================================
+   13. FINAL — zoom out to the whole file
+   ========================================================= */
+.final{padding-block:120px 160px;overflow:hidden}
+.overview{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);gap:2.4vw;padding:8vh 6vw;opacity:.22;pointer-events:none}
+.ov{border:1px solid color-mix(in srgb,var(--on-accent) 50%,transparent);border-radius:10px;position:relative;background:rgba(255,255,255,.04)}
+.ov span{position:absolute;top:-18px;left:0;font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;color:var(--on-accent);white-space:nowrap}
+.ov i{position:absolute;inset:14% 12% auto 12%;height:10%;border-radius:4px;background:rgba(255,255,255,.35)}
+.ov i+i{top:32%;height:40%;background:rgba(255,255,255,.12)}
+.final-in{position:relative;z-index:2;display:grid;gap:40px}
+.final h2{font-size:var(--t-mega);letter-spacing:-.06em;line-height:.92}
+.final h2 .ln{display:block;overflow:hidden;padding-bottom:.05em}
+.final h2 .ln>span{display:inline-block}
+.final .lead{max-width:52ch;font-size:1.2rem;color:var(--fg2)}
+.mail{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.mail-a{font-size:clamp(1.2rem,2.6vw,2rem);font-weight:500;letter-spacing:-.02em;user-select:all;word-break:break-all}
+.final .btn{--bb:var(--on-accent);--bf:var(--accent)}
+.final .btn.ghost{color:var(--on-accent);border-color:color-mix(in srgb,var(--on-accent) 35%,transparent);background:transparent}
+.foot{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding-top:40px;border-top:1px solid var(--rule);font-size:.92rem}
+.foot h6{margin:0 0 10px;font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;color:var(--fg2);font-weight:400}
+.foot a{display:block;text-decoration:none;padding:3px 0;opacity:.9}
+.foot a:hover{opacity:1;text-decoration:underline}
+@media (max-width:899px){.foot{grid-template-columns:1fr 1fr}.overview{grid-template-columns:repeat(2,1fr)}}
+.toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);background:#0e0e10;color:#fff;padding:10px 16px;border-radius:10px;font-size:.9rem;z-index:90;opacity:0;transition:all var(--t-ui) var(--ease-out);pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* Reveal primitives (only hidden when motion is allowed AND JS armed them) */
+.rv-armed{opacity:0;transform:translateY(28px)}
+
+/* =========================================================
+   14. ART DIRECTION — depth, ink and editorial rhythm
+   Pure visual layer: no new behaviour. Remove this block to
+   return to the flat version.
+   ========================================================= */
+
+/* Film grain: a whisper of texture so flat fills feel printed, not rendered */
+body::after{content:"";position:fixed;inset:0;z-index:57;pointer-events:none;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+@media (max-width:899px){body::after{display:none}}
+
+/* Ink: serif accents are set in a gradient from the text colour into the accent,
+   so the one flourish reads as a deliberate brand moment, in every theme */
+:is(h1,h2) .serif:not(.ln), :is(h1,h2) .ln.serif>span{
+  background-image:linear-gradient(100deg,currentColor 18%,color-mix(in srgb,currentColor 28%,var(--accent)) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0 .08em .06em 0}
+[data-zone="canvas"] :is(h1,h2) .serif:not(.ln), .work :is(h1,h2) .serif{background-image:linear-gradient(100deg,currentColor 12%,var(--accent-dk) 100%)}
+.final h2 .ln.serif>span{background-image:linear-gradient(100deg,var(--on-accent) 10%,color-mix(in srgb,var(--on-accent) 68%,var(--accent)) 100%)}
+
+/* Editorial index rail: every section opens with § number — label ——— */
+main{counter-reset:sec}
+:is(.sec-head,.work-head,.sys-left,.br-copy)>.label, .ai-grid .label{display:flex;align-items:center;gap:14px;counter-increment:sec}
+:is(.sec-head,.work-head,.sys-left,.br-copy)>.label::before, .ai-grid .label::before{content:"§ " counter(sec,decimal-leading-zero);color:var(--fg);opacity:.55}
+:is(.sec-head,.work-head,.sys-left,.br-copy)>.label::after, .ai-grid .label::after{content:"";flex:1;max-width:220px;height:1px;background:currentColor;opacity:.35}
+
+/* Light: a soft key light behind the hero, like a lamp over the canvas */
+.studio-pin::before{content:"";position:absolute;left:50%;top:38%;width:min(1100px,90vw);aspect-ratio:1.6;transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 10%,transparent),color-mix(in srgb,var(--accent) 3%,transparent) 60%,transparent);pointer-events:none;z-index:0}
+
+/* Dark rooms get light sources so they have depth instead of flat #0f0f12 */
+.bridge,.ai{isolation:isolate}
+.bridge::before,.ai::before,html.cine .proc-pin::before,html.cine .work-pin::before{content:"";position:absolute;pointer-events:none;z-index:-1;border-radius:50%;
+  width:900px;height:900px;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 20%,transparent),color-mix(in srgb,var(--accent) 5%,transparent) 55%,transparent)}
+.bridge::before{left:-320px;top:-160px}
+.ai::before{right:-300px;top:40px}
+html.cine .proc-pin{position:relative;isolation:isolate}
+html.cine .proc-pin::before{left:50%;top:-420px;transform:translateX(-50%);width:1400px;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent-dk) 16%,transparent),transparent)}
+html.cine .work-pin::before{right:-280px;bottom:-360px;z-index:0}
+html.cine .work-head{z-index:5}
+
+/* Specialization: the featured card inverts, numbers become outlined type */
+.bx{transition:background-color var(--t-ui) var(--ease-out),color var(--t-ui),border-color var(--t-ui),box-shadow var(--t-ui)}
+.bx .n{font-family:var(--sans);font-size:2.8rem;font-weight:600;letter-spacing:-.05em;line-height:1;top:14px;right:18px;color:transparent;-webkit-text-stroke:1px var(--rule)}
+.bx.big{background:#0f0f12;color:#f3f2ee;border-color:#0f0f12;box-shadow:0 30px 80px rgba(14,14,16,.18)}
+.bx.big p{color:#9b9aa4}
+.bx.big .n{-webkit-text-stroke-color:#34343d}
+.bx.big .ic{color:var(--accent-dk)}
+.bx.big .tags span{background:#1f1f26;color:#b9b8c2}
+.bx .viz i{background:linear-gradient(to top,var(--accent-100),color-mix(in srgb,var(--accent) 30%,var(--accent-100)))}
+.bx.big .viz i{background:linear-gradient(to top,var(--accent),var(--accent-dk))}
+.bx.big::after{content:"";position:absolute;right:-120px;top:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 35%,transparent),transparent);pointer-events:none}
+
+/* Voices: quotes set like pull-quotes, not chat bubbles */
+.cm .bub{padding:26px 26px 22px;border-radius:4px 22px 22px 22px}
+.cm .bub::before{content:"“";display:block;height:.42em;font-family:var(--serif);font-size:4.4rem;line-height:1;color:var(--accent-ink);opacity:.9}
+.cm blockquote{font-family:var(--serif);font-size:clamp(1.3rem,1.7vw,1.6rem);line-height:1.28;letter-spacing:-.005em}
+
+/* About: a statement set at poster scale, with an editorial first-line indent */
+.statement{position:relative;font-size:clamp(2.6rem,5.4vw,5.8rem);max-width:19ch;text-indent:2.6em;margin-bottom:84px}
+.statement::before{content:"About — Aditya";position:absolute;left:0;top:.62em;text-indent:0;font-family:var(--mono);font-size:.72rem;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink)}
+/* key phrases: a hairline underline sweep in accent, instead of a highlighter block */
+.statement .kp{--hl:var(--accent);background-position:0 94%;background-size:calc(var(--h)*100%) .065em}
+.pr small{font-family:var(--sans);font-size:2rem;font-weight:600;letter-spacing:-.04em;line-height:1;color:transparent;-webkit-text-stroke:1px var(--accent)}
+.ab-card{box-shadow:0 30px 80px rgba(14,14,16,.06);align-self:start}
+.ab-card .btn{justify-self:start;margin-top:4px}
+/* sticky only when the whole card fits beside the grid */
+@media (max-height:820px){.ab-card{position:static}}
+.mono-av{background:linear-gradient(135deg,var(--accent),var(--accent-600));box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+
+/* Final: light falls across the accent slab; a ghost word anchors the base */
+.final::before{content:"";position:absolute;right:-18vw;top:-30vw;width:70vw;height:70vw;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,color-mix(in srgb,var(--on-accent) 22%,transparent),color-mix(in srgb,var(--on-accent) 6%,transparent) 55%,transparent);z-index:1}
+.final-ghost{position:absolute;left:50%;bottom:-.18em;transform:translateX(-50%);z-index:1;pointer-events:none;white-space:nowrap;
+  font-size:clamp(6rem,19vw,22rem);font-weight:600;letter-spacing:-.06em;line-height:1;color:transparent;-webkit-text-stroke:1px color-mix(in srgb,var(--on-accent) 22%,transparent)}
+.mail-a{background:linear-gradient(currentColor,currentColor) no-repeat 0 100%/100% 1px;padding-bottom:6px}
+@media (max-width:899px){.final-ghost{display:none}.statement{text-indent:0}.statement::before{position:static;display:block;margin-bottom:14px}}
+
+/* =========================================================
+   15. THEME BUILDER — typography, texture, experiences
+   ========================================================= */
+.hero-title{letter-spacing:calc(var(--display-tracking) * 1.57)}
+.statement{font-family:var(--display);letter-spacing:calc(var(--display-tracking) * 1.28)}
+.final h2{letter-spacing:calc(var(--display-tracking) * 1.7)}
+.st b,.outcome .big,.bx .n,.pr small{font-family:var(--display)}
+html[data-texture="off"] body::after{display:none}
+
+/* ----- Newspaper ----- */
+html[data-skin="newspaper"] *{border-radius:0!important}
+html[data-skin="newspaper"] *{box-shadow:none!important}
+html[data-skin="newspaper"] :is(h1,h2,h3){font-weight:700}
+html[data-skin="newspaper"] :is(h1,h2) .serif:not(.ln), html[data-skin="newspaper"] :is(h1,h2) .ln.serif>span{background:none!important;-webkit-text-fill-color:currentColor;font-weight:400}
+html[data-skin="newspaper"] :is(.device,.mk,.fl-mobile .ph,.wipe){filter:grayscale(1) contrast(1.06)}
+html[data-skin="newspaper"] .dotgrid{display:none}
+html[data-skin="newspaper"] body::after{opacity:.09}
+html[data-skin="newspaper"] :is(.st,.bx,.pf,.cm .bub,.fr-body,.ab-card,.fl-card){border:1px solid var(--fg)}
+html[data-skin="newspaper"] .bx.big{background:var(--panel);color:var(--fg);border-color:var(--fg)}
+html[data-skin="newspaper"] .bx.big p{color:var(--fg2)}
+html[data-skin="newspaper"] .bx.big::after{display:none}
+html[data-skin="newspaper"] .sec-head h2,html[data-skin="newspaper"] .al-head h2{border-bottom:3px double var(--fg);padding-bottom:.18em}
+/* masthead: the studio frame label becomes the paper's name */
+html[data-skin="newspaper"] .studio-pin::after{content:"The Aditya Tripathi Times  ·  Design Edition  ·  Vol. 05";position:absolute;left:50%;top:84px;transform:translateX(-50%);z-index:4;white-space:nowrap;font-family:var(--display);font-style:italic;font-size:.95rem;color:var(--fg);padding:4px 18px;border-top:1px solid var(--fg);border-bottom:3px double var(--fg)}
+html[data-skin="newspaper"] .frame-name{display:none}
+@media (max-height:760px){html[data-skin="newspaper"] .studio-pin::after{display:none}}
+
+/* ----- Figma ----- */
+html[data-skin="figma"] :is(.st,.bx,.pf,.cm .bub,.fr-body,.al,.ab-card,.pr,.lib,.wipe,.term,.tools-g,.gains span,.fl-card,.device,.mk,.win,.zone,.case-sheet,.tooling span,.al-meta span,.btn,.pill,.flow,.marq){border-radius:6px!important}
+html[data-skin="figma"] :is(.st,.bx,.pf,.cm .bub,.pr>div,.tools-g>div,.gains span):hover{outline:1.5px solid var(--accent);outline-offset:-1px}
+html[data-skin="figma"] :is(.stats,.focus,.about){background-image:radial-gradient(var(--dot) 1px,transparent 1.2px);background-size:24px 24px}
+html[data-skin="figma"] .voices{background-image:radial-gradient(var(--dot) 1px,transparent 1.2px)!important;background-size:24px 24px}
+html[data-skin="figma"] :is(.st,.bx,.pf,.cm .bub,.ab-card){box-shadow:0 1px 3px rgba(0,0,0,.08),0 0 0 .5px rgba(0,0,0,.06)}
+
+/* ----- Code ----- */
+html[data-skin="code"]{--code-string:#ce9178}
+html[data-skin="code"][data-mode="light"]{--code-string:#a31515}
+html[data-skin="code"] :is(.st,.bx,.pf,.cm .bub,.fr-body,.al,.ab-card,.pr,.lib,.wipe,.term,.tools-g,.gains span,.fl-card,.device,.mk,.win,.zone,.case-sheet,.tooling span,.al-meta span,.btn,.pill,.flow,.marq){border-radius:4px!important}
+html[data-skin="code"] *{box-shadow:none!important}
+html[data-skin="code"] :is(.sec-head,.work-head,.sys-left,.br-copy)>.label::before, html[data-skin="code"] .ai-grid .label::before{content:"// " counter(sec,decimal-leading-zero)}
+html[data-skin="code"] :is(.sec-head,.al-head,.work-head,.sys-left,.br-copy,.ai-grid) h2::before{content:"## ";color:var(--fg2);font-weight:400}
+html[data-skin="code"] :is(h1,h2) .serif:not(.ln), html[data-skin="code"] :is(h1,h2) .ln.serif>span{background:none!important;-webkit-text-fill-color:var(--code-string);font-style:normal}
+html[data-skin="code"] :is(h1,h2) .serif:not(.ln)::before,html[data-skin="code"] :is(h1,h2) .serif:not(.ln)::after,html[data-skin="code"] :is(h1,h2) .ln.serif>span::before,html[data-skin="code"] :is(h1,h2) .ln.serif>span::after{content:'"'}
+html[data-skin="code"] .bx.big::after,html[data-skin="code"] .studio-pin::before{display:none}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .marq-t{animation:none}
+}
+</style>
+
+<a class="sr" href="#work">Skip to selected work</a>
+
+<!-- ============ CHROME ============ -->
+<header class="nav" id="nav">
+  <a class="brand" href="#top" data-cursor="Back to top">Aditya Tripathi <span class="chip">Senior UI/UX Designer</span></a>
+  <nav class="links" aria-label="Sections">
+    <a href="#work">Work</a><a href="#system">Design System</a><a href="#process">Process</a><a href="#about">About</a>
+  </nav>
+  <a class="btn accent" href="#contact" data-magnetic data-cursor="Say hello">Let's talk <span class="arr">→</span></a>
+</header>
+
+<div class="flow" id="flow" role="navigation" aria-label="Design workflow progress">
+  <div class="flow-now"><span id="flowIdx">Stage 01 / 08</span><b id="flowName">Blank Canvas</b></div>
+  <div class="flow-steps" id="flowSteps">
+    <button data-go="0" aria-label="Blank Canvas"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="2.5" width="11" height="11" rx="1.5" stroke-dasharray="2 2"/></svg><span class="tip">Blank Canvas</span></button>
+    <button data-go="1" aria-label="Wireframe"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="2.5" width="11" height="11" rx="1.5"/><path d="M3 3l10 10M13 3L3 13"/></svg><span class="tip">Wireframe</span></button>
+    <button data-go="2" aria-label="Components"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 1.8l2.4 2.4L8 6.6 5.6 4.2zM8 9.4l2.4 2.4L8 14.2l-2.4-2.4zM4.2 5.6L6.6 8l-2.4 2.4L1.8 8zM11.8 5.6L14.2 8l-2.4 2.4L9.4 8z"/></svg><span class="tip">Components</span></button>
+    <button data-go="3" aria-label="UI Design"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11" /><path d="M8 2.5a5.5 5.5 0 010 11z" fill="currentColor"/></svg><span class="tip">UI Design</span></button>
+    <button data-go="4" aria-label="Prototype"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 3.5l7 4.5-7 4.5z"/></svg><span class="tip">Prototype</span></button>
+    <button data-go="5" aria-label="Product"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="9" rx="1.5"/><path d="M5.5 7.5l1.8 1.8 3.2-3.3M5 14h6"/></svg><span class="tip">Product</span></button>
+    <button data-go="6" aria-label="Design System"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="9" y="2.5" width="4.5" height="4.5" rx="2.25"/><rect x="2.5" y="9" width="4.5" height="4.5" rx="1"/><rect x="9" y="9" width="4.5" height="4.5" rx="1"/></svg><span class="tip">Design System</span></button>
+    <button data-go="7" aria-label="Final Experience"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 1.5l1.6 4.9 4.9 1.6-4.9 1.6L8 14.5l-1.6-4.9L1.5 8l4.9-1.6z"/></svg><span class="tip">Final Experience</span></button>
+  </div>
+  <div class="flow-zoom tab" id="flowZoom" aria-label="Canvas zoom">100%</div>
+  <div class="flow-kbd"><kbd>G</kbd> grid</div>
+  <div class="flow-bar"><i id="flowBar"></i></div>
+</div>
+
+<div class="cur" id="cur" aria-hidden="true">
+  <svg viewBox="0 0 24 24"><path d="M3 2l7.5 19 2.6-7.9L21 10.5z" style="fill:var(--accent)" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg>
+  <span class="cur-tag" id="curTag">You</span>
+</div>
+<div class="lgrid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="zoomhud" id="zoomHud" aria-hidden="true"><i></i><span>Zoom</span><b id="zoomHudV">100%</b></div>
+
+<main id="top">
+
+<!-- ============ 0–5 · STUDIO ============ -->
+<section class="studio" id="studio" data-zone="paper" data-flow="0" aria-label="Introduction">
+  <div class="studio-pin" id="studioPin">
+    <div class="dotgrid"></div>
+    <div class="handoff" id="handoff" aria-hidden="true"><i></i><i></i><i></i><i></i><span id="handoffSize">Frame · Home</span></div>
+
+    <div class="hero" id="hero">
+      <div class="frame-name mono"><b>#</b> Frame · Home <span>1440 × 900</span></div>
+      <div class="sel" id="heroSel">
+        <h1 class="hero-title" id="heroTitle">
+          <span class="ln"><span>Complex products.</span></span>
+          <span class="ln"><span>Clear experiences.</span></span>
+          <span class="ln serif"><span>Scalable systems.</span></span>
+        </h1>
+        <div class="sel-box" id="selBox" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span class="sel-size tab" id="selSize">W 1120 · H 312</span></div>
+      </div>
+      <p class="hero-sub">I design SaaS and enterprise products with complex workflows, dashboards, roles and data, then use AI-assisted workflows to move from Figma to working prototypes, design systems, and production-ready implementation faster.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#work" data-magnetic data-cursor="Jump to work">View selected work <span class="arr">↓</span></a>
+        <a class="btn ghost" href="#contact" data-magnetic data-cursor="Say hello">Let's talk <span class="arr">→</span></a>
+      </div>
+      <p class="hero-meta mono"><span>5+ years</span><span>SaaS &amp; enterprise</span><span>Design systems</span><span>Figma</span><span>AI-assisted implementation</span></p>
+    </div>
+
+    <!-- floating design-tool artefacts (parallax depth) -->
+    <div class="float fl-size" data-depth="0.6"><div class="pill mono" style="font-size:.64rem">1280 × 720</div></div>
+    <div class="float fl-tokens" data-depth="1.2"><div class="fl-card"><div class="row"><b>● Tokens Studio</b></div><div class="row"><span>color.accent</span><b style="color:var(--accent-ink)" id="tkAccent">#2F4BFF</b></div><div class="row"><span>radius.card</span><b>18px</b></div><div class="row"><span>elevation.soft</span><b>0 12 32</b></div></div></div>
+    <div class="float fl-steps" data-depth="0.9"><div class="fl-card fl-dark">Workflow: pruned 38 → 9 steps</div></div>
+    <div class="float fl-density" data-depth="1.5"><div class="fl-card" style="min-width:220px"><div class="row"><b style="color:var(--accent-ink)">Data density</b><span>1,000+ rows</span></div><div class="row"><span>#UHID-8910</span><b style="color:#0d9a52">$1,240.00</b></div><div class="row"><span>#UHID-8911</span><b>$480.00</b></div><div class="row"><span>#UHID-8912</span><b style="color:var(--accent-ink)">$920.50</b></div></div></div>
+    <div class="float fl-mobile" data-depth="1"><div class="ph"></div></div>
+
+    <div class="build" id="build">
+      <div class="caps" aria-live="polite">
+        <div class="cap" data-s="1"><span class="n">02 / 08 · WIREFRAME</span><span class="serif">Structure before pixels.</span><h2>Four legacy tabs become one ward view.</h2><p>Every project starts as grey boxes: who uses the screen, what they need next, and what can be removed. Here, clinical staff juggled vitals, charges and invoices across four tabs.</p><div class="cap-bar"><i></i></div></div>
+        <div class="cap" data-s="2"><span class="n">03 / 08 · COMPONENTS</span><span class="serif">Components, not screens.</span><h2>Boxes snap into reusable parts.</h2><p>Patient header, navigation, data rows and summary become components with real props, so the same parts work across wards, roles and devices.</p><div class="cap-bar"><i></i></div></div>
+        <div class="cap" data-s="3"><span class="n">04 / 08 · UI DESIGN</span><span class="serif">Hierarchy through restraint.</span><h2>Colour only where it carries meaning.</h2><p>One accent for the active task, green for money saved, tabular numbers for tariffs. Tokens decide the look, so it stays consistent at 1,000 rows.</p><div class="cap-bar"><i></i></div></div>
+        <div class="cap" data-s="4"><span class="n">05 / 08 · PROTOTYPE</span><span class="serif">Interaction you can click.</span><h2>Flows are tested before they're built.</h2><p>Working prototypes with real states, not static artboards. Stakeholders click through billing, pre-authorisation and discharge before a sprint starts.</p><div class="cap-bar"><i></i></div></div>
+        <div class="cap" data-s="5"><span class="n">06 / 08 · PRODUCT</span><span class="serif">Shipped and measured.</span><h2>Discharge in 14 minutes, not 42.</h2><p>Billing omissions fell 38% across the pilot wards. The design is judged by what happens on the floor, not in the file.</p><div class="cap-bar"><i></i></div></div>
+      </div>
+
+      <div class="devwrap">
+        <div class="fit" data-fit="960x600" id="devFit">
+          <div class="board">
+            <div class="device" id="device">
+              <div class="dv-top">
+                <div class="lights"><i></i><i></i><i></i></div>
+                <div class="dv-url">Apex Clinical ERP / Inpatient Ward 4B <small>apex-erp.app/ward-4b</small></div>
+                <div class="online"><i></i>ONLINE</div>
+              </div>
+              <div class="dv-body">
+                <div class="u pt" data-c="PatientHeader">
+                  <div class="av" style="--i:0">JD</div>
+                  <div class="pt-name" style="--i:1"><b>John Doe (Anonymized)</b><span>UHID #AP-84920 · 48Y / Male · Bed 12</span></div>
+                  <div class="cmdk" style="--i:2">Switch ⌘K</div>
+                  <div class="vit" style="--i:3"><small>BP</small><b>120/80</b></div>
+                  <div class="vit" style="--i:4"><small>HR</small><b class="g">72 bpm</b></div>
+                  <div class="ins" style="--i:5">INSURED</div>
+                </div>
+                <div class="u side" data-c="WorkflowNav">
+                  <h5 style="--i:0">WORKFLOW</h5>
+                  <div class="nb" style="--i:1">Clinical Notes</div>
+                  <div class="nb" style="--i:2">Medications</div>
+                  <div class="nb on hot" style="--i:3" id="nbBill">Billing &amp; Tariff</div>
+                  <div class="nb" style="--i:4">Discharge Plan</div>
+                </div>
+                <div class="u main" data-c="DataTable" id="dvMain">
+                  <h4 style="--i:0">Unbilled Procedures &amp; Consumables (3 items)</h4>
+                  <div class="tbl tab" style="--i:1">
+                    <div class="h"><span>ITEM CODE</span><span>DESCRIPTION</span><span>QTY</span><span>TARIFF</span><span>TOTAL</span></div>
+                    <div class="row-in" style="--i:0"><span class="c">#MED-201</span><span><b>Saline Infusion 500ml</b></span><span>2</span><span>$18.00</span><span><b>$36.00</b></span></div>
+                    <div class="row-in" style="--i:1"><span class="c">#PRC-819</span><span><b>Echocardiogram Screening</b></span><span>1</span><span>$240.00</span><span><b>$240.00</b></span></div>
+                    <div class="row-in" style="--i:2"><span class="c">#CON-104</span><span><b>Cardiology Specialist Visit</b></span><span>1</span><span>$150.00</span><span><b>$150.00</b></span></div>
+                  </div>
+                  <div class="sum tab" style="--i:2">
+                    <div><span>Subtotal</span><b>$426.00</b></div>
+                    <div><span>Insurance pre-auth (80%)</span><span class="neg">−$340.80</span></div>
+                    <div class="due"><span>Patient due</span><b id="due">$85.20</b></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <svg class="noodle" viewBox="0 0 960 600" preserveAspectRatio="none" aria-hidden="true">
+            <path pathLength="1" d="M204 302 C 252 302, 244 215, 300 215"/>
+            <circle cx="204" cy="302" r="5"/><circle cx="300" cy="215" r="4"/>
+            <g class="ix"><rect x="214" y="340" rx="6" width="200" height="24" style="fill:var(--accent)"/><text x="224" y="356" fill="#fff" font-family="Geist Mono, monospace" font-size="11">On click → Smart animate 300ms</text></g>
+          </svg>
+          <div class="proto-chip">▶ PROTOTYPE · FLOW 1</div>
+          <div class="inspect" aria-hidden="true">
+            <h6>DESIGN · NAV/ACTIVE</h6>
+            <div class="r"><span>Fill</span><span><i class="sw"></i>color.accent</span></div>
+            <div class="r"><span>Text</span><span>Inter Tight 500 / 14</span></div>
+            <div class="r"><span>Radius</span><span>radius.sm · 9</span></div>
+            <div class="r"><span>Numbers</span><span>tabular-nums</span></div>
+            <div class="r"><span>Contrast</span><span style="color:#0d9a52">AA · 7.1:1</span></div>
+          </div>
+          <div class="outcome" aria-hidden="true">
+            <small>DISCHARGE PROCESSING</small>
+            <div class="big tab"><s>42</s><span id="dis">14</span> min</div>
+            <span class="ok">↓ 38% billing omissions · pilot wards</span>
+          </div>
+          <div class="mp me" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 2l7.5 19 2.6-7.9L21 10.5z" stroke="#fff" stroke-width="1.5"/></svg><span>Aditya</span></div>
+          <div class="mp pm" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 2l7.5 19 2.6-7.9L21 10.5z" stroke="#fff" stroke-width="1.5"/></svg><span>PM · "Shipping to ward 5 next"</span></div>
+          <div class="mp dev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 2l7.5 19 2.6-7.9L21 10.5z" stroke="#fff" stroke-width="1.5"/></svg><span>Dev · "Props match the file"</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS · auto layout ============ -->
+<section class="stats wrap" id="stats" data-zone="paper" data-flow="5">
+  <div class="stats-pin" id="statsPin">
+  <div class="al-head">
+    <h2>Five years of shipping dense, <span class="serif">operational</span> software.</h2>
+    <div class="al-meta" id="alMeta"><span>Direction <b id="alDir">→ Horizontal</b></span><span>Gap <b id="alGap">20</b></span><span>Padding <b>20</b></span></div>
+  </div>
+  <div class="al" id="al">
+    <div class="st"><div class="st-top"><span>01 · Time</span><em>◆ Metric</em></div><b class="tab" data-count="5">5+</b><span>Years experience</span><small>SaaS &amp; enterprise focus</small>
+      <div class="st-viz vz-years" aria-hidden="true"><i style="--j:0"></i><i style="--j:1"></i><i style="--j:2"></i><i style="--j:3"></i><i style="--j:4"></i></div></div>
+    <div class="st"><div class="st-top"><span>02 · Breadth</span><em>◆ Metric</em></div><b class="tab" data-count="14">14+</b><span>Products designed</span><small>Healthcare, ERP, fintech</small>
+      <div class="st-viz vz-dots" aria-hidden="true"><i style="--j:0"></i><i style="--j:1"></i><i style="--j:2"></i><i style="--j:3"></i><i style="--j:4"></i><i style="--j:5"></i><i style="--j:6"></i><i style="--j:7"></i><i style="--j:8"></i><i style="--j:9"></i><i style="--j:10"></i><i style="--j:11"></i><i style="--j:12"></i><i style="--j:13"></i></div></div>
+    <div class="st"><div class="st-top"><span>03 · System</span><em>◆ Metric</em></div><b class="tab" data-count="480">480+</b><span>Reusable components</span><small>Tokens, states &amp; documentation</small>
+      <div class="st-viz vz-bars" aria-hidden="true"><i style="--j:0;--h:30%"></i><i style="--j:1;--h:42%"></i><i style="--j:2;--h:38%"></i><i style="--j:3;--h:55%"></i><i style="--j:4;--h:50%"></i><i style="--j:5;--h:66%"></i><i style="--j:6;--h:62%"></i><i style="--j:7;--h:78%"></i><i style="--j:8;--h:74%"></i><i style="--j:9;--h:88%"></i><i style="--j:10;--h:84%"></i><i style="--j:11;--h:100%"></i></div></div>
+    <div class="st"><div class="st-top"><span>04 · Reach</span><em>◆ Metric</em></div><b>Web + Mobile</b><span>Multi-platform delivery</span><small>Responsive &amp; native</small>
+      <div class="st-viz vz-plat" aria-hidden="true"><i style="--j:0"></i><i style="--j:1"></i><small>1440 · 390</small></div></div>
+  </div>
+  </div>
+  <div class="marq" aria-label="Product partners">
+    <div class="marq-t">
+      <span><small>PARTNER</small>OctaNode</span><span><small>PARTNER</small>Apex Health Systems</span><span><small>PARTNER</small>TalentFlow Enterprise</span><span><small>PARTNER</small>OpsPulse Cloud</span><span><small>PARTNER</small>Converge Events</span>
+      <span aria-hidden="true"><small>PARTNER</small>OctaNode</span><span aria-hidden="true"><small>PARTNER</small>Apex Health Systems</span><span aria-hidden="true"><small>PARTNER</small>TalentFlow Enterprise</span><span aria-hidden="true"><small>PARTNER</small>OpsPulse Cloud</span><span aria-hidden="true"><small>PARTNER</small>Converge Events</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOCUS · bento ============ -->
+<section class="focus wrap" id="focus" data-zone="paper" data-flow="5">
+  <div class="sec-head">
+    <span class="label">Specialization</span>
+    <h2>Deep focus in <span class="serif">enterprise</span> software.</h2>
+    <p>I don't design marketing brochures or generic landing pages. I design dense operational software, administrative consoles, and cross-team design systems.</p>
+  </div>
+  <div class="bento" id="bento">
+    <div class="bx big" tabindex="0" data-cursor="Expand"><span class="n">01</span><span class="ic">❖</span><h3>SaaS &amp; Enterprise UX</h3><p>Multi-tenant architectures, deep permission matrices, and high-density data views tailored for high-frequency operators.</p><div class="viz"><i style="--h:40%"></i><i style="--h:72%"></i><i style="--h:55%"></i><i style="--h:90%"></i><i style="--h:64%"></i><i style="--h:80%"></i></div><div class="tags"><span>ROLE-BASED ACCESS</span><span>DATA TABLES</span><span>INFORMATION DENSITY</span></div></div>
+    <div class="bx" tabindex="0" data-cursor="Expand"><span class="n">02</span><span class="ic">⬡</span><h3>Design Systems</h3><p>Multi-tier token architecture, accessible Figma component libraries, and synchronized code tokens.</p><div class="viz"><i style="--h:30%"></i><i style="--h:60%"></i><i style="--h:45%"></i><i style="--h:75%"></i></div><div class="tags"><span>TOKEN ARCHITECTURES</span><span>FIGMA VARIABLES</span><span>GOVERNANCE</span></div></div>
+    <div class="bx" tabindex="0" data-cursor="Expand"><span class="n">03</span><span class="ic">⇄</span><h3>Complex Workflows</h3><p>Multi-step approval engines, conditional forms, state transitions, and audit-ready data tracking.</p><div class="viz"><i style="--h:50%"></i><i style="--h:35%"></i><i style="--h:80%"></i><i style="--h:60%"></i></div><div class="tags"><span>STATE MACHINES</span><span>CONDITIONAL LOGIC</span><span>PROGRESSIVE DISCLOSURE</span></div></div>
+    <div class="bx" tabindex="0" data-cursor="Expand"><span class="n">04</span><span class="ic">↺</span><h3>Product Redesign</h3><p>Auditing legacy enterprise interfaces, eliminating dead paths, consolidating fragmented patterns, and modernizing without retraining friction.</p><div class="viz"><i style="--h:85%"></i><i style="--h:60%"></i><i style="--h:42%"></i><i style="--h:28%"></i></div><div class="tags"><span>UX AUDITS</span><span>INFORMATION ARCHITECTURE</span><span>FRICTION REDUCTION</span></div></div>
+  </div>
+  <div class="tooling"><b>CORE TOOLING</b><span>Figma</span><span>Design Systems</span><span>Storybook</span><span>Angular</span><span>React / Next.js</span><span>Tailwind CSS</span><span>Claude / ChatGPT</span><span>Cursor / Copilot</span><span>Antigravity</span></div>
+</section>
+
+<!-- ============ WORK · canvas camera ============ -->
+<section class="work local" id="work" data-zone="canvas" data-flow="5" aria-label="Selected case studies">
+  <div class="work-pin" id="workPin">
+    <div class="wrap work-head" id="workHead">
+      <span class="label">Selected case studies · 4</span>
+      <h2>Engineered for utility. <span class="serif">Validated with outcomes.</span></h2>
+      <p>Deep dives into enterprise platforms with multi-role permissions, high-frequency workflows, and token-driven design systems.</p>
+    </div>
+    <div class="wrap" style="position:static">
+    <div class="world" id="world">
+      <div class="work-dots"></div>
+
+      <article class="fr" data-case="0">
+        <div class="fr-name"><b>01 — Foundations &amp; Multi-Brand Design System</b><span>1200 × 740</span></div>
+        <div class="fr-body">
+          <div class="fr-info">
+            <div class="fr-tag"><span class="ix">01</span><span>Enterprise SaaS &amp; Design Ops</span></div>
+            <h3>Foundations &amp; Multi-Brand Design System</h3>
+            <div class="metric"><b>↓ 45%</b><span>Handoff time</span></div>
+            <dl class="po"><dt>PROBLEM</dt><dd>Four engineering squads were building redundant UI components with inconsistent spacing, diverging colour values, and no shared accessibility standards.</dd><dt class="o">OUTCOME</dt><dd class="o">Shipped 62 production-ready components, cut design-to-dev handoff from 12 days to under 4, and reached 100% WCAG AA colour compliance.</dd></dl>
+            <button class="btn" data-open="0" data-cursor="Open case">Open case study <span class="arr">↗</span></button>
+          </div>
+          <div class="fit mk" data-fit="580x520"><div class="board"><div class="mb">
+            <div class="win"><div class="win-t"><div class="lights"><i></i><i></i><i></i></div>design-tokens / component-inventory.fig</div>
+              <div class="win-b">
+                <div class="m1-side"><span class="mono10">Token pipeline</span><div class="tk a"><i></i>global.primary.500</div><div class="tk">semantic.interactive</div><div class="tk">button.bg.primary</div><span class="mono10" style="margin-top:8px">Colour tokens</span><div class="sws"><i style="background:#2f4bff"></i><i style="background:#0e0e10"></i><i style="background:#6b6a76"></i><i style="background:#e3e1db"></i></div></div>
+                <div class="m1-mx">
+                  <span class="mono10">State</span><span class="mono10">Primary</span><span class="mono10">Secondary</span><span class="mono10">Ghost</span>
+                  <span class="mono10">Default</span><span class="mbtn p pulse" style="--i:0">Action</span><span class="mbtn s pulse" style="--i:1">Action</span><span class="mbtn g pulse" style="--i:2">Action</span>
+                  <span class="mono10">Hover</span><span class="mbtn p h pulse" style="--i:3">Action</span><span class="mbtn s pulse" style="--i:4">Action</span><span class="mbtn g pulse" style="--i:5">Action</span>
+                  <span class="mono10" style="color:var(--accent-onlight)">Focus</span><span class="mbtn p f pulse" style="--i:6">Action</span><span class="mbtn s f pulse" style="--i:7">Action</span><span class="mbtn g f pulse" style="--i:8">Action</span>
+                  <span class="mono10">Disabled</span><span class="mbtn d">Disabled</span><span class="mbtn d">Disabled</span><span class="mbtn d">Disabled</span>
+                </div>
+              </div></div>
+            <div class="mono10" style="text-align:right">62 components · AA verified</div>
+          </div></div></div>
+        </div>
+      </article>
+
+      <article class="fr" data-case="1">
+        <div class="fr-name"><b>02 — Healthcare Operations &amp; Doctor Management</b><span>1200 × 740</span></div>
+        <div class="fr-body">
+          <div class="fr-info">
+            <div class="fr-tag"><span class="ix">02</span><span>Healthcare tech &amp; clinical ERP</span><span>Anonymized</span></div>
+            <h3>Healthcare Operations &amp; Doctor Management Platform</h3>
+            <div class="metric"><b>↓ 38%</b><span>Billing errors</span></div>
+            <dl class="po"><dt>PROBLEM</dt><dd>Clinical and admin staff moved across 4 legacy browser tabs to review vitals, add procedure charges and generate discharge invoices, often misattributing billable items.</dd><dt class="o">OUTCOME</dt><dd class="o">Discharge processing went from 42 minutes to 14, and billing omissions fell 38% across the initial pilot wards.</dd></dl>
+            <button class="btn" data-open="1" data-cursor="Open case">Open case study <span class="arr">↗</span></button>
+          </div>
+          <div class="fit mk" data-fit="580x520"><div class="board"><div class="mb">
+            <div class="m2-v"><div><span class="mono10">BP</span><b>120/80</b></div><div><span class="mono10">HR</span><b style="color:#0d9a52">72 bpm</b></div><div><span class="mono10">SpO₂</span><b>98%</b></div></div>
+            <div class="win"><div class="win-t">Ward 4B · Bed 12 · Billing</div><div class="win-b" style="flex-direction:column">
+              <div class="m2-rows tab">
+                <div style="--i:0"><span>#MED-201 Saline Infusion 500ml ×2</span><b>$36.00</b></div>
+                <div style="--i:1"><span>#PRC-819 Echocardiogram Screening</span><b>$240.00</b></div>
+                <div style="--i:2"><span>#CON-104 Cardiology Specialist Visit</span><b>$150.00</b></div>
+                <div style="--i:3"><span>Insurance pre-auth (80%)</span><b style="color:#0d9a52">−$340.80</b></div>
+              </div>
+              <div class="m2-timer" style="margin-top:auto"><span class="mono10" style="color:#9b9aa4">Discharge time</span><span class="tab"><s>42:00</s><b>14:00</b></span></div>
+            </div></div>
+          </div></div></div>
+        </div>
+      </article>
+
+      <article class="fr" data-case="2">
+        <div class="fr-name"><b>03 — Enterprise Application Management</b><span>1200 × 740</span></div>
+        <div class="fr-body">
+          <div class="fr-info">
+            <div class="fr-tag"><span class="ix">03</span><span>Enterprise HR tech &amp; talent</span></div>
+            <h3>Enterprise Application Management Platform</h3>
+            <div class="metric"><b>↓ 52%</b><span>Review latency</span></div>
+            <dl class="po"><dt>PROBLEM</dt><dd>Hiring managers were overwhelmed by 80-column spreadsheets and unresponsive modal forms, causing evaluation backlogs of over 3 weeks.</dd><dt class="o">OUTCOME</dt><dd class="o">Processed 250,000+ applications with a 52% faster review turnaround and a 94% positive reviewer satisfaction score.</dd></dl>
+            <button class="btn" data-open="2" data-cursor="Open case">Open case study <span class="arr">↗</span></button>
+          </div>
+          <div class="fit mk" data-fit="580x520"><div class="board"><div class="mb">
+            <div class="mono10">80 columns → 1 focused review</div>
+            <div class="m3"><div class="m3-sheet" id="m3sheet"></div>
+              <div class="m3-card">
+                <div style="display:flex;justify-content:space-between;align-items:center"><div><b style="font-size:15px">Applicant #A-20931</b><div class="mono10">Senior Data Analyst · Round 2</div></div><span class="st-b ok">SHORTLIST</span></div>
+                <div class="crit"><span>Technical depth</span><u style="--w:82%"></u><b>4.1</b></div>
+                <div class="crit"><span>Domain fit</span><u style="--w:70%"></u><b>3.5</b></div>
+                <div class="crit"><span>Communication</span><u style="--w:90%"></u><b>4.5</b></div>
+                <div class="mono10" style="margin-top:6px">Queue · 1 of 18 today</div>
+                <div class="m3-act"><span>Hold</span><span>Reject</span><span class="y">Advance →</span></div>
+              </div>
+            </div>
+          </div></div></div>
+        </div>
+      </article>
+
+      <article class="fr" data-case="3">
+        <div class="fr-name"><b>04 — Global Event Registration</b><span>1200 × 740</span></div>
+        <div class="fr-body">
+          <div class="fr-info">
+            <div class="fr-tag"><span class="ix">04</span><span>Events, hospitality &amp; ticketing SaaS</span></div>
+            <h3>Global Event &amp; Registration Management Platform</h3>
+            <div class="metric"><b>56 → 89%</b><span>Completion</span></div>
+            <dl class="po"><dt>PROBLEM</dt><dd>Enterprise conference attendees abandoned registration at a 44% rate due to disjointed 6-page forms, irrelevant questions and confusing ticket tiers.</dd><dt class="o">OUTCOME</dt><dd class="o">Registration completion rose from 56% to 89%, and on-site badge printing dropped to 4.2 seconds per check-in.</dd></dl>
+            <button class="btn" data-open="3" data-cursor="Open case">Open case study <span class="arr">↗</span></button>
+          </div>
+          <div class="fit mk" data-fit="580x520"><div class="board"><div class="mb">
+            <div class="mono10">Registration · 6 pages → 2</div>
+            <div class="m4-steps"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="m4-tiers"><div><span class="mono10">Tier</span><b>Delegate</b><small class="muted">All sessions</small></div><div class="on"><span class="mono10" style="color:var(--accent-onlight)">Selected</span><b>Delegate + Workshops</b><small class="muted">Recommended</small></div><div><span class="mono10">Tier</span><b>Exhibitor</b><small class="muted">Booth access</small></div></div>
+            <div class="win" style="flex:0 0 auto"><div class="win-b" style="flex-direction:column;gap:8px"><div class="mono10">Only what we need</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div style="border:1px solid #e3e1db;border-radius:8px;padding:9px">Work email</div><div style="border:1px solid #e3e1db;border-radius:8px;padding:9px">Company</div></div></div></div>
+            <div class="m4-bot"><div class="ring" id="ring"><b class="tab">89%</b></div><div class="badge"><span class="mono10" style="color:#9b9aa4">On-site check-in</span><b class="tab">4.2s</b><small style="color:#9b9aa4">per badge</small></div></div>
+          </div></div></div>
+        </div>
+      </article>
+    </div>
+    </div>
+  </div>
+</section>
+
+<div class="case" id="case" role="dialog" aria-modal="true" aria-labelledby="caseTitle">
+  <div class="case-bg" id="caseBg"></div>
+  <div class="case-sheet" id="caseSheet" tabindex="-1" data-lenis-prevent>
+    <div class="case-in">
+      <div class="case-top"><span class="label" id="caseTag">Case study</span><button class="case-close" id="caseClose" data-cursor="Collapse">Close <span aria-hidden="true">✕</span></button></div>
+      <h2 id="caseTitle">Case</h2>
+      <div class="case-mk" id="caseMk"></div>
+      <div class="case-grid" id="caseGrid"></div>
+      <p class="note">Summary view. Full case study available on request.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DESIGN SYSTEM ============ -->
+<section class="sys wrap" id="system" data-zone="blueprint" data-flow="6">
+  <div class="sys-grid" id="sysPin">
+    <div class="sys-left">
+      <span class="label">Featured design system</span>
+      <h2>Designing systems, <span class="serif">not just screens.</span></h2>
+      <p>Before drawing mockups, I build the token architecture, component states, and handoff contracts that let development teams ship consistently.</p>
+      <ol class="steps" id="sysSteps">
+        <li data-st="1">01 — Tokens<i></i></li>
+        <li data-st="2">02 — Component<i></i></li>
+        <li data-st="3">03 — Variants<i></i></li>
+        <li data-st="4">04 — States<i></i></li>
+        <li data-st="5">05 — Final UI<i></i></li>
+      </ol>
+      <p class="mono muted" style="font-size:.68rem">Try it: the inspector controls are live.</p>
+    </div>
+    <div class="fit" data-fit="720x600">
+      <div class="board">
+        <div class="lib" id="lib">
+          <div class="lib-t"><span>FRAME · COMPONENT LIBRARY</span><span id="libMode">LIGHT · 1920 × 1080</span></div>
+          <div class="lib-b">
+            <div class="zone z1"><span class="mono10">Color primitives</span>
+              <div class="prims">
+                <div class="prim"><i style="--c:var(--accent);--i:0"></i><span>primary.500</span></div>
+                <div class="prim"><i style="--c:var(--accent-600);--i:1"></i><span>primary.600</span></div>
+                <div class="prim"><i style="--c:var(--accent-100);--i:2"></i><span>primary.100</span></div>
+                <div class="prim"><i style="--c:#1e2230;--i:3"></i><span>slate.800</span></div>
+                <div class="prim"><i style="--c:#8b8fa3;--i:4"></i><span>slate.400</span></div>
+                <div class="prim"><i style="--c:#12a150;--i:5"></i><span>green.500</span></div>
+              </div>
+              <div class="typescale" aria-hidden="true"><span style="font-size:34px">Aa</span><span style="font-size:24px">Aa</span><span style="font-size:17px">Aa</span><span style="font-size:12px;font-family:var(--mono);font-weight:400">Aa 12</span><span class="mono10" style="margin-left:auto">4 · 8 · 12 · 16 · 24</span></div>
+            </div>
+            <div class="zone z2"><span class="mono10">Semantic tokens</span>
+              <div class="toks">
+                <div class="tok" style="--i:0"><span>color.primary.bg</span><em><i style="--c:var(--accent)"></i><b id="tkPrim">primary.500</b></em></div>
+                <div class="tok" style="--i:1"><span>color.primary.fg</span><em><i style="--c:#fff;border:1px solid color-mix(in srgb,var(--accent) 16%,#fff)"></i>white</em></div>
+                <div class="tok" style="--i:2"><span>color.surface</span><em><i style="--c:#fff;border:1px solid color-mix(in srgb,var(--accent) 16%,#fff)"></i><b id="tkSurf">white</b></em></div>
+                <div class="tok" style="--i:3"><span>radius.pill</span><em>9999px</em></div>
+                <div class="tok" style="--i:4"><span>space.inset.md</span><em>12 · 24</em></div>
+                <div class="tok" style="--i:5"><span>type.body</span><em>16 / 24</em></div>
+              </div>
+            </div>
+            <div class="zone z3">
+              <span class="mono10" style="position:absolute;left:12px;top:12px">Component · Button</span>
+              <i class="z3-grid" aria-hidden="true"></i>
+              <div class="dsb-wrap" id="dsbWrap">
+                <button class="dsb" id="dsb" data-variant="primary" data-size="md" data-state="default" type="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3 3 7-7"/></svg>Save &amp; continue</button>
+                <span class="redx l" data-v="24" id="rxL"></span><span class="redx r" data-v="24" id="rxR"></span>
+                <span class="dsb-sel"><i></i><i></i><i></i><i></i><b id="dsbSize">176 × 44</b></span>
+              </div>
+              <span class="fig-cur" id="figCur" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 2l7.5 19 2.6-7.9L21 10.5z" fill="#f24e7a" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg><em>Aditya</em></span>
+            </div>
+            <div class="zone z4" id="inspector"><span class="mono10">Properties</span>
+              <div class="ins-r" data-row="variant"><span>Variant</span><div class="seg" data-prop="variant"><button aria-pressed="true" data-v="primary">primary</button><button aria-pressed="false" data-v="secondary">secondary</button><button aria-pressed="false" data-v="ghost">ghost</button></div></div>
+              <div class="ins-r" data-row="size"><span>Size</span><div class="seg" data-prop="size"><button aria-pressed="false" data-v="sm">sm</button><button aria-pressed="true" data-v="md">md</button><button aria-pressed="false" data-v="lg">lg</button></div></div>
+              <div class="ins-r" data-row="state"><span>State</span><div class="seg" data-prop="state"><button aria-pressed="true" data-v="default">default</button><button aria-pressed="false" data-v="hover">hover</button><button aria-pressed="false" data-v="pressed">pressed</button><button aria-pressed="false" data-v="focus">focus</button><button aria-pressed="false" data-v="disabled">disabled</button></div></div>
+              <div class="ins-r"><span>Theme</span><div class="seg" data-prop="theme"><button aria-pressed="true" data-v="light">light</button><button aria-pressed="false" data-v="dark">dark</button></div></div>
+              <div class="ins-r"><span>Fill</span><code id="insFill">color.primary.bg</code></div>
+              <div class="ins-r"><span>Padding</span><code id="insPad">12 · 24</code></div>
+            </div>
+            <div class="zone z5"><span class="mono10">Pattern · DataGrid (sorted by status)</span>
+              <div class="dg tab" id="dg">
+                <div class="dg-r" data-o="2"><span class="id">#INV-3021</span><span>Discharge invoice · Ward 4B</span><span class="st-b wa">PENDING</span><b>$85.20</b></div>
+                <div class="dg-r" data-o="1"><span class="id">#INV-3018</span><span>Pre-auth claim · Bed 07</span><span class="st-b ok">APPROVED</span><b>$1,240.00</b></div>
+                <div class="dg-r" data-o="3"><span class="id">#INV-3017</span><span>Consumables · OT 2</span><span class="st-b no">REJECTED</span><b>$920.50</b></div>
+              </div>
+            </div>
+          </div>
+          <div class="compile" id="compile">✓ tokens compiled → light.css · dark.css</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="proc" id="process" data-zone="canvas" data-flow="6">
+  <div class="proc-pin wrap" id="procPin" style="max-width:none">
+    <div class="sec-head" style="padding-inline:0">
+      <span class="label">Process &amp; methodology · prototype flow</span>
+      <h2>How I solve <span class="serif">ambiguous product problems.</span></h2>
+      <p>A six-step approach from problem topology to engineering handoff.</p>
+    </div>
+    <div class="rail" id="rail" aria-hidden="true">
+      <div class="rail-line"><i></i></div>
+      <ol><li>01 Understand</li><li>02 Structure</li><li>03 Explore</li><li>04 Systemize</li><li>05 Design</li><li>06 Handoff</li></ol>
+    </div>
+    <div class="track" id="track">
+      <div class="pf"><span class="num">01</span><h3>Understand</h3><span class="tools">Claude · ChatGPT</span><p>Map existing workflows, interview operators, and identify domain constraints. AI helps synthesize notes, organize requirements, and surface themes.</p><div class="art"><small>KEY ARTIFACT</small><b>Role map + AI brief</b></div><svg class="pf-link" viewBox="0 0 120 60" aria-hidden="true"><path pathLength="1" d="M0 30 C 40 30, 60 30, 112 30"/><circle cx="4" cy="30" r="4"/></svg></div>
+      <div class="pf"><span class="num">02</span><h3>Structure</h3><span class="tools">FigJam · Figma</span><p>Turn roles and tasks into information architecture: navigation, permissions, and the few flows that carry most of the daily work.</p><div class="art"><small>KEY ARTIFACT</small><b>IA + task flows</b></div><svg class="pf-link" viewBox="0 0 120 60" aria-hidden="true"><path pathLength="1" d="M0 30 C 40 30, 60 30, 112 30"/><circle cx="4" cy="30" r="4"/></svg></div>
+      <div class="pf"><span class="num">03</span><h3>Explore</h3><span class="tools">Figma · AI alternatives</span><p>Sketch several interaction approaches in low fidelity, compare them against real data volumes, and pick with the team.</p><div class="art"><small>KEY ARTIFACT</small><b>Wireframe options</b></div><svg class="pf-link" viewBox="0 0 120 60" aria-hidden="true"><path pathLength="1" d="M0 30 C 40 30, 60 30, 112 30"/><circle cx="4" cy="30" r="4"/></svg></div>
+      <div class="pf"><span class="num">04</span><h3>Systemize</h3><span class="tools">Figma variables · Tokens</span><p>Extract tokens, components and states from the chosen direction so every later screen is assembled, not redrawn.</p><div class="art"><small>KEY ARTIFACT</small><b>Token + component set</b></div><svg class="pf-link" viewBox="0 0 120 60" aria-hidden="true"><path pathLength="1" d="M0 30 C 40 30, 60 30, 112 30"/><circle cx="4" cy="30" r="4"/></svg></div>
+      <div class="pf"><span class="num">05</span><h3>Design</h3><span class="tools">Manual process</span><p>High-fidelity screens across all responsive breakpoints with explicit edge cases, error states, and empty states.</p><div class="art"><small>KEY ARTIFACT</small><b>Interactive prototype</b></div><svg class="pf-link" viewBox="0 0 120 60" aria-hidden="true"><path pathLength="1" d="M0 30 C 40 30, 60 30, 112 30"/><circle cx="4" cy="30" r="4"/></svg></div>
+      <div class="pf"><span class="num">06</span><h3>Validate &amp; handoff</h3><span class="tools">Storybook · Cursor</span><p>Test with operators, then hand over tokens, state variants and prop dictionaries that map one-to-one to code.</p><div class="art"><small>KEY ARTIFACT</small><b>Specs + Storybook</b></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BRIDGE ============ -->
+<section class="bridge wrap" id="bridge" data-zone="canvas" data-flow="6">
+  <div class="br-grid">
+    <div class="br-copy">
+      <span class="label">The design-engineering bridge</span>
+      <h2>Speaking fluent code changes <span class="serif">how I design.</span></h2>
+      <p>Knowing HTML, CSS, Tailwind and component frameworks means I don't design impossible interactions. I design with flexbox wrapping, grid constraints, container queries and rendering cost in mind from day one.</p>
+      <p>Instead of static artboards, engineers get tokens, state variants and auto-layout structures that map directly to component props in React or Angular.</p>
+      <p class="note">AI agent-ready specs: component definitions ship as clean markdown and prop dictionaries for Cursor and GitHub Copilot.</p>
+    </div>
+    <div class="fit" data-fit="760x460">
+      <div class="board">
+        <div class="wipe" id="wipe">
+          <div class="w-design">
+            <span class="w-lab" style="left:20px">FIGMA · DESIGN</span>
+            <div class="w-card">
+              <span class="w-ann" style="top:-26px;left:50%;transform:translateX(-50%)">Auto layout → gap 8 · pad 12 / 24</span>
+              <span class="btn accent" style="height:52px;padding:0 28px;pointer-events:none">✓ Save &amp; continue</span>
+              <span class="w-ann" style="bottom:-24px;left:50%;transform:translateX(-50%);color:#9747ff">◆ Button / PrimaryAction</span>
+            </div>
+            <div class="w-props"><span>variant <b>"primary"</b></span><span>radius <b>9999px</b></span><span>fill <b>var(--color-accent)</b></span><span>states <b>6 explicit variants</b></span></div>
+          </div>
+          <div class="w-code"><span class="w-lab" style="right:20px">CODE · PrimaryAction.tsx</span><span class="k">export function</span> <span class="t">PrimaryAction</span>({ label, state }) {
+  <span class="k">return</span> (
+    &lt;<span class="t">Button</span>
+      <span class="a">variant</span>=<span class="s">"primary"</span>      <span class="c">// ◆ variant</span>
+      <span class="a">radius</span>=<span class="s">"pill"</span>         <span class="c">// 9999px</span>
+      <span class="a">className</span>=<span class="s">"gap-2 px-6 py-3"</span>
+      <span class="a">style</span>={{ bg: <span class="s">"var(--color-accent)"</span> }}
+      <span class="a">state</span>={state}           <span class="c">// 6 variants</span>
+    &gt;
+      &lt;<span class="t">Icon</span> <span class="a">name</span>=<span class="s">"check"</span> /&gt; {label}
+    &lt;/<span class="t">Button</span>&gt;
+  );
+}</div>
+          <div class="w-line" id="wline"><span>DESIGN ⇄ CODE</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AI ============ -->
+<section class="ai wrap" id="ai" data-zone="canvas" data-flow="6">
+  <div class="ai-grid">
+    <div style="display:grid;gap:20px">
+      <span class="label">AI in my workflow</span>
+      <h2>AI accelerates the workflow. <span class="serif">I own the decisions.</span></h2>
+      <p class="muted">I use agentic workflows to handle complex enterprise products, prototype quickly, and bridge Figma to production code, while UX reasoning and final quality stay human-led.</p>
+      <div class="phases" id="phases"><span>CONTEXT</span><span>STRATEGY</span><span>DESIGN</span><span>BUILD</span><span>DEBUG</span><span>REVIEW</span></div>
+      <ul class="assist"><li>Mapping workflow and information architecture</li><li>Comparing interaction approaches</li><li>Identifying edge cases</li><li>Drafting UX copy alternatives</li></ul>
+    </div>
+    <div class="term" aria-label="Example agent session">
+      <div class="term-t"><div class="lights"><i></i><i></i><i></i></div>agent · settings-page</div>
+      <pre id="termOut" aria-hidden="true"></pre>
+      <pre class="sr" id="termFull"></pre>
+    </div>
+  </div>
+  <div class="tools-g">
+    <div><b>Claude + ChatGPT</b><p>Research, synthesis, requirements, UX exploration, documentation, and context.</p></div>
+    <div><b>Figma + Figma MCP</b><p>Design source of truth, components, variables, and design-to-code context.</p></div>
+    <div><b>Cursor + Copilot</b><p>Prompt-driven implementation, component scaffolding, and code assistance.</p></div>
+    <div><b>Antigravity</b><p>Agentic development, multi-step implementation, UI building, and debugging.</p></div>
+    <div><b>Angular / Next.js</b><p>Functional prototypes and production interfaces using Tailwind and PrimeNG.</p></div>
+    <div><b>Storybook</b><p>Component states, validation, documentation, themes, and consistency.</p></div>
+  </div>
+  <div class="gains">
+    <span>Requirements to testable prototypes, faster</span><span>More UX alternatives explored before committing</span><span>Long-running project context kept in one place</span><span>Figma to functional interfaces, faster</span><span>Less repetitive implementation and docs</span><span>Functional prototypes instead of static screens</span><span>Better designer-to-developer handoff</span><span>Faster iteration without losing design intent</span>
+  </div>
+</section>
+
+<!-- ============ VOICES ============ -->
+<section class="voices wrap local" id="voices" data-zone="paper" data-flow="7">
+  <div class="sec-head">
+    <span class="label">Comments on the file</span>
+    <h2>What collaborators <span class="serif">left in the margins.</span></h2>
+    <p>Feedback from clinical directors, engineering leads, and product managers who shipped products with me.</p>
+  </div>
+  <div class="board-c">
+    <div class="cm"><span class="pin">MV</span><div class="bub"><blockquote>Aditya restructured our clinical billing workflow in six weeks. For the first time, our doctors and billing administrators share a single mental model without context switching.</blockquote><cite><b>Dr. Marcus Vance</b><span>Chief Medical Officer · Doctor-Patient Care Platform</span></cite></div></div>
+    <div class="cm"><span class="pin">ER</span><div class="bub"><blockquote>Most designers give us static art that breaks the moment real table data loads. Aditya delivered a cohesive token system and documented states that mirrored our React and Angular component props.</blockquote><cite><b>Elena Rostova</b><span>Lead Frontend Architect · Application Management System</span></cite></div></div>
+    <div class="cm"><span class="pin">DC</span><div class="bub"><blockquote>His frontend fluency meant zero translation loss between Figma and production. Every edge case, empty state, and responsive behavior was accounted for before we wrote a line of code.</blockquote><cite><b>David Chen</b><span>VP of Product · Event &amp; Registration Platform</span></cite></div></div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about wrap" id="about" data-zone="paper" data-flow="7">
+  <p class="statement" id="statement"><span class="kp">Designer</span> by role. <span class="kp">Builder</span> by mindset. I untangle <span class="kp">complex domains</span> so <span class="kp">operators move faster</span> and engineers ship with confidence.</p>
+  <div class="ab-grid">
+    <aside class="ab-card">
+      <div class="mono-av">AT</div>
+      <div><b style="font-size:1.2rem">Aditya Tripathi</b><div class="muted">Senior UI/UX Designer · Surat, India</div></div>
+      <span class="avail"><i></i>Available for Q4 / Q1 projects</span>
+      <div class="ab-text">
+        <span class="label">About</span>
+        <p>For over 5 years, I've focused on untangling complex domain models: clinical healthcare software, role-based enterprise portals, and high-frequency booking systems.</p>
+        <p>My background bridging design and frontend development means I design with empathy for both the operator using the tool and the engineer shipping the code. The most impactful design work happens in clear information architecture and robust design tokens, not in decoration.</p>
+      </div>
+      <a class="btn ghost" href="https://linkedin.com/in/aditya-tripathi-2a4847171" target="_blank" rel="noopener" data-magnetic data-cursor="LinkedIn ↗">LinkedIn <span class="arr">↗</span></a>
+    </aside>
+    <div>
+      <div class="pr">
+        <div><small>01</small><b>Clarity over decoration</b><p>An operator's time is precious. Clean hierarchy and information clarity beat flourishes.</p></div>
+        <div><small>02</small><b>Systems over one-off screens</b><p>Every button, modal, and data row belongs to a token-driven system that scales with the product.</p></div>
+        <div><small>03</small><b>Real data over placeholder text</b><p>Stress-test with long names, empty states, missing records, and 1,000-row tables.</p></div>
+        <div><small>04</small><b>Engineer-friendly delivery</b><p>Complete states, responsive breakpoints, and tokenized specs bridge the engineering gap.</p></div>
+        <div><small>05</small><b>Measurable workflow outcomes</b><p>Fewer clicks, less context switching, fewer operational errors.</p></div>
+        <div><small>06</small><b>AI as acceleration, not replacement</b><p>AI helps me explore and scaffold. Every design decision and final review is human-led.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL ============ -->
+<section class="final local" id="contact" data-zone="accent" data-flow="7">
+  <div class="overview" id="overview" aria-hidden="true">
+    <div class="ov"><span>01 Blank Canvas</span><i></i><i></i></div><div class="ov"><span>02 Wireframe</span><i></i><i></i></div><div class="ov"><span>03 Components</span><i></i><i></i></div><div class="ov"><span>04 UI Design</span><i></i><i></i></div>
+    <div class="ov"><span>05 Prototype</span><i></i><i></i></div><div class="ov"><span>06 Product</span><i></i><i></i></div><div class="ov"><span>07 Design System</span><i></i><i></i></div><div class="ov"><span>08 Final Experience</span><i></i><i></i></div>
+  </div>
+  <div class="final-ghost" aria-hidden="true">Let's build.</div>
+  <div class="wrap final-in">
+    <span class="label">08 / 08 · Final experience · ready to collaborate</span>
+    <h2 id="finalTitle"><span class="ln"><span>Have a complex</span></span><span class="ln"><span>product to</span></span><span class="ln serif"><span>simplify?</span></span></h2>
+    <p class="lead">Available for design systems, enterprise workflow simplification, and high-stakes product design. Open to freelance and selected full-time roles.</p>
+    <div class="mail">
+      <span class="mail-a" id="mailA">aditya21tripathi81040@gmail.com</span>
+      <button class="btn" id="copyMail" data-magnetic data-cursor="Copy email" type="button">Copy email</button>
+      <a class="btn ghost" href="https://linkedin.com/in/aditya-tripathi-2a4847171" target="_blank" rel="noopener" data-magnetic data-cursor="LinkedIn ↗">LinkedIn <span class="arr">↗</span></a>
+    </div>
+    <footer class="foot">
+      <div><h6>PAGES</h6><a href="#work">Work</a><a href="#system">Design System</a><a href="#process">Process</a><a href="#about">About</a></div>
+      <div><h6>PROFILES</h6><a href="https://linkedin.com/in/aditya-tripathi-2a4847171" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://github.com/iadityaoff" target="_blank" rel="noopener">GitHub ↗</a></div>
+      <div><h6>BASED IN</h6><span>Surat, Gujarat, India</span><br><span class="muted">Open to projects</span></div>
+      <div><h6>© 2026</h6><span>Aditya Tripathi</span><br><a href="#top">Back to top ↑</a></div>
+    </footer>
+  </div>
+</section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+"use strict";
+const d = document.documentElement;
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+
+const HAS_G = !!(window.gsap && window.ScrollTrigger);
+if (!HAS_G) { d.classList.remove('motion','cine'); }
+const MOTION = d.classList.contains('motion');
+const CINE = d.classList.contains('cine');
+const FINE = matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+/* ------------------------------------------------------------
+   MOTION SYSTEM — the single source of truth for timing.
+   Level 1 · micro   (hover/press/focus)        0.3–0.5s  expo.out
+   Level 2 · reveal  (section/content entrance) 0.7–1s    expo.out
+   Level 3 · story   (pinned sequences)         2–4 viewports of scroll
+   Level 4 · cinema  (camera / build sequences) ≤ 5 viewports of scroll
+   Rules: one scene-level move per viewport; text never moves after it
+   becomes readable; every scroll-linked value is a pure function of
+   scroll position, so reversing the scroll reverses the scene exactly.
+   ------------------------------------------------------------ */
+const M = { micro:.35, ui:.45, reveal:.9, scene:.85, out:'expo.out', inOut:'power3.inOut', snap:'back.out(1.6)', scrub:.8 };
+const VH = { studio:5, stats:3, work:5, system:3.5 };   // pinned lengths, in viewports
+const lerp = (a,b,t) => a + (b-a)*t;
+const ss = (a,b,x) => { const t = clamp((x-a)/(b-a),0,1); return t*t*(3-2*t); };   // smoothstep
+
+let THEMES = {
+  paper:     {'--bg':'#fafaf7','--fg':'#0e0e10','--fg2':'#5f5e5a','--rule':'#e7e5df','--panel':'#ffffff','--panel2':'#f3f2ee','--dot':'rgba(14,14,16,.09)'},
+  canvas:    {'--bg':'#0f0f12','--fg':'#f3f2ee','--fg2':'#9b9aa4','--rule':'#26262d','--panel':'#17171c','--panel2':'#1f1f26','--dot':'rgba(255,255,255,.07)'},
+  blueprint: {'--bg':'#eef0fb','--fg':'#0e0e10','--fg2':'#525874','--rule':'#d8dcf3','--panel':'#ffffff','--panel2':'#f5f6fd','--dot':'rgba(47,75,255,.12)'},
+  accent:    {'--bg':'#2f4bff','--fg':'#ffffff','--fg2':'#cdd4ff','--rule':'rgba(255,255,255,.22)','--panel':'#2438d6','--panel2':'#1f31c0','--dot':'rgba(255,255,255,.12)'}
+};
+
+/* ------------------------------------------------------------
+   SITE THEME — set by the ThemeBuilder on /design-system and saved
+   (already compiled) in localStorage. The parent page writes it; this
+   document hears it via the 'storage' event and re-themes live.
+   ------------------------------------------------------------ */
+const SITE_THEME_KEY = 'at-site-theme';
+let zoneStyle = null;
+function applySiteTheme(proto){
+  if (!proto || !proto.zones || !proto.root) return false;
+  THEMES = proto.zones;
+  Object.entries(proto.root).forEach(([k,v]) => d.style.setProperty(k, v));
+  d.dataset.mode = proto.mode; d.style.colorScheme = proto.mode;
+  d.dataset.skin = proto.skin || 'studio'; d.dataset.texture = proto.texture === false ? 'off' : 'on';
+  const tk = document.getElementById('tkAccent'); if (tk) tk.textContent = String(proto.root['--accent']).toUpperCase();   // the hero's token card shows the live value
+  // sections that paint their own palette (.local) follow the theme too
+  if (!zoneStyle){ zoneStyle = document.createElement('style'); zoneStyle.id = 'site-theme-zones'; document.body.appendChild(zoneStyle); }   // after the main <style> (which lives in <body>), so it wins
+  zoneStyle.textContent = ['paper','canvas','accent'].map(z =>
+    `[data-zone="${z}"].local{${Object.entries(proto.zones[z]).map(([k,v]) => k+':'+v).join(';')};background:var(--bg);color:var(--fg)}`).join('\n');
+  return true;
+}
+function readSiteTheme(){ try { const s = JSON.parse(localStorage.getItem(SITE_THEME_KEY) || 'null'); return s && s.proto; } catch(e){ return null; } }
+applySiteTheme(readSiteTheme());
+let onSiteTheme = () => {};   // the scroll-theme engine replaces this once it exists
+const bootMotion = (readSiteTheme() || {}).motion || 'full';
+addEventListener('storage', e => {
+  if (e.key !== SITE_THEME_KEY) return;
+  const p = readSiteTheme();
+  // pinning/scrubbing is set up once at boot, so a Motion change needs a fresh start
+  if (p && (p.motion || 'full') !== bootMotion) { location.reload(); return; }
+  if (applySiteTheme(p)) onSiteTheme();
+});
+
+const STAGES = ['Blank Canvas','Wireframe','Components','UI Design','Prototype','Product','Design System','Final Experience'];
+
+/* ---------- Fit boards to their column ---------- */
+function fitOne(f){
+  const [w,h] = f.dataset.fit.split('x').map(Number);
+  const W = f.clientWidth || f.parentElement.clientWidth;
+  let s = W / w;
+  if (f.dataset.fitVh) s = Math.min(s, innerHeight * parseFloat(f.dataset.fitVh) / h);
+  s = Math.min(s, 1.2);
+  f.style.setProperty('--s', s.toFixed(4));
+  f.style.height = (h*s) + 'px';
+  if (f.dataset.fitVh) f.style.width = (w*s) + 'px';
+}
+function fitAll(){ $$('[data-fit]').forEach(f => { if (f.dataset.fitVh) f.style.width = ''; fitOne(f); }); }
+$('#devFit').dataset.fitVh = MOTION ? (innerWidth < 900 ? '0.36' : '0.64') : '2';
+const libFit = $('#lib').closest('[data-fit]'); if (CINE) libFit.dataset.fitVh = '0.78';
+fitAll();
+
+/* ---------- small helpers ---------- */
+const toastEl = $('#toast'); let toastT;
+function toast(msg){ toastEl.textContent = msg; toastEl.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(()=>toastEl.classList.remove('show'), 2200); }
+
+/* Canvas zoom readout (toolbar + HUD). Only camera moments own it; everyone else sees 100%. */
+const zoomEl = $('#flowZoom'), zoomHud = $('#zoomHud'), zoomHudV = $('#zoomHudV'); let zoomTxt = '';
+let zoomT;
+function setZoom(t){
+  if (t===zoomTxt) return; zoomTxt = t; zoomEl.textContent = t; zoomHudV.textContent = t;
+  clearTimeout(zoomT); zoomHud.classList.toggle('show', t!=='100%');
+  if (t!=='100%') zoomT = setTimeout(() => zoomHud.classList.remove('show'), 1400);   // HUD flashes, toolbar keeps the value
+}
+
+/* HR sheet cells */
+(function(){ const s = $('#m3sheet'); let h=''; for(let i=0;i<16*16;i++) h+='<i></i>'; s.innerHTML = h; })();
+
+/* Terminal (complete at rest) */
+const TERM = [
+  ['$ agent run "settings page · save flow"','d'],
+  ['<Button variant="primary">','t'],
+  ['  // agent-generated scaffolding','d'],
+  ['  <Icon name="check" /> Save Settings',''],
+  ['</Button>','t'],
+  ['Error: Hydration failed at components/layout.tsx:42','e'],
+  ['> Auto-fixing via Antigravity…','d'],
+  ['✓ Compiled successfully','g'],
+  ['→ Review: states, copy and focus order signed off by Aditya','t']
+];
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const TERM_LEN = TERM.reduce((a,l)=>a+l[0].length+1,0);
+function renderTerm(n){
+  let out='', left=n;
+  for (const [t,c] of TERM){
+    if (left<=0) break;
+    const part = t.slice(0, left); left -= t.length+1;
+    out += `<span class="${c}">${esc(part)}</span>` + (left>=0?'\n':'');
+  }
+  $('#termOut').innerHTML = out + (n<TERM_LEN ? '<span class="caret"></span>' : '');
+}
+renderTerm(TERM_LEN);
+$('#termFull').textContent = TERM.map(l=>l[0]).join('\n');
+
+
+/* Copy email */
+$('#copyMail').addEventListener('click', () => {
+  const t = $('#mailA').textContent.trim();
+  const fallback = () => { const r = document.createRange(); r.selectNodeContents($('#mailA')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast('Email selected. Press ⌘C / Ctrl+C to copy'); };
+  try { navigator.clipboard.writeText(t).then(()=>toast('Email copied'), fallback); } catch(e){ fallback(); }
+});
+
+/* Case overlay data */
+const CASES = [
+  { tag:'01 · Enterprise SaaS & Design Ops', title:'Foundations & Multi-Brand Design System',
+    ctx:['Four engineering squads building redundant components','Inconsistent spacing and diverging colour values','No shared accessibility standard'],
+    how:['Inventory of existing UI across products','Three-tier tokens: global → semantic → component','State matrix per component with contrast checks','Figma variables kept in sync with code tokens'],
+    res:['62 production-ready components','Handoff from 12 days to under 4 (↓ 45%)','100% WCAG AA colour compliance'] },
+  { tag:'02 · Healthcare tech & clinical ERP', title:'Healthcare Operations & Doctor Management Platform',
+    ctx:['Staff moved across 4 legacy browser tabs','Vitals, charges and invoices lived in separate tools','Billable items were often misattributed'],
+    how:['One ward view for vitals, charges and discharge','⌘K patient switcher instead of tab juggling','Tariffs and insurance pre-auth inline in the billing table'],
+    res:['Discharge processing 42 → 14 minutes','↓ 38% billing omissions in pilot wards'] },
+  { tag:'03 · Enterprise HR tech & talent management', title:'Enterprise Application Management Platform',
+    ctx:['80-column spreadsheets for every evaluation','Slow, unresponsive modal forms','Review backlogs of over 3 weeks'],
+    how:['Focused one-applicant review replaces the spreadsheet','Structured criteria scoring','Queue-based flow so reviewers never lose their place'],
+    res:['250,000+ applications processed','↓ 52% review turnaround','94% positive reviewer satisfaction'] },
+  { tag:'04 · Events, hospitality & ticketing SaaS', title:'Global Event & Registration Management Platform',
+    ctx:['44% abandonment on registration','Disjointed 6-page forms with irrelevant questions','Confusing ticket pricing tiers'],
+    how:['Two steps with conditional questions','Side-by-side tier comparison with a recommended option','Badge printing built into the check-in flow'],
+    res:['Completion 56% → 89%','4.2 seconds per on-site check-in'] }
+];
+
+/* Tell the host page (the Next.js shell) whether we've scrolled, so its
+   fixed header can go from transparent to solid. Only posts on change. */
+let hostScrolled = null;
+function reportScroll(){
+  const sc = scrollY > 10; if (sc === hostScrolled || window.parent === window) return; hostScrolled = sc;
+  window.parent.postMessage({ type:'proto-scroll', scrolled: sc }, location.origin);
+}
+addEventListener('scroll', reportScroll, {passive:true}); reportScroll();
+
+/* ============================================================
+   INTERACTION LAYER (works with or without GSAP)
+   ============================================================ */
+let lenis = null;
+function scrollToY(y){ if (lenis) lenis.scrollTo(y, {duration:1.4, easing:t=>1-Math.pow(1-t,4)}); else window.scrollTo({top:y, behavior: MOTION?'smooth':'auto'}); }
+function scrollToEl(el){ if (!el) return; const y = el.getBoundingClientRect().top + scrollY; scrollToY(y); }
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href^="#"]'); if (!a) return;
+  const id = a.getAttribute('href'); if (id.length<2) { e.preventDefault(); scrollToY(0); return; }
+  const el = document.getElementById(id.slice(1)); if (!el) return;
+  e.preventDefault(); scrollToEl(el.parentElement.classList.contains('pin-spacer') ? el.parentElement : el);
+});
+
+/* Keyboard: G toggles layout grid */
+addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea,[contenteditable="true"]')) return;
+  if (e.key==='g' || e.key==='G'){ d.classList.toggle('show-grid'); toast(d.classList.contains('show-grid') ? 'Layout grid on · 12 columns' : 'Layout grid off'); }
+});
+
+/* Double-click the headline: it's a text layer */
+const hTitle = $('#heroTitle');
+hTitle.addEventListener('dblclick', () => { hTitle.contentEditable = 'true'; hTitle.focus(); toast('Editing text layer · Esc to finish'); });
+hTitle.addEventListener('keydown', e => { if (e.key==='Escape'){ hTitle.contentEditable='false'; hTitle.blur(); } });
+hTitle.addEventListener('blur', () => { hTitle.contentEditable='false'; });
+
+/* Design-system inspector (live, clickable) */
+const dsb = $('#dsb'), lib = $('#lib');
+const DS = { variant:'primary', size:'md', state:'default', theme:'light' };
+const PAD = { sm:'8 · 14', md:'12 · 24', lg:'16 · 30' }, PADX = { sm:14, md:22, lg:30 };
+function applyDS(p){
+  Object.assign(DS, p);
+  dsb.dataset.variant = DS.variant; dsb.dataset.size = DS.size; dsb.dataset.state = DS.state;
+  lib.dataset.themeMode = DS.theme;
+  $$('.seg', lib).forEach(seg => { const k = seg.dataset.prop; $$('button', seg).forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v===DS[k]))); });
+  const px = PADX[DS.size]; $('#rxL').style.width = $('#rxR').style.width = px+'px';
+  $('#rxL').dataset.v = $('#rxR').dataset.v = DS.size==='sm'?'14':DS.size==='lg'?'30':'24';
+  $('#insPad').textContent = PAD[DS.size];
+  $('#insFill').textContent = DS.state==='disabled' ? 'color.disabled.bg' : DS.variant==='primary' ? (DS.state==='hover'?'color.primary.hover':'color.primary.bg') : DS.variant==='ghost' ? 'transparent' : 'color.surface';
+  const dark = DS.theme==='dark';
+  $('#libMode').textContent = (dark?'DARK':'LIGHT') + ' · 1920 × 1080';
+  $('#tkPrim').textContent = dark ? 'primary.300' : 'primary.500';
+  $('#tkSurf').textContent = dark ? 'slate.900' : 'white';
+  sizeLabel();
+}
+$$('.seg button', lib).forEach(b => { b.tabIndex = 0; b.addEventListener('click', () => applyDS({[b.parentElement.dataset.prop]: b.dataset.v})); });
+
+/* Bento reflow (hover / focus grows a card) */
+const bento = $('#bento');
+function growBx(bx){
+  if (bx.classList.contains('big') || innerWidth < 900) return;
+  const state = window.Flip && MOTION ? Flip.getState($$('.bx', bento)) : null;
+  $$('.bx', bento).forEach(b => b.classList.toggle('big', b===bx));
+  if (state) Flip.from(state, { duration:.7, ease:'expo.inOut', absolute:false, nested:true });
+}
+$$('.bx', bento).forEach(bx => { bx.addEventListener('mouseenter', ()=>growBx(bx)); bx.addEventListener('focus', ()=>growBx(bx)); bx.addEventListener('click', ()=>growBx(bx)); });
+
+/* Case study expand / collapse */
+const caseEl = $('#case'), sheet = $('#caseSheet'), caseBg = $('#caseBg');
+let caseFrom = null, caseBtn = null;
+function openCase(i, btn){
+  const c = CASES[i]; caseBtn = btn; caseFrom = btn.closest('.fr').querySelector('.fr-body');
+  $('#caseTag').textContent = c.tag; $('#caseTitle').textContent = c.title;
+  const li = a => '<ul>' + a.map(x=>`<li>${esc(x)}</li>`).join('') + '</ul>';
+  $('#caseGrid').innerHTML = `<div><h4>CONTEXT</h4>${li(c.ctx)}</div><div><h4>WHAT CHANGED</h4>${li(c.how)}</div><div><h4>RESULT</h4>${li(c.res)}</div>`;
+  const mk = caseFrom.querySelector('.fit.mk').cloneNode(true); mk.removeAttribute('style');
+  const wrapMk = $('#caseMk'); wrapMk.innerHTML=''; wrapMk.appendChild(mk);
+  const holder = caseFrom.closest('.fr'); // keep active styles in the clone
+  wrapMk.className = 'case-mk fr is-active'; wrapMk.style.position='static'; wrapMk.style.width='auto'; wrapMk.style.height='auto';
+  caseEl.classList.add('open'); sheet.scrollTop = 0;
+  fitOne(mk);
+  if (lenis) lenis.stop(); document.body.style.overflow='hidden';
+  const r = caseFrom.getBoundingClientRect();
+  if (HAS_G && MOTION){
+    gsap.set(sheet, {top:r.top, left:r.left, width:r.width, height:r.height, borderRadius:20});
+    gsap.set('.case-in', {opacity:0, y:30});
+    gsap.to(caseBg, {opacity:1, duration:M.ui});
+    gsap.to(sheet, {top:0, left:0, width:innerWidth, height:innerHeight, borderRadius:0, duration:M.scene, ease:'expo.inOut', onComplete:()=>{ sheet.style.width='100%'; sheet.style.height='100%'; }});
+    gsap.to('.case-in', {opacity:1, y:0, duration:M.ui*1.5, ease:M.out, delay:M.scene*.6});
+  } else { Object.assign(sheet.style,{top:0,left:0,width:'100%',height:'100%',borderRadius:0}); caseBg.style.opacity=1; }
+  setTimeout(()=>$('#caseClose').focus({preventScroll:true}), 50);
+  cursorLabel('');
+}
+function closeCase(){
+  if (!caseEl.classList.contains('open')) return;
+  const done = () => { caseEl.classList.remove('open'); if (lenis) lenis.start(); document.body.style.overflow=''; caseBtn && caseBtn.focus({preventScroll:true}); };
+  if (HAS_G && MOTION && caseFrom){
+    const r = caseFrom.getBoundingClientRect();
+    gsap.to('.case-in', {opacity:0, duration:.2});
+    gsap.to(caseBg, {opacity:0, duration:M.ui, delay:.3});
+    gsap.to(sheet, {top:r.top, left:r.left, width:r.width, height:r.height, borderRadius:20, duration:.75, ease:'expo.inOut', onComplete:done});
+  } else done();
+}
+$$('[data-open]').forEach(b => b.addEventListener('click', () => openCase(+b.dataset.open, b)));
+$('#caseClose').addEventListener('click', closeCase);
+caseBg.addEventListener('click', closeCase);
+addEventListener('keydown', e => {
+  if (!caseEl.classList.contains('open')) return;
+  if (e.key==='Escape') closeCase();
+  if (e.key==='Tab'){ const f = $$('button,a[href]', sheet); if(!f.length) return; const first=f[0], last=f[f.length-1]; if (e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); } else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); } }
+});
+
+/* Custom cursor + magnetic buttons + tilt (fine pointers, motion allowed) */
+const cur = $('#cur'), curTag = $('#curTag');
+function cursorLabel(t){ if (!t){ cur.classList.remove('is-label'); return; } curTag.textContent = t; cur.classList.add('is-label'); }
+if (FINE && MOTION && HAS_G){
+  d.classList.add('has-cur');
+  const qx = gsap.quickTo(cur, 'x', {duration:.18, ease:'power3.out'}), qy = gsap.quickTo(cur, 'y', {duration:.18, ease:'power3.out'});
+  addEventListener('pointermove', e => { qx(e.clientX-3); qy(e.clientY-2); }, {passive:true});
+  document.addEventListener('pointerover', e => { const t = e.target.closest('[data-cursor]'); cursorLabel(t ? t.dataset.cursor : ''); });
+  addEventListener('pointerdown', ()=>cur.classList.add('is-down')); addEventListener('pointerup', ()=>cur.classList.remove('is-down'));
+  d.addEventListener('mouseleave', ()=>gsap.to(cur,{opacity:0,duration:.2})); d.addEventListener('mouseenter', ()=>gsap.to(cur,{opacity:1,duration:.2}));
+
+  $$('[data-magnetic]').forEach(el => {
+    const mx = gsap.quickTo(el,'x',{duration:.5,ease:'power3.out'}), my = gsap.quickTo(el,'y',{duration:.5,ease:'power3.out'});
+    el.addEventListener('pointermove', e => { const r = el.getBoundingClientRect(); const x = e.clientX-r.left, y = e.clientY-r.top; mx((x-r.width/2)*.3); my((y-r.height/2)*.35); el.style.setProperty('--mx', x+'px'); el.style.setProperty('--my', y+'px'); });
+    el.addEventListener('pointerleave', () => gsap.to(el, {x:0, y:0, duration:.8, ease:'elastic.out(1,.4)'}));
+  });
+  $$('.cm .bub, .bx, .pf').forEach(el => {
+    el.addEventListener('pointermove', e => { const r = el.getBoundingClientRect(); const px=(e.clientX-r.left)/r.width-.5, py=(e.clientY-r.top)/r.height-.5; gsap.to(el,{rotateY:px*5, rotateX:-py*5, transformPerspective:900, duration:M.ui, ease:M.out}); });
+    el.addEventListener('pointerleave', () => gsap.to(el,{rotateY:0, rotateX:0, duration:.7, ease:M.out}));
+  });
+  /* hero floats follow the pointer with depth */
+  const floats = $$('.float'); const hero = $('#studio');
+  hero.addEventListener('pointermove', e => { const cx = e.clientX/innerWidth-.5, cy = e.clientY/innerHeight-.5; floats.forEach(f => { const k = parseFloat(f.dataset.depth)||1; gsap.to(f.firstElementChild, {x:-cx*24*k, y:-cy*18*k, duration:1, ease:M.out}); }); });
+}
+
+/* ============================================================
+   FLOW TOOLBAR — the progress indicator
+   ============================================================ */
+const flowBtns = $$('#flowSteps button');
+let flowNow = -1;
+function setFlow(i){
+  if (i===flowNow) return; flowNow = i;
+  $('#flowName').textContent = STAGES[i];
+  $('#flowIdx').textContent = `Stage ${String(i+1).padStart(2,'0')} / 08`;
+  flowBtns.forEach((b,k) => { b.classList.toggle('on', k===i); b.classList.toggle('done', k<i); b.setAttribute('aria-current', k===i ? 'step' : 'false'); });
+}
+setFlow(0);
+
+if (!HAS_G){ return; }
+gsap.registerPlugin(ScrollTrigger); if (window.Flip) gsap.registerPlugin(Flip);
+gsap.defaults({ ease: M.out, duration: M.ui });
+
+/* Lenis smooth scroll wired to GSAP's ticker */
+if (MOTION && window.Lenis){
+  lenis = new Lenis({ lerp:.1, smoothWheel:true, wheelMultiplier:1 });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(t => lenis.raf(t*1000));
+  gsap.ticker.lagSmoothing(0);
+}
+
+/* page progress → toolbar bar (plain scroll listener: triggerless 0→max STs don't fire onUpdate reliably) */
+const flowBar = $('#flowBar');
+const pageProgress = () => flowBar.style.setProperty('--p', clamp(scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight), 0, 1).toFixed(4));
+addEventListener('scroll', pageProgress, {passive:true}); pageProgress();
+
+/* ============================================================
+   STUDIO — the portfolio builds itself
+   ============================================================ */
+const studio = $('#studio');
+const STUDIO_LEN = CINE ? VH.studio : 4.2;     // viewport-heights of scroll
+const STAGE_AT = [0, .2, .37, .54, .71, .9];   // where flow buttons jump to
+let studioST = null, stageNow = -1;
+function setStage(s){
+  if (s===stageNow) return; stageNow = s;
+  studio.dataset.stage = s;
+  setFlow(Math.min(s,5));
+  if (s===5){
+    const o = {v:42}; gsap.to(o, {v:14, duration:1.2, ease:'power2.out', onUpdate:()=>$('#dis').textContent = Math.round(o.v)});
+    const due = {v:426}; gsap.to(due, {v:85.2, duration:1.2, ease:'power2.out', onUpdate:()=>$('#due').textContent = '$'+due.v.toFixed(2)});
+  }
+}
+if (MOTION){
+  setStage(0);
+  const selBox = $('#selBox'), selSize = $('#selSize'), lines = $$('#heroTitle .ln>span');
+  /* intro: a selection box is dragged open and the headline is typed into it */
+  const intro = gsap.timeline({ delay:.25 });
+  const heroSel = $('#heroSel');
+  intro.from('.frame-name', {opacity:0, y:-10, duration:.6})
+       .fromTo(selBox, {scaleX:0, scaleY:0}, {scaleX:1, scaleY:1, duration:1.1, ease:'expo.inOut', onUpdate(){ const p = this.progress(); selSize.textContent = `W ${Math.round(heroSel.offsetWidth*p)} · H ${Math.round(heroSel.offsetHeight*p)}`; }}, '<.1')
+       .from(lines, {yPercent:115, duration:1.1, ease:'expo.out', stagger:.12}, '<.35')
+       .from('.hero-sub, .hero-cta, .hero-meta', {opacity:0, y:22, duration:.8, stagger:.08}, '-=.7')
+       .from('.float > *', {opacity:0, scale:.85, duration:.9, stagger:.07, ease:M.snap}, '-=.7');
+
+  /* hero → build: the canvas zooms out (100% → 75% → Fit) while the headline's
+     selection box travels onto the frame that's about to be built */
+  const pin = $('#studioPin'), handoff = $('#handoff'), handoffSize = $('#handoffSize');
+  const offRect = (el) => { let x = 0, y = 0, n = el; while (n && n !== pin){ x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; } return { x, y, w: el.offsetWidth, h: el.offsetHeight }; };
+  const hA = () => offRect(heroSel), hB = () => offRect($('#devFit'));
+  const heroOut = gsap.timeline({ scrollTrigger:{ trigger:studio, refreshPriority:10, start:'top top', end:()=>'+='+innerHeight*STUDIO_LEN*.18, scrub:M.scrub, invalidateOnRefresh:true } });
+  heroOut.to('#hero', {scale:.84, yPercent:-10, opacity:0, ease:'power2.in', duration:.5}, 0)
+         .to('.fl-tokens, .fl-mobile', {xPercent:60, yPercent:-30, opacity:0, duration:1}, 0)
+         .to('.fl-steps, .fl-density, .fl-size', {xPercent:-80, yPercent:20, opacity:0, duration:1}, 0)
+         .fromTo(handoff, {x:()=>hA().x, y:()=>hA().y, width:()=>hA().w, height:()=>hA().h, opacity:0},
+                          {opacity:1, duration:.08, ease:'none'}, 0)
+         .to('#selBox', {opacity:0, duration:.06, ease:'none'}, .06)
+         .to(handoff, {x:()=>hB().x, y:()=>hB().y, width:()=>hB().w, height:()=>hB().h, duration:.55, ease:'power2.inOut',
+                       onUpdate(){ handoffSize.textContent = `W ${Math.round(handoff.offsetWidth)} · H ${Math.round(handoff.offsetHeight)}`; }}, .12)
+         .fromTo('#build', {opacity:0}, {opacity:1, duration:.4, ease:'none'}, .38)
+         .fromTo('.devwrap', {scale:.72, y:140, rotateX:22, transformPerspective:1400, transformOrigin:'50% 100%'}, {scale:1, y:0, rotateX:0, duration:.6, ease:'power2.out'}, .32)
+         .to(handoff, {opacity:0, duration:.14, ease:'none'}, .86);
+
+  studioST = ScrollTrigger.create({
+    trigger:studio, start:'top top', end:()=>'+='+innerHeight*STUDIO_LEN, pin:'#studioPin', anticipatePin:1, refreshPriority:10, invalidateOnRefresh:true,
+    onUpdate:self => {
+      const p = self.progress, hp = p / .18;   // hero-out share of the pin
+      setZoom(self.isActive ? (hp < .02 ? '100%' : hp < .96 ? Math.round(100 - 25*ss(0,.55,hp)) + '%' : 'Fit') : '100%');
+      const s = p < .13 ? 0 : clamp(1 + Math.floor((p-.16)/(.84/5)), 1, 5);
+      setStage(s);
+      const sub = s===0 ? 0 : clamp(((p-.16) - (s-1)*(.84/5)) / (.84/5), 0, 1);
+      studio.style.setProperty('--cp', sub.toFixed(3));
+      $$('.cap-bar i').forEach(i=>i.style.setProperty('--cp', sub.toFixed(3)));
+    },
+    onLeave:() => { setFlow(5); setZoom('100%'); },
+    onLeaveBack:() => setZoom('100%')
+  });
+  flowBtns.forEach(b => b.addEventListener('click', () => {
+    const i = +b.dataset.go;
+    if (i<=5 && studioST) scrollToY(studioST.start + (studioST.end-studioST.start)*STAGE_AT[i] + 2);
+    else scrollToEl(i===6 ? $('#system') : $('#contact'));
+  }));
+} else {
+  flowBtns.forEach(b => b.addEventListener('click', () => { const i=+b.dataset.go; scrollToEl(i===0?$('#studio'):i<=4?$('#build'):i===5?$('#stats'):i===6?$('#system'):$('#contact')); }));
+}
+
+/* ============================================================
+   STATS — metrics arrive one at a time, then assemble into a dashboard.
+   Row model: cards sit on one horizontal line with a fixed 48px gap
+   between their *scaled* edges, so nothing can touch or overlap at any
+   scroll position. Final layout = the untransformed 4-col grid; the
+   assemble phase interpolates linearly between two ordered, gapped
+   layouts, which also can't overlap.
+   0 ──── .72  focus 01 → 02 → 03 → 04 (hold at each)
+   .72 ── .92  assemble into auto layout · .92 ── 1 hold on final
+   ============================================================ */
+const al = $('#al'), sts = $$('.st', al), NST = sts.length;
+const alDir = $('#alDir'), alGap = $('#alGap');
+function setStatK(st, k){
+  st.querySelector('.st-viz').style.setProperty('--k', k.toFixed(3));
+  const b = st.querySelector('[data-count]'); if (!b) return;
+  const v = Math.round(+b.dataset.count * k); if (b._v !== v){ b._v = v; b.textContent = v + '+'; }
+}
+if (MOTION && CINE){
+  const GAP = 48, SN = .86;
+  let geo = null;
+  const measure = () => { geo = { cx: al.clientWidth/2, H: al.clientHeight, g: sts.map(s => ({ x: s.offsetLeft + s.offsetWidth/2, w: s.offsetWidth, h: s.offsetHeight })) }; };
+  let metaKey = '';
+  function renderStats(P){
+    if (!geo) measure();
+    const w = geo.g[0].w, h = Math.max(...geo.g.map(g => g.h));
+    const SF = clamp((geo.H - 56) / h, 1.05, 1.34);                 // focus scale that still fits the frame
+    const T = clamp(P / .72, 0, 1) * (NST - 1);
+    const seg = Math.min(Math.floor(T), NST - 2), f = T - seg;
+    const fe = ss(.2, 1, f);                                          // each card holds before the next moves
+    const t = seg + fe, a = ss(.74, .92, P);
+    const sc = sts.map((_, k) => { const dd = Math.abs(k - t); return dd < 1 ? lerp(SF, SN, dd) : SN; });
+    const xs = [0]; for (let k = 1; k < NST; k++) xs[k] = xs[k-1] + w * (sc[k-1] + sc[k]) / 2 + GAP;
+    const xt = lerp(xs[seg], xs[seg+1], fe);
+    sts.forEach((s, k) => {
+      const dd = k - t;
+      // previous: shrink + dim, then leave; next: only appears after the current one has moved (staged)
+      const o = dd >= 1 ? 0 : dd > 0 ? ss(.45, 1, 1 - dd) : dd > -1 ? 1 - .42 * -dd : clamp(.58 - .58 * (-dd - 1) * 1.6, 0, 1);
+      const x = geo.cx + (xs[k] - xt) - geo.g[k].x;
+      s.style.transform = `translate3d(${lerp(x, 0, a).toFixed(1)}px,0,0) scale(${lerp(sc[k], 1, a).toFixed(4)})`;
+      s.style.opacity = lerp(o, 1, a).toFixed(3);
+      s.style.zIndex = 10 - Math.round(Math.abs(dd));
+      s.classList.toggle('is-focus', Math.abs(dd) < .5 && a < .5);
+      setStatK(s, k === 0 ? ss(0, .08, P) : clamp(t - (k - 1), 0, 1));
+    });
+    al.classList.toggle('snapped', a > .98);
+    const mk = a > .02 ? (a > .98 ? 'grid' : 'asm') : 'focus' + Math.round(t);
+    if (mk !== metaKey){ metaKey = mk;
+      alDir.textContent = mk === 'grid' ? '→ Horizontal · 4 col' : mk === 'asm' ? '→ Assembling…' : `Focus ${String(Math.round(t)+1).padStart(2,'0')} / 04`;
+      alGap.textContent = mk === 'grid' ? '20' : '48'; }
+  }
+  const statsST = ScrollTrigger.create({ trigger:'#statsPin', start:'top top', end:()=>'+='+innerHeight*VH.stats, pin:true, anticipatePin:1, refreshPriority:9, invalidateOnRefresh:true,
+    onRefreshInit:() => { geo = null; sts.forEach(s => { s.style.transform = ''; }); },
+    onRefresh:self => { measure(); renderStats(self.progress); },
+    onUpdate:self => renderStats(self.progress) });
+  renderStats(0);
+} else if (MOTION){
+  /* touch / small screens: plain grid, each metric fills in as it scrolls past (still reversible) */
+  ScrollTrigger.create({ trigger:al, start:'top 88%', end:'bottom 55%', onUpdate:self => sts.forEach((s, k) => setStatK(s, ss(k * .15, k * .15 + .55, self.progress))) });
+  sts.forEach(s => setStatK(s, 0));
+  gsap.from(sts, { opacity:0, y:32, duration:M.reveal, stagger:.1, ease:M.out, scrollTrigger:{ trigger:al, start:'top 88%', once:true } });
+}
+
+/* Generic reveals — level 2 */
+if (MOTION){
+  $$('.sec-head, .al-head, .tooling, .br-copy, .ai-grid > div:first-child, .tools-g, .gains, .statement, .pr, .ab-card').forEach(el => {
+    gsap.from(el, { opacity:0, y:32, duration:M.reveal, ease:M.out, scrollTrigger:{ trigger:el, start:'top 86%', once:true } });
+  });
+  gsap.from('.bx', { opacity:0, y:48, scale:.97, duration:M.reveal, stagger:.1, ease:M.out, scrollTrigger:{ trigger:'#bento', start:'top 82%', once:true } });
+  $$('.cm').forEach((c,k) => {
+    const tl = gsap.timeline({ scrollTrigger:{ trigger:c, start:'top 85%', once:true } });
+    tl.from(c.querySelector('.pin'), {scale:0, rotate:-45, duration:.6, ease:M.snap, delay:k*.12})
+      .from(c.querySelector('.bub'), {opacity:0, scale:.85, transformOrigin:'0 0', duration:.7, ease:M.out}, '-=.25');
+  });
+  /* parallax depth on comments */
+  $$('.cm').forEach((c,k) => gsap.to(c, { yPercent:-(k+1)*8, ease:'none', scrollTrigger:{ trigger:'#voices', start:'top bottom', end:'bottom top', scrub:true } }));
+}
+
+/* ============================================================
+   WORK — camera over a Figma canvas
+   ============================================================ */
+const frames = $$('#world .fr'), worldEl = $('#world');
+frames.forEach(f => $$('.fr-info > *', f).forEach((el,k) => el.style.setProperty('--i', k)));
+function setActiveFrame(i){ worldEl.classList.toggle('has-active', i > -1); frames.forEach((f,k)=>{ const on = k===i; if (on !== f.classList.contains('is-active')){ f.classList.toggle('is-active', on); if (k===3){ const r=$('#ring'); r.style.setProperty('--v', on?89:56); r.querySelector('b').textContent=(on?89:56)+'%'; } } }); }
+if (CINE){
+  const world = $('#world');
+  const POS = [[0,0],[1400,0],[0,940],[1400,940]];
+  const fs = () => Math.min(innerWidth*.86/1200, (innerHeight-150)/740);
+  const ov = () => Math.min(innerWidth/3300, (innerHeight-340)/1760);
+  const cam = { x:1300, y:840, s:.3, oy:0, ox:0 };
+  const apply = () => {
+    world.style.transform = `translate(${innerWidth/2 + cam.ox}px,${innerHeight/2 + cam.oy}px) scale(${cam.s}) translate(${-cam.x}px,${-cam.y}px)`;
+    if (tl.scrollTrigger && tl.scrollTrigger.isActive) setZoom(Math.round(cam.s*100) + '%');
+    let act = -1; const S = fs();
+    POS.forEach(([x,y],k) => { if (Math.abs(cam.x-(x+600))<160 && Math.abs(cam.y-(y+370))<120 && cam.s > S*.8) act = k; });
+    setActiveFrame(act);
+  };
+  const tl = gsap.timeline({ defaults:{ ease:M.inOut }, onUpdate:apply,
+    scrollTrigger:{ trigger:'#work', start:'top top', end:()=>'+='+innerHeight*VH.work, pin:'#work', scrub:1, refreshPriority:8, invalidateOnRefresh:true,
+      onLeave:()=>setZoom('100%'), onLeaveBack:()=>setZoom('100%'), onEnter:apply, onEnterBack:apply } });
+  /* overview → frame 01 → (zoom out · pan · zoom in) ×3 → overview. Holds are short
+     but each frame is readable for its whole approach + hold + departure. */
+  tl.fromTo(cam, {x:1300, y:840, s:()=>ov(), oy:()=>innerHeight*.17, ox:()=>innerWidth*.2}, {x:1300, y:840, s:()=>ov()*1.04, oy:()=>innerHeight*.17, ox:()=>innerWidth*.2, duration:.25, ease:'none'})
+    .to('#workHead', {opacity:0, y:-40, duration:.35, ease:'power2.in'}, '>')
+    .to(cam, {x:600, y:370, s:()=>fs(), oy:20, ox:0, duration:.8}, '<');
+  const hold = () => tl.to({}, {duration:.6});
+  hold();
+  [1,2,3].forEach(i => {
+    const [x,y] = POS[i];
+    tl.to(cam, {x:(POS[i-1][0]+x)/2+600, y:(POS[i-1][1]+y)/2+370, s:()=>fs()*.5, duration:.45, ease:'power2.inOut'})
+      .to(cam, {x:x+600, y:y+370, s:()=>fs(), duration:.45, ease:'power2.inOut'});
+    hold();
+  });
+  tl.to(cam, {x:1300, y:840, s:()=>ov()*1.2, oy:0, ox:0, duration:.7});
+  cam.s = ov(); cam.oy = innerHeight*.17; cam.ox = innerWidth*.2; apply(); setZoom('100%');
+  addEventListener('resize', apply);
+} else {
+  frames.forEach((f,k) => ScrollTrigger.create({ trigger:f, start:'top 65%', end:'bottom 35%', onToggle:s=>{ if (s.isActive) setActiveFrame(k); } }));
+  if (!MOTION) frames.forEach(f=>f.classList.add('is-active'));
+  if (MOTION) frames.forEach(f => gsap.from(f, {opacity:0, y:64, scale:.96, duration:M.reveal, ease:M.out, scrollTrigger:{trigger:f, start:'top 88%', once:true}}));
+}
+/* Cinematic overview: frames land on the canvas one after another, not all at once */
+if (CINE) gsap.fromTo(frames, {opacity:0, y:60}, {opacity:1, y:0, duration:M.reveal, ease:M.out, stagger:.14,
+  scrollTrigger:{ trigger:'#work', start:'top 80%', toggleActions:'play none none reverse' }});
+/* Canvas section arrives as a dark window opening over the paper */
+if (MOTION){
+  gsap.fromTo('#work', {clipPath:'inset(8% 6% 0% 6% round 36px)'}, {clipPath:'inset(0% 0% 0% 0% round 0px)', ease:'none', scrollTrigger:{ trigger:'#work', start:'top 95%', end:'top 15%', scrub:true }});
+}
+
+/* ============================================================
+   DESIGN SYSTEM — scroll assembles and compiles the library
+   ============================================================ */
+/* tokens → component → variants → states → final UI
+   Step 2 draws the selection + spacing guides on a layout grid, step 3
+   switches variants/sizes with live resize handles, step 4 a cursor walks
+   in and exercises each state, step 5 sorts the pattern and compiles themes. */
+const VARIANTS = [{variant:'primary',size:'md'},{variant:'secondary',size:'md'},{variant:'ghost',size:'md'},{variant:'primary',size:'sm'},{variant:'primary',size:'lg'},{variant:'primary',size:'md'}];
+const STATES = ['default','hover','pressed','focus','disabled'];
+const HGT = { sm:34, md:44, lg:54 };
+let dsStep = -1, dsSub = -1, sorted = false;
+const dg = $('#dg'), dgRows = $$('.dg-r', dg), figCur = $('#figCur'), dsbWrap = $('#dsbWrap'), z3 = $('.z3', lib);
+const insRows = $$('.ins-r[data-row]', lib);
+function hotRow(name){ insRows.forEach(r => r.classList.toggle('hot', r.dataset.row===name)); }
+let sizeT;
+function sizeLabel(){ clearTimeout(sizeT); sizeT = setTimeout(() => { $('#dsbSize').textContent = `${Math.round(dsb.offsetWidth)} × ${HGT[DS.size]}`; }, 470); }
+function cursorTo(state){
+  const on = state==='hover' || state==='pressed';
+  const x = on ? dsbWrap.offsetLeft + dsbWrap.offsetWidth*.62 : z3.clientWidth - 70;
+  const y = on ? dsbWrap.offsetTop + dsbWrap.offsetHeight*.55 : z3.clientHeight - 46;
+  figCur.style.transform = `translate(${x}px,${y}px)`;
+  figCur.classList.toggle('down', state==='pressed');
+}
+function sortDG(on){
+  if (on===sorted) return; sorted = on;
+  const st = window.Flip ? Flip.getState(dgRows) : null;
+  const order = on ? [...dgRows].sort((a,b)=>a.dataset.o-b.dataset.o) : dgRows;
+  order.forEach(r => dg.appendChild(r));
+  if (st) Flip.from(st, {duration:.7, ease:'expo.inOut', stagger:.04});
+}
+function dsUpdate(p){
+  const step = clamp(1 + Math.floor(p*5), 1, 5);
+  const sub = clamp((p*5) - (step-1), 0, 1);
+  if (step !== dsStep){
+    dsStep = step; dsSub = -1; lib.dataset.step = step;
+    $$('#sysSteps li').forEach(li => li.classList.toggle('on', +li.dataset.st===step));
+    sortDG(step===5);
+    if (step<=2){ applyDS({variant:'primary', state:'default', size:'md', theme:'light'}); hotRow(''); }
+    if (step===4) cursorTo('default');
+  }
+  $$('#sysSteps li').forEach(li => li.style.setProperty('--sp', +li.dataset.st===step ? sub.toFixed(3) : (+li.dataset.st<step?1:0)));
+  let k = -1;
+  if (step===3){ k = clamp(Math.floor(sub*VARIANTS.length), 0, VARIANTS.length-1);
+    if (k!==dsSub){ dsSub = k; applyDS(Object.assign({state:'default', theme:'light'}, VARIANTS[k])); hotRow(k<3 || k===5 ? 'variant' : 'size'); } }
+  else if (step===4){ k = clamp(Math.floor(sub*STATES.length), 0, STATES.length-1);
+    if (k!==dsSub){ dsSub = k; applyDS({variant:'primary', size:'md', theme:'light', state:STATES[k]}); hotRow('state'); cursorTo(STATES[k]); } }
+  else if (step===5){ k = sub < .45 ? 0 : 1;   // pattern first, then the theme compiles
+    if (k!==dsSub){ dsSub = k; applyDS({variant:'primary', state:'default', size:'md', theme: k ? 'dark' : 'light'}); hotRow(k ? 'theme' : ''); } }
+}
+insRows.push(...$$('.ins-r', lib).filter(r => r.querySelector('[data-prop="theme"]')).map(r => (r.dataset.row = 'theme', r)));
+if (MOTION){
+  if (CINE){
+    d.classList.add('sys-pin');
+    ScrollTrigger.create({ trigger:'#system', start:'top top', end:()=>'+='+innerHeight*VH.system, pin:true, anticipatePin:1, refreshPriority:7, onUpdate:s=>dsUpdate(s.progress) });
+  } else {
+    ScrollTrigger.create({ trigger:'#system', start:'top 60%', end:'bottom 40%', onUpdate:s=>dsUpdate(s.progress) });
+  }
+  dsUpdate(0);
+}
+
+/* ============================================================
+   PROCESS — horizontal prototype flow
+   ============================================================ */
+if (CINE){
+  const track = $('#track'), pfs = $$('.pf', track), links = $$('.pf-link path', track);
+  const railLis = $$('#rail li'), railLine = $('#rail .rail-line');
+  const dist = () => Math.max(0, track.scrollWidth - innerWidth);
+  let procOn = -1;
+  const procUpdate = (p) => {
+    // exactly one active stage: the card whose centre is nearest the 45% focus line
+    const F = innerWidth*.45, cs = [];
+    let best = 0, bd = Infinity;
+    pfs.forEach((pf,k) => { const r = pf.getBoundingClientRect(); const c = r.left + r.width/2; cs.push(c); const dd = Math.abs(c - F); if (dd < bd){ bd = dd; best = k; }
+      if (links[k]) links[k].parentElement.style.setProperty('--d', clamp((innerWidth*.9 - r.right)/260, 0, 1).toFixed(3)); });
+    if (p > .985) best = pfs.length - 1;   // the last cards never reach the focus line; land on the final stage
+    if (best !== procOn){ procOn = best;
+      pfs.forEach((pf,k) => { pf.classList.toggle('on', k===best); pf.classList.toggle('past', k<best); });
+      railLis.forEach((li,k) => { li.classList.toggle('on', k===best); li.classList.toggle('done', k<best); }); }
+    // rail fill follows the cards: fractional stage index where centres cross the focus line
+    let f = 0; for (let k = 0; k < cs.length - 1; k++){ if (F >= cs[k]) f = k + clamp((F - cs[k]) / (cs[k+1] - cs[k]), 0, 1); }
+    const N = pfs.length - 1;
+    railLine.style.setProperty('--rp', lerp(f / N, 1, ss(.88, 1, p)).toFixed(4));
+  };
+  gsap.to(track, { x:()=>-dist(), ease:'none', onUpdate(){ procUpdate(this.progress()); },
+    scrollTrigger:{ trigger:'#process', start:'top top', end:()=>'+='+Math.max(dist(), innerHeight*2), pin:true, scrub:M.scrub, refreshPriority:6, invalidateOnRefresh:true } });
+  procUpdate(0);
+}
+
+/* ============================================================
+   BRIDGE — design becomes code under a scanning line
+   ============================================================ */
+if (MOTION){
+  const wipe = $('#wipe');
+  gsap.fromTo(wipe, {'--wx':'94%'}, {'--wx':'6%', ease:'none', scrollTrigger:{ trigger:wipe, start:'top 80%', end:'bottom 25%', scrub:M.scrub }});
+}
+
+/* ============================================================
+   AI — the terminal is typed by your scroll
+   ============================================================ */
+if (MOTION){
+  const ph = $$('#phases span');
+  ScrollTrigger.create({ trigger:'.term', start:'top 80%', end:'bottom 35%', scrub:true,
+    onUpdate:s => { renderTerm(Math.round(s.progress*TERM_LEN)); const k = Math.min(5, Math.floor(s.progress*6)); ph.forEach((e,i)=>e.classList.toggle('on', i===k)); } });
+  renderTerm(0);
+}
+
+/* ============================================================
+   DARK → PAPER — a paper sheet wipes up over the dark canvas
+   (mirror of the dark window that opened over paper for Work)
+   ============================================================ */
+if (MOTION){
+  gsap.fromTo('#voices', {clipPath:'inset(14% 5% 0% 5% round 40px)'}, {clipPath:'inset(0% 0% 0% 0% round 0px)', ease:'none', scrollTrigger:{ trigger:'#voices', start:'top bottom', end:'top 25%', scrub:true }});
+}
+
+/* ============================================================
+   ABOUT — key phrases are marked in sequence as you read:
+   Designer → Builder → complex domains → operators move faster
+   ============================================================ */
+if (MOTION){
+  const kps = $$('#statement .kp'), NK = kps.length;
+  ScrollTrigger.create({ trigger:'#statement', start:'top 78%', end:'bottom 38%',
+    onUpdate:s => kps.forEach((k,i) => k.style.setProperty('--h', ss(i/NK, (i+.85)/NK, s.progress).toFixed(3))) });
+}
+
+/* ============================================================
+   FINAL — pull back to see the whole file
+   ============================================================ */
+if (MOTION){
+  gsap.fromTo('#contact', {clipPath:'inset(10% 5% 0% 5% round 48px)'}, {clipPath:'inset(0% 0% 0% 0% round 0px)', ease:'none', scrollTrigger:{ trigger:'#contact', start:'top bottom', end:'top 20%', scrub:true }});
+  gsap.fromTo('#overview', {scale:2.6, opacity:.55}, {scale:1, opacity:.22, ease:'none', scrollTrigger:{ trigger:'#contact', start:'top bottom', end:'top top', scrub:true,
+    onUpdate:s => setZoom(s.progress < .04 ? '100%' : s.progress > .96 ? 'Fit' : Math.round(100 - 75*s.progress) + '%'), onLeaveBack:() => setZoom('100%') }});
+  gsap.from('#finalTitle .ln>span', { yPercent:115, duration:1.2, ease:M.out, stagger:.1, scrollTrigger:{ trigger:'#finalTitle', start:'top 82%', toggleActions:'play none none reverse' } });
+}
+
+const spacer = el => el;
+/* ============================================================
+   THEME — colours are a pure function of scroll position.
+   Each change of zone gets a blend range; inside it every token
+   (bg, fg, fg2, rule, panel, dot) is interpolated, so scrolling
+   back up runs the exact same blend in reverse. No one-way state.
+   ============================================================ */
+const parseC = c => { if (c[0]==='#'){ const n = parseInt(c.slice(1),16); return [n>>16&255, n>>8&255, n&255, 1]; } const m = c.match(/[\d.]+/g).map(Number); return [m[0], m[1], m[2], m[3]===undefined ? 1 : m[3]]; };
+const TVARS = Object.keys(THEMES.paper), TH = {}, TEXT_VARS = new Set(['--fg','--fg2']);
+const rebuildTH = () => Object.keys(THEMES).forEach(k => { TH[k] = TVARS.map(v => parseC(THEMES[k][v])); });
+rebuildTH();
+const zoneSecs = $$('main section[data-zone]');   // not 'main >': pinned sections sit inside .pin-spacer
+const BLEND = { work:['top 92%','top 30%'], system:['top 90%','top 30%'], process:['top 90%','top 30%'], voices:['top 85%','top 30%'], contact:['top 0%','top -15%'] };   // contact paints its own accent; switch the doc underneath once it covers the viewport
+const blends = [];
+zoneSecs.forEach((sec,k) => {
+  if (!k) return; const from = zoneSecs[k-1].dataset.zone, to = sec.dataset.zone; if (from===to) return;
+  const r = BLEND[sec.id] || ['top 90%','top 35%'];
+  blends.push({ from, to, st: ScrollTrigger.create({ trigger:sec, start:r[0], end:r[1] }) });
+});
+let themeKey = '';
+function themeAt(y){
+  let A = zoneSecs[0].dataset.zone, B = A, t = 0;
+  for (const b of blends){
+    if (y < b.st.start) break;
+    if (y >= b.st.end){ A = B = b.to; t = 0; } else { A = b.from; B = b.to; t = ss(0, 1, (y - b.st.start) / Math.max(1, b.st.end - b.st.start)); }
+  }
+  const key = A + B + t.toFixed(3); if (key===themeKey) return; themeKey = key;
+  // surfaces blend over the whole range; text flips in a narrow window around the
+  // midpoint so it never sits mid-grey on a mid-grey background (keeps ≥4.5:1 nearly throughout)
+  TVARS.forEach((v,i) => { const a = TH[A][i], c = TH[B][i], u = TEXT_VARS.has(v) ? ss(.44, .56, t) : t;
+    d.style.setProperty(v, `rgba(${Math.round(lerp(a[0],c[0],u))},${Math.round(lerp(a[1],c[1],u))},${Math.round(lerp(a[2],c[2],u))},${lerp(a[3],c[3],u).toFixed(3)})`); });
+  d.dataset.zoneNow = t < .5 ? A : B;
+}
+const themeNow = () => themeAt(scrollY);
+onSiteTheme = () => { rebuildTH(); themeKey = ''; themeNow(); };
+addEventListener('scroll', themeNow, {passive:true});
+ScrollTrigger.addEventListener('refresh', () => { themeKey = ''; themeNow(); });
+const flows = $$('[data-flow]');
+flows.forEach((sec,k) => {
+  if (sec.id==='studio') return;
+  const nx = flows[k+1];
+  ScrollTrigger.create({ trigger:sec, start:'top 50%', endTrigger: nx || undefined, end: nx ? 'top 50%' : 'max', onToggle:s => { if (s.isActive) setFlow(+sec.dataset.flow); } });
+});
+/* nav highlight */
+const navMap = { work:'#work', system:'#system', process:'#process', about:'#about' };
+Object.keys(navMap).forEach(id => { const a = $(`.links a[href="${navMap[id]}"]`); ScrollTrigger.create({ trigger:spacer($('#'+id)), start:'top 50%', end:'bottom 50%', onToggle:s=>a.classList.toggle('on', s.isActive) }); });
+
+ScrollTrigger.sort(); ScrollTrigger.refresh();
+
+/* ---------- resize: refit boards, then recompute triggers ---------- */
+let rT; addEventListener('resize', () => { clearTimeout(rT); rT = setTimeout(() => { $('#devFit').dataset.fitVh = MOTION ? (innerWidth < 900 ? '0.36' : '0.64') : '2'; fitAll(); ScrollTrigger.refresh(); }, 160); });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { fitAll(); ScrollTrigger.refresh(); });
+console.log('%c◆ Aditya Tripathi', 'color:#2f4bff;font:600 14px Inter Tight,sans-serif', '\nYou opened the inspector. Press G for the layout grid, double-click the headline to edit it.');
+})();
+</script>
+</body></html>

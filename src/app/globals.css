@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* `dark:` follows the site theme (ThemeBuilder), not the OS setting */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+/* `reduced:` = the Theme Builder's Motion → Reduced option (the OS setting is `motion-reduce:`) */
+@custom-variant reduced (&:where([data-motion="reduced"], [data-motion="reduced"] *));
+
 @theme {
   --color-background: #FAFAF7;
   --color-ink: #0E0E10;
@@ -25,6 +30,39 @@
   --foreground: #0E0E10;
   --line: #E7E5DF;
   --accent: #2F4BFF;
+  /* site theme (overridden on <html> by the ThemeBuilder, see src/lib/site-theme.ts) */
+  --color-accent-text: #2F4BFF;
+  --color-on-accent: #FFFFFF;
+  --color-accent-press: #2437d8;
+  --color-accent-on-dark: #8c9bff;
+  --surface: #FFFFFF;
+  --surface-2: #FAFAF7;
+  --dot: rgba(14, 14, 16, 0.09);
+  --font-display: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --display-tracking: -0.035em;
+  /* component-lab artboard tokens (default theme; the boot script applies saved ones) */
+  --t-accent: #2F4BFF;
+  --t-accent-hover: #2841db;
+  --t-on-accent: #ffffff;
+  --t-accent-subtle: #e6e9ff;
+  --t-accent-text: #2F4BFF;
+  --t-canvas: #f4f3ef;
+  --t-surface: #ffffff;
+  --t-surface-2: #f6f6f3;
+  --t-ink: #0e0e10;
+  --t-muted: #5f5f68;
+  --t-line: #e7e5df;
+  --t-dot: rgba(14,14,16,.07);
+  --t-ok-bg: #e3f5ea;
+  --t-ok: #0d7a3c;
+  --t-warn-bg: #fdf1dc;
+  --t-warn: #9a5d00;
+  --t-bad-bg: #fde6e7;
+  --t-bad: #b3261e;
+  --t-r: 12px;
+  --t-r-lg: 18px;
+  --t-pill: 12px;
+  --t-d: 1;
 }
 
 /* Lenis smooth-scroll base styles */
@@ -68,7 +106,7 @@ body {
 
 /* Focus visible styling */
 :focus-visible {
-  outline: 2px solid #2F4BFF;
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
@@ -113,3 +151,141 @@ body {
     color: #000000 !important;
   }
 }
+
+/* ---------------------------------------------------------------
+   Art direction (matches public/prototype.html §14)
+   --------------------------------------------------------------- */
+
+/* Ink: serif accents in headings run from the text colour into the accent.
+   text-fill-color (not color) keeps currentColor real, so it adapts to dark panels. */
+:where(h1, h2) > em {
+  background-image: linear-gradient(100deg, currentColor 18%, color-mix(in srgb, currentColor 28%, var(--color-accent-text)) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding: 0 0.08em 0.06em 0;
+}
+
+/* Film grain: printed-paper texture over flat fills (desktop only) */
+@media (min-width: 900px) {
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 45;
+    pointer-events: none;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+@media print {
+  body::after { display: none; }
+}
+
+/* component lab: variant / theme change settle-in */
+@keyframes lab-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.98); }
+}
+
+
+/* ---------------------------------------------------------------
+   Site theme (ThemeBuilder → whole portfolio)
+   Unlayered on purpose: these beat Tailwind's utility layer.
+   --------------------------------------------------------------- */
+html { transition: background-color 450ms cubic-bezier(.16, 1, .3, 1); }
+body { transition: background-color 450ms cubic-bezier(.16, 1, .3, 1), color 450ms cubic-bezier(.16, 1, .3, 1); }
+
+/* accent as text uses the contrast-safe tone; accent fills pick a readable label */
+.text-accent,
+.hover\:text-accent:hover,
+.group:hover .group-hover\:text-accent { color: var(--color-accent-text); }
+[class~="bg-accent"][class~="text-white"],
+[class~="bg-accent"] > [class~="text-white"] { color: var(--color-on-accent); }
+/* accent as text inside dark showcase panels (CTA etc.) needs the dark-surface tone */
+:is(.bg-showcase, .bg-showcase-card, [class*="bg-[#0B0B0F]"], [class*="bg-[#0b0b0f]"], [class*="bg-[#0E0E10]"], [class*="bg-[#0e0e10]"], [class*="bg-[#141418]"]) .text-accent,
+:is(.bg-showcase, .bg-showcase-card) .hover\:text-accent:hover { color: var(--color-accent-on-dark); }
+
+/* dark mode: fixed light surfaces become theme surfaces */
+html[data-theme="dark"] .bg-white,
+html[data-theme="dark"] .hover\:bg-white:hover { background-color: var(--surface); }
+html[data-theme="dark"] :is(.bg-white\/95, .bg-white\/90, .bg-white\/80) { background-color: color-mix(in srgb, var(--surface) 92%, transparent); }
+html[data-theme="dark"] :is(.bg-white\/70, .bg-white\/60, .bg-white\/40) { background-color: color-mix(in srgb, var(--surface) 72%, transparent); }
+html[data-theme="dark"] [class*="bg-[#FAFAF7]"],
+html[data-theme="dark"] [class*="bg-[#F5F5F0]"],
+html[data-theme="dark"] [class*="bg-[#f3f2ee]"],
+html[data-theme="dark"] [class*="bg-[#ECEAE4]"],
+html[data-theme="dark"] [class*="bg-[#E5E5E5]"],
+html[data-theme="dark"] [class*="bg-[#F1F5F9]"] { background-color: var(--surface-2); }
+html[data-theme="dark"] [class*="bg-[#FAFAF7]/"] { background-color: color-mix(in srgb, var(--background) 88%, transparent); }
+html[data-theme="dark"] .shadow-xs,
+html[data-theme="dark"] .shadow-sm,
+html[data-theme="dark"] .shadow-md { box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04), 0 10px 30px rgba(0, 0, 0, 0.35); }
+html[data-theme="dark"] .card-hover:hover { box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.6); }
+html[data-theme="dark"] .hover\:bg-black\/5:hover { background-color: rgba(255, 255, 255, 0.06); }
+html[data-theme="dark"] .bg-black\/5 { background-color: rgba(255, 255, 255, 0.05); }
+html[data-theme="dark"] img[src$=".svg"] { filter: brightness(0.94); }
+
+
+/* ---------------------------------------------------------------
+   Theme Builder: typography, motion, texture, experiences (skins)
+   --------------------------------------------------------------- */
+/* headings take the display face; in the base layer so utilities (font-mono…) still win */
+@layer base {
+  h1, h2, h3 { font-family: var(--font-display); }
+}
+html[data-texture="off"] body::after { display: none; }
+html[data-motion="reduced"] *,
+html[data-motion="reduced"] *::before,
+html[data-motion="reduced"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
+
+/* ===== Newspaper: newsprint, serif, hairline rules, printed images ===== */
+html[data-skin="newspaper"] * { border-radius: 0 !important; }
+html[data-skin="newspaper"] *:not(:focus-visible) { box-shadow: none !important; }
+html[data-skin="newspaper"] :is(h1, h2, h3) { letter-spacing: -0.01em !important; font-weight: 700; }
+html[data-skin="newspaper"] :where(h1, h2) > em {
+  background: none; -webkit-text-fill-color: currentColor; font-style: italic; font-weight: 400;
+}
+html[data-skin="newspaper"] header { border-bottom: 3px double var(--color-ink) !important; }
+html[data-skin="newspaper"] main img { filter: grayscale(1) contrast(1.08); }
+html[data-skin="newspaper"][data-theme="light"] main img { mix-blend-mode: multiply; }
+html[data-skin="newspaper"] body::after { opacity: 0.085; }
+html[data-skin="newspaper"] .card-hover:hover { transform: none; outline: 1px solid var(--color-ink); }
+
+/* ===== Figma: canvas dots, small radii, blue selection on hover ===== */
+html[data-skin="figma"] body {
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.2px);
+  background-size: 24px 24px;
+  background-attachment: fixed;
+}
+html[data-skin="figma"] main .bg-background { background-color: transparent; }
+html[data-skin="figma"] :is([class*="rounded-["], .rounded-3xl, .rounded-2xl, .rounded-xl):not(.rounded-full) { border-radius: 6px !important; }
+html[data-skin="figma"] :is(a, button).rounded-full { border-radius: 6px !important; }
+html[data-skin="figma"] .card-hover:hover {
+  transform: none; box-shadow: none !important;
+  outline: 1.5px solid var(--color-accent); outline-offset: 0;
+}
+html[data-skin="figma"] :is(.shadow-xs, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl) {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 0.5px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ===== Code: editor chrome, mono, markdown headings, syntax strings ===== */
+html[data-skin="code"] { --code-string: #ce9178; --code-comment: #6a9955; }
+html[data-skin="code"][data-theme="light"] { --code-string: #a31515; --code-comment: #008000; }
+html[data-skin="code"] :is([class*="rounded-["], .rounded-3xl, .rounded-2xl, .rounded-xl):not(.rounded-full) { border-radius: 4px !important; }
+html[data-skin="code"] :is(a, button).rounded-full { border-radius: 4px !important; }
+html[data-skin="code"] *:not(:focus-visible) { box-shadow: none !important; }
+html[data-skin="code"] :where(h1, h2) > em {
+  background: none; -webkit-text-fill-color: var(--code-string); font-style: normal;
+}
+html[data-skin="code"] :where(h1, h2) > em::before,
+html[data-skin="code"] :where(h1, h2) > em::after { content: '"'; }
+html[data-skin="code"] main h2::before { content: "## "; color: var(--color-muted); font-weight: 400; }
+html[data-skin="code"] .text-accent.font-mono.uppercase::before { content: "// "; }
+html[data-skin="code"] ::selection { background: #264f78; color: #fff; }
+html[data-skin="code"] .card-hover:hover { transform: none; outline: 1px solid var(--color-accent); }

@@ -5,7 +5,7 @@ import {
   motion,
   useScroll,
   useTransform,
-  useReducedMotion,
+  useReducedMotionConfig,
 } from "motion/react";
 
 // --- ScrollReveal: fade-up-on-enter animation driven by scroll ---
@@ -25,7 +25,7 @@ export function ScrollReveal({
   delay = 0,
 }: ScrollRevealProps) {
   const ref = React.useRef<HTMLDivElement>(null);
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useReducedMotionConfig();
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -68,7 +68,7 @@ export function ParallaxLayer({
   offset = -30,
 }: ParallaxLayerProps) {
   const ref = React.useRef<HTMLDivElement>(null);
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useReducedMotionConfig();
 
   const { scrollYProgress } = useScroll({
     target: ref,

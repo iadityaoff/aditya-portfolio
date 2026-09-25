@@ -4,6 +4,7 @@ import * as React from "react";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/content/site";
+import { DotGrid, FrameHeading, PageToolbar } from "@/components/motion/studio";
 
 export default function ResumePage() {
   const handlePrint = () => {
@@ -13,7 +14,9 @@ export default function ResumePage() {
   };
 
   return (
-    <div className="w-full pt-32 pb-24 lg:pt-40 lg:pb-32 bg-background min-h-screen">
+    <div className="relative isolate w-full pt-32 pb-24 lg:pt-40 lg:pb-32 bg-background min-h-screen">
+      <DotGrid className="no-print h-[520px]" />
+      <PageToolbar frame="Resume" />
       <Container size="default">
         {/* Top Action Bar (hidden in print) */}
         <div className="no-print flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 pb-6 border-b border-line">
@@ -21,9 +24,11 @@ export default function ResumePage() {
             <span className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">
               CURRICULUM VITAE
             </span>
-            <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-ink mt-1">
-              Resume / Experience
-            </h1>
+            <div className="mt-3">
+              <FrameHeading frame="Resume" className="text-3xl sm:text-4xl font-semibold tracking-tight text-ink">
+                Resume / Experience
+              </FrameHeading>
+            </div>
           </div>
 
           <div className="flex items-center gap-3">
@@ -64,7 +69,7 @@ export default function ResumePage() {
           </div>
 
           {/* Professional Summary */}
-          <section className="space-y-3">
+          <section className="space-y-3" data-section="Summary">
             <h3 className="font-mono text-xs uppercase font-bold text-muted tracking-wider">
               Professional Summary
             </h3>
@@ -74,7 +79,7 @@ export default function ResumePage() {
           </section>
 
           {/* Professional Experience */}
-          <section className="space-y-6">
+          <section className="space-y-6" data-section="Experience">
             <h3 className="font-mono text-xs uppercase font-bold text-muted tracking-wider">
               Professional Experience
             </h3>
@@ -121,7 +126,7 @@ export default function ResumePage() {
           </section>
 
           {/* Core Skills */}
-          <section className="space-y-4">
+          <section className="space-y-4" data-section="Skills">
             <h3 className="font-mono text-xs uppercase font-bold text-muted tracking-wider">
               Core Skills
             </h3>
@@ -150,7 +155,7 @@ export default function ResumePage() {
           </section>
 
           {/* Selected Project Experience (from CV Page 2) */}
-          <section className="space-y-6">
+          <section className="space-y-6" data-section="Projects">
             <h3 className="font-mono text-xs uppercase font-bold text-muted tracking-wider">
               Selected Project Experience (OctaNode)
             </h3>
@@ -225,7 +230,7 @@ export default function ResumePage() {
           </section>
 
           {/* Education, Certifications & Languages */}
-          <section className="space-y-4 pt-4 border-t border-line">
+          <section className="space-y-4 pt-4 border-t border-line" data-section="Education">
             <h3 className="font-mono text-xs uppercase font-bold text-muted tracking-wider">
               Education, Certifications &amp; Languages
             </h3>

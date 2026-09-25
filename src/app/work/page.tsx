@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/layout/container";
 import { getAllProjects } from "@/content/projects-data";
 import { WorkContent } from "@/components/work/work-content";
+import { DotGrid, FrameHeading, PageToolbar } from "@/components/motion/studio";
 
 export const metadata: Metadata = {
   title: "Selected Work & Case Studies",
@@ -45,18 +46,20 @@ export default function WorkPage() {
   const allProjects = getAllProjects();
 
   return (
-    <div className="w-full pt-32 pb-24 lg:pt-40 lg:pb-32 bg-background min-h-screen">
+    <div className="relative isolate w-full pt-32 pb-24 lg:pt-40 lg:pb-32 bg-background min-h-screen">
+      <DotGrid className="h-[640px]" />
+      <PageToolbar frame="Work" />
       <Container size="default">
         {/* Page Header */}
-        <div className="max-w-3xl mb-12 space-y-4">
+        <div className="max-w-3xl mb-12 space-y-4" data-section="Overview">
           <p className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">
             PORTFOLIO ARCHIVE
           </p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-ink leading-tight">
+          <FrameHeading frame="Work" className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-ink leading-tight">
             Case studies in product, systems &amp;{" "}
             <em className="font-serif font-normal italic">enterprise workflows.</em>
-          </h1>
-          <p className="text-base sm:text-lg text-muted leading-relaxed">
+          </FrameHeading>
+          <p className="text-base sm:text-lg text-muted leading-relaxed pt-6">
             Every project below documents real constraints, evidence-backed architectural decisions, component states, and verified outcomes.
           </p>
         </div>
