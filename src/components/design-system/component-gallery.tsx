@@ -490,12 +490,12 @@ function ComponentCard({ item }: { item: (typeof INVENTORY)[number] }) {
   const [variant, setVariant] = React.useState(variants[0]);
   return (
     <div className={cn("group/comp relative h-full flex flex-col border transition-[border-color,box-shadow,background-color] duration-[450ms] hover:border-[#9747ff]/60 hover:shadow-[0_18px_50px_rgba(14,14,16,.1)] focus-within:border-[#9747ff]/60", rLg, surface, line)}>
-      <span aria-hidden="true" className="absolute -top-[18px] left-0 font-mono text-[10px] tracking-[0.04em] text-[#9747ff] opacity-0 translate-y-1 group-hover/comp:opacity-100 group-hover/comp:translate-y-0 group-focus-within/comp:opacity-100 group-focus-within/comp:translate-y-0 transition-all duration-300">
+      <span aria-hidden="true" className="absolute -top-[18px] left-0 font-mono text-[10px] tracking-[0.04em] text-[var(--color-component)] opacity-0 translate-y-1 group-hover/comp:opacity-100 group-hover/comp:translate-y-0 group-focus-within/comp:opacity-100 group-focus-within/comp:translate-y-0 transition-all duration-300">
         ◆ {name.split(" ")[0]} / {variant}
       </span>
       <div className="flex items-center justify-between px-4 pt-4">
         <span className={cn("font-mono text-[10px] tracking-[0.08em] uppercase font-semibold", muted)}>{category}</span>
-        <span className="font-mono text-[10px] text-[#9747ff]">◆ Component</span>
+        <span className="font-mono text-[10px] text-[var(--color-component)]">◆ Component</span>
       </div>
 
       {/* Figma-style variant property */}

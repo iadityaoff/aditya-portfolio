@@ -17,6 +17,9 @@
   --color-showcase-card: #14141A;
   --color-showcase-border: #23232E;
   --color-showcase-muted: #8E8EA0;
+  /* theme surfaces (ThemeBuilder sets --surface / --surface-2 on <html>) */
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
 
   --font-sans: var(--font-inter-tight), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-serif: var(--font-instrument-serif), Georgia, "Times New Roman", serif;
@@ -35,6 +38,8 @@
   --color-on-accent: #FFFFFF;
   --color-accent-press: #2437d8;
   --color-accent-on-dark: #8c9bff;
+  /* Figma "component" purple as text: readable on every skin (light/dark set below) */
+  --color-component: #7c3aed;
   --surface: #FFFFFF;
   --surface-2: #FAFAF7;
   --dot: rgba(14, 14, 16, 0.09);
@@ -206,6 +211,8 @@ body { transition: background-color 450ms cubic-bezier(.16, 1, .3, 1), color 450
 /* accent as text inside dark showcase panels (CTA etc.) needs the dark-surface tone */
 :is(.bg-showcase, .bg-showcase-card, [class*="bg-[#0B0B0F]"], [class*="bg-[#0b0b0f]"], [class*="bg-[#0E0E10]"], [class*="bg-[#0e0e10]"], [class*="bg-[#141418]"]) .text-accent,
 :is(.bg-showcase, .bg-showcase-card) .hover\:text-accent:hover { color: var(--color-accent-on-dark); }
+
+html[data-theme="dark"] { --color-component: #b794ff; }
 
 /* dark mode: fixed light surfaces become theme surfaces */
 html[data-theme="dark"] .bg-white,

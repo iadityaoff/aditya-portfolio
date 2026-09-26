@@ -387,6 +387,7 @@ export function compileSite(t: Theme) {
     "--color-showcase": p.canvas.bg,
     "--color-showcase-card": p.canvas.panel,
     "--color-showcase-border": p.canvas.line,
+    "--color-showcase-muted": p.canvas.muted,
     "--background": p.bg,
     "--foreground": p.ink,
     "--accent": a.fill,

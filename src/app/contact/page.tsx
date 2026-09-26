@@ -114,7 +114,7 @@ export default function ContactPage() {
                   RESPONSE TIME
                 </span>
                 <p className="text-sm text-ink font-semibold">{siteConfig.responseTime}</p>
-                <p className="text-xs text-emerald-600 font-mono mt-0.5">● Open to Projects</p>
+                <p className="text-xs text-emerald-700 dark:text-emerald-400 font-mono mt-0.5">● Open to Projects</p>
               </div>
 
               <div>

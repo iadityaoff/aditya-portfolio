@@ -159,7 +159,7 @@ export function ThemeBuilder({
     <div aria-label="Theme builder" className={cn("rounded-[20px] border border-line bg-white p-5 space-y-6 shadow-[0_24px_60px_rgba(14,14,16,.06)]", className)}>
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="font-mono text-[10px] tracking-[0.1em] text-[#9747ff]">◆ THEME BUILDER</p>
+          <p className="font-mono text-[10px] tracking-[0.1em] text-[var(--color-component)]">◆ THEME BUILDER</p>
           <p className="text-sm font-semibold text-ink mt-0.5">Site variables</p>
           <p className="text-[11px] text-muted mt-1 leading-snug">Everything here themes the whole portfolio. Shape &amp; density tune the component library.</p>
         </div>

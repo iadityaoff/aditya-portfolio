@@ -86,7 +86,7 @@ export function ThemeDrawer() {
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Close theme builder"
-              className="w-8 h-8 rounded-full grid place-items-center border border-line text-muted hover:text-ink cursor-pointer"
+              className="w-10 h-10 rounded-full grid place-items-center border border-line text-muted hover:text-ink cursor-pointer"
             >
               ✕
             </button>

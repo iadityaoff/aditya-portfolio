@@ -70,7 +70,7 @@ export function CTASection({
         </div>
 
         {note && (
-          <p className="font-mono text-xs text-showcase-muted/80 mt-6 tracking-wide">
+          <p className="font-mono text-xs text-showcase-muted mt-6 tracking-wide">
             {note}
           </p>
         )}

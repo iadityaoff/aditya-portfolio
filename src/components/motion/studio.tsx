@@ -280,6 +280,9 @@ export function PageToolbar({ frame }: { frame: string }) {
   const [active, setActive] = React.useState(0);
   const [hidden, setHidden] = React.useState(false);
   const barRef = React.useRef<HTMLElement>(null);
+  // the section elements themselves: we never write ids into the DOM, which would
+  // make React's hydration of late-mounting (Suspense) sections report a mismatch
+  const elsRef = React.useRef<HTMLElement[]>([]);
 
   React.useEffect(() => {
     let els: HTMLElement[] = [];
@@ -291,12 +294,10 @@ export function PageToolbar({ frame }: { frame: string }) {
       );
       if (found.length === els.length && found.every((el, i) => el === els[i])) return;
       els = found;
+      elsRef.current = found;
       setSections(
-        els.map((el, i) => {
-          // unique across re-scans: late-mounting sections must not reuse an id
-          if (!el.id) el.id = `section-${++sectionUid}`;
-          return { id: el.id, label: el.dataset.section || `Section ${i + 1}` };
-        })
+        // unique keys across re-scans: late-mounting sections must not reuse one
+        els.map((el, i) => ({ id: `section-${++sectionUid}`, label: el.dataset.section || `Section ${i + 1}` }))
       );
     };
 
@@ -326,8 +327,8 @@ export function PageToolbar({ frame }: { frame: string }) {
 
   if (!sections.length) return null;
 
-  const go = (id: string) => {
-    const el = document.getElementById(id);
+  const go = (i: number) => {
+    const el = elsRef.current[i];
     if (!el) return;
     if (lenis) lenis.scrollTo(el, { offset: -96 });
     else el.scrollIntoView();
@@ -355,7 +356,7 @@ export function PageToolbar({ frame }: { frame: string }) {
           <button
             key={s.id}
             type="button"
-            onClick={() => go(s.id)}
+            onClick={() => go(i)}
             aria-label={s.label}
             aria-current={i === active ? "step" : undefined}
             className={cn(

@@ -374,7 +374,7 @@ function PatternCard({ item }: { item: (typeof PATTERNS)[number] }) {
     <div className={cn("group/pat relative h-full flex flex-col border transition-[border-color,box-shadow] duration-[450ms] hover:border-[#9747ff]/60 hover:shadow-[0_18px_50px_rgba(14,14,16,.1)] focus-within:border-[#9747ff]/60", rLg, surface, line)}>
       <div className="flex items-center justify-between px-4 pt-4">
         <span className={cn("font-mono text-[10px] tracking-[0.08em] uppercase font-semibold", muted)}>{category}</span>
-        <span className="font-mono text-[10px] text-[#9747ff]">❖ Organism</span>
+        <span className="font-mono text-[10px] text-[var(--color-component)]">❖ Organism</span>
       </div>
       <div className="px-4 pt-2">
         <h3 className={cn("text-lg font-semibold", ink)}>{name}</h3>

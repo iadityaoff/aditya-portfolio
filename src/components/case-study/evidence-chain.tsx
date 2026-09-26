@@ -141,7 +141,7 @@ function SimulatedWorkspace({ step, evidence }: { step: number; evidence: Eviden
     <div className="w-full h-full relative overflow-hidden bg-surface rounded-[24px] flex flex-col shadow-[inset_0_2px_10px_rgba(0,0,0,0.02)] border border-line">
       
       {/* OS Header Bar */}
-      <div className="h-10 border-b border-line/60 bg-white/50 flex items-center px-4 gap-2 shrink-0 relative z-10">
+      <div className="h-10 border-b border-line/60 bg-[var(--surface-2)] flex items-center px-4 gap-2 shrink-0 relative z-10">
         <div className="flex gap-1.5">
           <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
           <div className="w-2.5 h-2.5 rounded-full bg-amber-400" />
@@ -169,7 +169,7 @@ function SimulatedWorkspace({ step, evidence }: { step: number; evidence: Eviden
             <span className="font-mono text-xs text-muted">PRJ-1042</span>
           </div>
           <h4 className="font-semibold text-ink text-sm">Audit Findings / Friction Report</h4>
-          <div className="p-4 bg-red-50/50 rounded-xl border border-red-100/50">
+          <div className="p-4 bg-red-50/50 rounded-xl border border-red-100/50 dark:bg-red-500/10 dark:border-red-500/25">
             <p className="text-sm text-ink/80 leading-relaxed font-mono">{evidence.problem}</p>
           </div>
         </motion.div>
@@ -189,7 +189,7 @@ function SimulatedWorkspace({ step, evidence }: { step: number; evidence: Eviden
             <div className="absolute -bottom-1.5 -right-1.5 w-2.5 h-2.5 bg-white border-2 border-blue-500" />
             
             <div className="absolute -top-8 left-0 flex items-center gap-2">
-              <span className="bg-blue-500 text-white font-mono text-[9px] px-2 py-0.5 rounded-sm shadow-sm flex items-center gap-1.5">
+              <span className="bg-blue-600 text-white font-mono text-[9px] px-2 py-0.5 rounded-sm shadow-sm flex items-center gap-1.5">
                 <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="rotate-[-45deg]"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/></svg>
                 Drafting Design
               </span>

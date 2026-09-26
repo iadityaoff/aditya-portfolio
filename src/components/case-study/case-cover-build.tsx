@@ -187,7 +187,7 @@ export function CaseCoverBuild({ project }: { project: Project }) {
                     />
                     <span
                       className={cn(
-                        "absolute -top-[18px] left-0 font-mono text-[10px] text-[#9747ff] whitespace-nowrap transition-opacity duration-[450ms]",
+                        "absolute -top-[18px] left-0 font-mono text-[10px] text-[var(--color-component)] whitespace-nowrap transition-opacity duration-[450ms]",
                         stage === 1 ? "opacity-100" : "opacity-0"
                       )}
                     >

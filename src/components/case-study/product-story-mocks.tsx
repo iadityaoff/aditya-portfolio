@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 function ConceptualTag() {
   return (
     <div className="absolute top-4 right-4 z-50 pointer-events-none">
-      <span className="bg-surface/80 backdrop-blur-md border border-line text-muted font-mono text-[9px] uppercase font-bold tracking-widest px-2 py-1 rounded shadow-sm">
+      <span className="bg-surface border border-line text-muted font-mono text-[9px] uppercase font-bold tracking-widest px-2 py-1 rounded shadow-sm">
         Illustrative UI
       </span>
     </div>
@@ -77,7 +77,7 @@ export function DSMock02() {
         <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider">Draft</span>
       </div>
 
-      <div className="flex-1 border border-slate-200 bg-white rounded-lg shadow-sm overflow-hidden flex flex-col">
+      <div className="flex-1 border border-slate-200 bg-[#ffffff] rounded-lg shadow-sm overflow-hidden flex flex-col">
         <div className="grid grid-cols-3 bg-slate-50 border-b border-slate-200 text-[10px] font-bold text-slate-500 uppercase tracking-wider p-3">
           <div>Semantic Token</div>
           <div>Primitive Ref</div>
@@ -87,7 +87,7 @@ export function DSMock02() {
         {[
           { sem: "bg-surface-interactive", prim: "blue-500", color: "bg-blue-500" },
           { sem: "bg-surface-hover", prim: "blue-600", color: "bg-blue-600" },
-          { sem: "text-on-interactive", prim: "white", color: "bg-white border border-slate-200" },
+          { sem: "text-on-interactive", prim: "white", color: "bg-[#ffffff] border border-slate-200" },
           { sem: "border-focus-ring", prim: "blue-400", color: "bg-blue-400" },
         ].map((row, i) => (
           <div key={i} className="grid grid-cols-3 items-center border-b border-slate-100 p-3 text-xs text-slate-600">
@@ -106,7 +106,7 @@ export function DSMock03() {
   return (
     <div className="w-full h-full bg-[#E5E5E5] p-6 flex items-center justify-center relative overflow-hidden">
       <ConceptualTag />
-      <div className="w-full max-w-sm bg-white p-8 rounded-xl shadow-lg border border-slate-200 relative">
+      <div className="w-full max-w-sm bg-[#ffffff] p-8 rounded-xl shadow-lg border border-slate-200 relative">
         <div className="absolute top-2 left-2 flex gap-1.5">
           <div className="w-2 h-2 rounded-full bg-red-400" />
           <div className="w-2 h-2 rounded-full bg-yellow-400" />
@@ -145,7 +145,7 @@ export function DSMock03() {
 export function DSMock04() {
   // Step 4: Production Storybook
   return (
-    <div className="w-full h-full bg-white flex flex-col relative overflow-hidden border border-slate-200">
+    <div className="w-full h-full bg-[#ffffff] flex flex-col relative overflow-hidden border border-slate-200">
       <ConceptualTag />
       {/* Storybook Sidebar Mock */}
       <div className="flex h-full">
@@ -162,12 +162,12 @@ export function DSMock04() {
           </div>
         </div>
         {/* Storybook Canvas Mock */}
-        <div className="w-2/3 p-6 bg-white flex flex-col">
+        <div className="w-2/3 p-6 bg-[#ffffff] flex flex-col">
           <div className="text-lg font-bold text-slate-800 mb-6 border-b border-slate-100 pb-2">Button</div>
           <div className="flex-1 border border-slate-200 border-dashed rounded-lg flex items-center justify-center p-6 bg-slate-50/50">
             <div className="flex gap-4 items-center">
               <button className="bg-[#0F172A] text-white font-medium py-2 px-5 rounded-md shadow-sm text-sm">Dark Theme</button>
-              <button className="bg-white border border-slate-200 text-slate-700 font-medium py-2 px-5 rounded-md shadow-sm text-sm">Light Outline</button>
+              <button className="bg-[#ffffff] border border-slate-200 text-slate-700 font-medium py-2 px-5 rounded-md shadow-sm text-sm">Light Outline</button>
             </div>
           </div>
           <div className="mt-4 bg-slate-800 text-slate-300 font-mono text-[10px] p-3 rounded-md">
@@ -186,9 +186,9 @@ export function DSMock04() {
 export function HealthMock01() {
   // Step 1: Appointment List
   return (
-    <div className="w-full h-full bg-[#F1F5F9] flex flex-col relative overflow-hidden font-sans">
+    <div className="w-full h-full bg-slate-100 flex flex-col relative overflow-hidden font-sans">
       <ConceptualTag />
-      <div className="h-12 bg-white border-b border-slate-200 flex items-center px-4 justify-between shrink-0">
+      <div className="h-12 bg-[#ffffff] border-b border-slate-200 flex items-center px-4 justify-between shrink-0">
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 bg-emerald-500 rounded-md" />
           <span className="font-bold text-slate-800 text-sm">DrPro · Clinic</span>
@@ -201,19 +201,19 @@ export function HealthMock01() {
           <div>
             <h1 className="text-lg font-bold text-slate-800">Appointment(s)</h1>
             <div className="flex gap-3 mt-1 text-[10px] font-semibold">
-              <span className="text-slate-800 border-b-2 border-emerald-500 pb-0.5">Today&apos;s <span className="text-emerald-600">18</span></span>
-              <span className="text-slate-500">Upcoming 42</span>
-              <span className="text-slate-500">Requests 5</span>
+              <span className="text-slate-800 border-b-2 border-emerald-500 pb-0.5">Today&apos;s <span className="text-emerald-800">18</span></span>
+              <span className="text-slate-600">Upcoming 42</span>
+              <span className="text-slate-600">Requests 5</span>
             </div>
           </div>
-          <button className="bg-emerald-500 text-white text-xs px-3 py-1.5 rounded-md font-medium">Book Appointment</button>
+          <button className="bg-emerald-700 text-white text-xs px-3 py-1.5 rounded-md font-medium">Book Appointment</button>
         </div>
 
-        <div className="flex-1 bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden flex flex-col">
+        <div className="flex-1 bg-[#ffffff] border border-slate-200 rounded-lg shadow-sm overflow-hidden flex flex-col">
           {[
-            { time: "10:00 AM", name: "Ravi Mehta", type: "Fever, body ache · Dr. N. Shah", status: "Checked in", color: "text-emerald-600 bg-emerald-50" },
-            { time: "10:15 AM", name: "Pooja Sharma", type: "Follow-up · Dr. P. Joshi", status: "Waiting", color: "text-amber-600 bg-amber-50" },
-            { time: "10:30 AM", name: "Imran Sheikh", type: "Chest pain · Dr. N. Shah", status: "Urgent", color: "text-rose-600 bg-rose-50" },
+            { time: "10:00 AM", name: "Ravi Mehta", type: "Fever, body ache · Dr. N. Shah", status: "Checked in", color: "text-emerald-800 bg-emerald-50" },
+            { time: "10:15 AM", name: "Pooja Sharma", type: "Follow-up · Dr. P. Joshi", status: "Waiting", color: "text-amber-800 bg-amber-50" },
+            { time: "10:30 AM", name: "Imran Sheikh", type: "Chest pain · Dr. N. Shah", status: "Urgent", color: "text-rose-800 bg-rose-50" },
             { time: "10:45 AM", name: "Sneha Kulkarni", type: "Tele consult · Dr. K. Rao", status: "Online", color: "text-slate-600 bg-slate-50" },
           ].map((patient, i) => (
             <div key={i} className="flex items-center p-3 border-b border-slate-100 hover:bg-slate-50">
@@ -239,7 +239,7 @@ export function HealthMock02() {
   return (
     <div className="w-full h-full bg-slate-800/30 flex justify-end relative overflow-hidden">
       <ConceptualTag />
-      <div className="w-[78%] h-full bg-white border-l border-slate-200 shadow-2xl flex flex-col">
+      <div className="w-[78%] h-full bg-[#ffffff] border-l border-slate-200 shadow-2xl flex flex-col">
         <div className="p-4 border-b border-slate-100">
           <div className="text-sm font-bold text-slate-800">Book Appointment</div>
           <div className="text-[10px] text-slate-500">Please fill out the form to book an appointment</div>
@@ -265,7 +265,7 @@ export function HealthMock02() {
                   key={t}
                   className={cn(
                     "text-[10px] text-center py-1 rounded border",
-                    t === "11:30" ? "bg-emerald-500 border-emerald-500 text-white font-bold" : t === "10:15" || t === "10:45" ? "border-dashed border-slate-200 text-slate-300 line-through" : "bg-white border-slate-200 text-slate-700"
+                    t === "11:30" ? "bg-emerald-700 border-emerald-700 text-white font-bold" : t === "10:15" || t === "10:45" ? "border-dashed border-slate-200 text-slate-300 line-through" : "bg-[#ffffff] border-slate-200 text-slate-700"
                   )}
                 >
                   {t}
@@ -280,7 +280,7 @@ export function HealthMock02() {
           </div>
           <div className="mt-auto flex justify-end gap-2">
             <button className="px-3 py-1.5 text-xs font-bold text-slate-500">Cancel</button>
-            <button className="px-3 py-1.5 text-xs font-bold text-white bg-emerald-500 rounded-md">Book Appointment</button>
+            <button className="px-3 py-1.5 text-xs font-bold text-white bg-emerald-700 rounded-md">Book Appointment</button>
           </div>
         </div>
       </div>
@@ -291,9 +291,9 @@ export function HealthMock02() {
 export function HealthMock03() {
   // Step 3: IPD pending bills
   return (
-    <div className="w-full h-full bg-[#F1F5F9] p-4 flex flex-col relative overflow-hidden">
+    <div className="w-full h-full bg-slate-100 p-4 flex flex-col relative overflow-hidden">
       <ConceptualTag />
-      <div className="bg-white rounded-lg shadow-sm border border-slate-200 flex-1 flex flex-col overflow-hidden">
+      <div className="bg-[#ffffff] rounded-lg shadow-sm border border-slate-200 flex-1 flex flex-col overflow-hidden">
         <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
           <div>
             <div className="text-xs font-bold text-slate-800">IPD Billing</div>
@@ -303,7 +303,7 @@ export function HealthMock03() {
               <span className="text-slate-500">All Bills</span>
             </div>
           </div>
-          <div className="text-[10px] font-bold text-slate-700 bg-white border border-slate-200 px-2 py-1 rounded">Generate Invoice</div>
+          <div className="text-[10px] font-bold text-slate-700 bg-[#ffffff] border border-slate-200 px-2 py-1 rounded">Generate Invoice</div>
         </div>
 
         <div className="flex-1 p-4">
@@ -347,7 +347,7 @@ export function HealthMock04() {
   return (
     <div className="w-full h-full bg-slate-800/40 p-4 flex items-center justify-center relative overflow-hidden backdrop-blur-sm">
       <ConceptualTag />
-      <div className="w-full max-w-sm bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden">
+      <div className="w-full max-w-sm bg-[#ffffff] rounded-xl shadow-2xl border border-slate-200 overflow-hidden">
         <div className="p-4 border-b border-slate-100 flex items-center justify-between">
           <div>
             <h3 className="text-sm font-bold text-slate-800">Generate Invoice</h3>
@@ -374,10 +374,10 @@ export function HealthMock04() {
         </div>
 
         <div className="bg-slate-50 p-4 pt-3 flex gap-2">
-          <button className="flex-1 py-2 text-xs font-bold text-slate-600 bg-white border border-slate-200 rounded-md">
+          <button className="flex-1 py-2 text-xs font-bold text-slate-600 bg-[#ffffff] border border-slate-200 rounded-md">
             Download
           </button>
-          <button className="flex-1 py-2 text-xs font-bold text-white bg-emerald-500 rounded-md shadow-sm">
+          <button className="flex-1 py-2 text-xs font-bold text-white bg-emerald-700 rounded-md shadow-sm">
             Create &amp; Print
           </button>
         </div>

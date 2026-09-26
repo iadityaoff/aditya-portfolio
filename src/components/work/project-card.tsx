@@ -65,7 +65,7 @@ export function ProjectCard({
 
             {project.keyOutcome && (
               <div className="inline-flex items-center gap-3 bg-surface border border-line rounded-lg px-4 py-2 mt-2 w-max">
-                <span className="font-semibold text-lg sm:text-xl text-emerald-600 dark:text-emerald-400">
+                <span className="font-semibold text-lg sm:text-xl text-emerald-700 dark:text-emerald-400">
                   {project.keyOutcome.metric}
                 </span>
                 <span className="font-mono text-xs sm:text-sm text-muted">

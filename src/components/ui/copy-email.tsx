@@ -34,7 +34,7 @@ export function CopyEmail({ email, className, tone = "light" }: CopyEmailProps) 
         className={cn(
           "inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-md uppercase tracking-wider font-mono font-semibold transition-colors duration-200",
           copied
-            ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+            ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
             : isDark
             ? "bg-white/10 text-white/70 group-hover:text-white"
             : "bg-line/60 text-muted group-hover:text-ink"

@@ -63,7 +63,7 @@ export function WireframeGallery({ wireframes, storyContext }: WireframeGalleryP
                   className={`p-4 rounded-xl text-xs leading-relaxed border ${
                     isKept
                       ? "bg-accent/5 border-accent/20 text-ink"
-                      : "bg-red-500/5 border-red-500/20 text-red-900"
+                      : "bg-red-500/5 border-red-500/20 text-red-900 dark:text-red-300"
                   }`}
                 >
                   <strong>{isKept ? "Rationale:" : "Why Rejected:"}</strong>{" "}
