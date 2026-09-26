@@ -278,6 +278,143 @@ html:not(.motion) .cap-bar{display:none}
 .sum .due{font-weight:700;font-size:15px}.sum .due b{color:var(--accent-onlight)}
 .row-in{transition:opacity var(--t-ui) var(--ease-out),transform var(--t-ui) var(--ease-out)}
 
+/* DrPro product mock: modern IPD Billing screen (sidebar + page header + KPIs + table) */
+.dp{--dp-line:#eceae5;--dp-soft:#f7f7f5;--dp-ink2:#5d5c58;--dp-ink3:#94938d}
+.dp .dv-top{background:#fff}
+.dp .dv-url{display:flex;justify-content:center}
+.dp-urlbar{display:inline-flex;align-items:center;gap:6px;background:var(--dp-soft);border:1px solid var(--dp-line);border-radius:8px;padding:5px 14px;font-size:12px;color:#3d3c38;font-weight:500}
+.dp-urlbar small{font-family:var(--sans);font-size:12px;color:var(--dp-ink3);margin:0}
+.dp .ic{width:15px;height:15px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.dp-urlbar .ic{width:11px;height:11px;color:var(--dp-ink3)}
+.dp .dv-body{grid-template-columns:200px 1fr;grid-template-rows:auto 1fr;gap:0;padding:0}
+.dp .u{border-radius:0}
+.dp .side{grid-row:1/-1;background:var(--dp-soft);border:0;border-right:1px solid var(--dp-line);padding:14px 12px;gap:12px}
+.dp-app{display:flex;align-items:center;gap:10px;padding:0 4px}
+.dp-logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 78%,#fff),var(--accent));color:var(--on-accent);display:grid;place-items:center;font-weight:700;font-size:14px;box-shadow:0 4px 10px color-mix(in srgb,var(--accent) 30%,transparent),inset 0 1px 0 rgba(255,255,255,.3)}
+.dp-app b{display:block;font-size:14px;letter-spacing:-.01em;line-height:1.1}
+.dp-app small{font-size:11px;color:var(--dp-ink3)}
+.dp-app>.ic{margin-left:auto;color:var(--dp-ink3);width:14px}
+.dp-clinic{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:#3d3c38;border:1px solid var(--dp-line);background:#fff;border-radius:10px;padding:7px 10px;box-shadow:0 1px 2px rgba(14,14,16,.04)}
+.dp-clinic>i{width:7px;height:7px;border-radius:50%;background:#12a150;box-shadow:0 0 0 3px #e3f5ea}
+.dp-clinic .ic{margin-left:auto;width:13px;color:var(--dp-ink3)}
+.dp-nav{display:flex;flex-direction:column;gap:1px}
+.dp-nav h6{margin:2px 8px 6px;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--dp-ink3)}
+.dp .nb{border:0;background:transparent;border-radius:8px;padding:6px 8px;font-size:12.5px;font-weight:500;color:var(--dp-ink2);display:flex;align-items:center;gap:9px}
+.dp .nb>.ic{color:var(--dp-ink3)}
+.dp .nb em{margin-left:auto;font-style:normal;font-size:10.5px;font-weight:600;background:#fff;border:1px solid var(--dp-line);border-radius:999px;padding:0 6px;color:var(--dp-ink2)}
+.dp .nb.grp{color:#0e0e10;font-weight:600}
+.dp .nb.grp>.ic{color:var(--accent-onlight)}
+.dp .nb.grp>.ic:last-child{margin-left:auto;width:13px;color:var(--dp-ink3)}
+.dp-subs{position:relative;margin:1px 0 2px 16px;padding-left:10px;border-left:1.5px solid var(--dp-line);display:flex;flex-direction:column;gap:1px}
+.dp .nb.sub{font-size:12px;padding:5px 9px}
+.dp .nb.on{background:#fff;color:var(--accent-onlight);font-weight:600;box-shadow:0 1px 2px rgba(14,14,16,.06),0 0 0 1px var(--dp-line)}
+.dp .nb.on::before{content:"";position:absolute;left:-11.5px;top:6px;bottom:6px;width:1.5px;background:var(--accent)}
+.dp-me{margin-top:auto;display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--dp-line);border-radius:10px;padding:8px}
+.dp .av{background:hsl(var(--h,230) 85% 94%);color:hsl(var(--h,230) 55% 38%)}
+.dp-me .av{width:28px;height:28px;font-size:10.5px}
+.dp-me b{display:block;font-size:12px;line-height:1.2}
+.dp-me small{font-size:10.5px;color:var(--dp-ink3)}
+.dp .pt{grid-column:2;border:0;border-bottom:1px solid var(--dp-line);padding:14px 20px;gap:10px;background:#fff}
+.dp-ttl{margin-right:auto}
+.dp-ttl b{display:block;font-size:18px;letter-spacing:-.02em;line-height:1.2}
+.dp-ttl small{font-size:11.5px;color:var(--dp-ink3)}
+.dp .cmdk{margin-left:0;display:flex;align-items:center;gap:8px;min-width:210px;font-family:var(--sans);font-size:12px;color:var(--dp-ink3);background:var(--dp-soft);border:1px solid var(--dp-line);border-radius:9px;padding:7px 10px}
+.dp .cmdk kbd{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--dp-ink2);background:#fff;border:1px solid var(--dp-line);border-radius:5px;padding:1px 5px}
+.dp-ib{position:relative;width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--dp-line);border-radius:9px;color:var(--dp-ink2)}
+.dp-ib i{position:absolute;top:7px;right:8px;width:6px;height:6px;border-radius:50%;background:#e5484d;box-shadow:0 0 0 2px #fff}
+.dp .ins{display:flex;align-items:center;gap:6px;background:var(--accent);color:var(--on-accent);font-family:var(--sans);font-weight:600;font-size:12.5px;letter-spacing:0;border-radius:9px;padding:8px 13px;box-shadow:0 1px 2px rgba(14,14,16,.1),inset 0 1px 0 rgba(255,255,255,.18)}
+.dp .ins .ic{width:14px;height:14px;stroke-width:2.2}
+.dp .main{grid-column:2;border:0;padding:16px 20px 12px;gap:12px;background:#fff}
+.dp .sum{order:0;align-self:stretch;width:auto;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0;border:0;background:none;border-radius:0;font-size:12px}
+.dp .sum>div{display:grid;gap:2px;justify-content:start;border:1px solid var(--dp-line);border-radius:12px;padding:10px 14px;background:linear-gradient(180deg,#fff,var(--dp-soft))}
+.dp .sum span{color:var(--dp-ink3);font-size:11.5px;font-weight:500}
+.dp .sum b{font-size:19px;font-weight:600;letter-spacing:-.02em;color:#0e0e10;font-variant-numeric:tabular-nums;font-family:var(--sans)}
+.dp .sum .neg{color:#0d7a3c}
+.dp .sum small{font-size:10.5px;color:var(--dp-ink3)}
+.dp .sum .due{font-size:12px}
+.dp .sum .due b{color:var(--accent-onlight)}
+.dp-bar{display:flex;align-items:center;justify-content:space-between}
+.dp-tabs{display:flex;gap:2px;background:var(--dp-soft);border:1px solid var(--dp-line);border-radius:9px;padding:2px;font-size:12px;font-weight:500}
+.dp-tabs span{padding:4px 10px;border-radius:7px;color:var(--dp-ink2);display:flex;gap:6px;align-items:center}
+.dp-tabs span.on{background:#fff;color:#0e0e10;box-shadow:0 1px 2px rgba(14,14,16,.08),0 0 0 1px var(--dp-line)}
+.dp-tabs em{font-style:normal;font-size:10.5px;color:var(--dp-ink3)}
+.dp-tabs .on em{color:var(--accent-onlight);font-weight:600}
+.dp-flt{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--dp-ink2);border:1px solid var(--dp-line);border-radius:9px;padding:5px 10px}
+.dp-flt .ic{width:13px}
+.dp .tbl{grid-template-columns:1.9fr 1fr 1fr .95fr .9fr .9fr;font-size:12.5px;border:1px solid var(--dp-line);border-radius:12px;overflow:hidden}
+.dp .tbl span{padding:8px 10px;display:flex;align-items:center;gap:9px;white-space:nowrap;border-bottom:1px solid #f2f1ed;color:#3d3c38}
+.dp .tbl .row-in:last-child span{border-bottom:0}
+.dp .tbl .h span{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:0;color:var(--dp-ink3);background:var(--dp-soft);padding-top:7px;padding-bottom:7px;border-bottom:1px solid var(--dp-line)}
+.dp .tbl .r{justify-content:flex-end;font-variant-numeric:tabular-nums}
+.dp .tbl .av{width:28px;height:28px;font-size:10px;font-style:normal;font-weight:600}
+.dp .tbl em{font-style:normal;display:flex;flex-direction:column;line-height:1.25}
+.dp .tbl em b{color:#0e0e10}
+.dp .tbl small{font-size:10.5px;color:var(--dp-ink3)}
+.dp .tbl .bal b{color:#c2281f}
+.dp .chip{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:2px 8px 2px 7px;border-radius:999px;border:1px solid}
+.dp .chip::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor}
+.dp .chip.wa{background:#fff8eb;color:#9a5d00;border-color:#f6e2bd}
+.dp .chip.ok{background:#effaf3;color:#0d6b35;border-color:#cdebd8}
+.dp .chip.pa{background:color-mix(in srgb,var(--accent) 7%,#fff);color:var(--accent-onlight);border-color:color-mix(in srgb,var(--accent) 22%,#fff)}
+/* DrPro flow: booking (stages 1–3) → billing (stages 4–5); DrPro teal */
+.dp .pt{display:grid}
+.dp .pt>.dp-hd{grid-area:1/1;display:flex;align-items:center;gap:10px}
+.dp .main{display:grid;align-items:start}
+.dp .main>.dp-view{grid-area:1/1;display:flex;flex-direction:column;gap:12px;min-width:0}
+.dp .dp-bill,.studio:is([data-stage="4"],[data-stage="5"]) .dp .dp-book{opacity:0;visibility:hidden}
+.studio:is([data-stage="4"],[data-stage="5"]) .dp .dp-bill{opacity:1;visibility:visible}
+.dp-urlbar small.dp-bill,.studio:is([data-stage="4"],[data-stage="5"]) .dp-urlbar small.dp-book{display:none}
+.studio:is([data-stage="4"],[data-stage="5"]) .dp-urlbar small.dp-bill{display:inline}
+.dp .nb.ap{background:var(--accent-tint-light);color:var(--accent-onlight);font-weight:600}
+.dp .nb.ap>.ic{color:var(--accent-onlight)}
+.studio:is([data-stage="4"],[data-stage="5"]) .dp .nb.ap{background:transparent;color:var(--dp-ink2);font-weight:500}
+.studio:is([data-stage="4"],[data-stage="5"]) .dp .nb.ap>.ic{color:var(--dp-ink3)}
+.studio:is([data-stage="4"],[data-stage="5"]) .dp .nb.bl{background:#fff;color:var(--accent-onlight);font-weight:600;box-shadow:0 1px 2px rgba(14,14,16,.06),0 0 0 1px var(--dp-line)}
+.studio:is([data-stage="4"],[data-stage="5"]) .dp .nb.bl::before{content:"";position:absolute;left:-11.5px;top:6px;bottom:6px;width:1.5px;background:var(--accent)}
+.bk-hd b{display:block;font-size:15px;letter-spacing:-.01em}
+.bk-hd small{font-size:11.5px;color:var(--dp-ink3)}
+.bk-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bk-grid small{display:block;font-size:11.5px;font-weight:600;color:#2b2a27;margin-bottom:5px}
+.bk-grid small i{color:#e5484d;font-style:normal}
+.bk-in{display:flex;align-items:center;gap:8px;height:34px;padding:0 10px;border:1px solid var(--dp-line);border-radius:8px;font-size:12.5px;font-weight:500;background:#fff}
+.bk-in .av{width:22px;height:22px;font-size:9.5px;font-style:normal}
+.bk-in em{font-style:normal;font-size:11px;color:var(--dp-ink3);margin-left:auto}
+.bk-slotbox{border:1px solid var(--dp-line);border-radius:10px;overflow:hidden}
+.bk-days{display:flex;border-bottom:1px solid var(--dp-line);font-size:12px;color:var(--dp-ink2)}
+.bk-days span{padding:7px 14px;font-weight:500}
+.bk-days span.on{color:#0e0e10;font-weight:600;box-shadow:inset 0 -2px 0 var(--accent)}
+.bk-slots{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;padding:10px;background:color-mix(in srgb,var(--accent) 5%,#fff)}
+.bk-slots span{font-size:11px;font-weight:500;text-align:center;padding:5px 0;border:1px solid var(--dp-line);border-radius:6px;background:#fff;color:#2b2a27}
+.bk-slots span.off{color:#b9b8b2;background:transparent;text-decoration:line-through;border-style:dashed}
+.bk-slots span.on{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 2px 6px color-mix(in srgb,var(--accent) 35%,transparent)}
+.bk-pills{display:flex;gap:6px;flex-wrap:wrap}
+.bk-pills b{font-size:11.5px;font-weight:500;padding:4px 10px 4px 8px;border:1px solid var(--dp-line);border-radius:999px;display:flex;align-items:center;gap:6px;color:#3d3c38}
+.bk-pills b::before{content:"";width:10px;height:10px;border-radius:50%;border:1.5px solid #b9b8b2;box-sizing:border-box}
+.bk-pills b.on{border-color:color-mix(in srgb,var(--accent) 40%,#fff);background:var(--accent-tint-light);color:var(--accent-onlight)}
+.bk-pills b.on::before{border:3px solid var(--accent)}
+.bk-ft{display:flex;align-items:center;gap:14px;border-top:1px solid var(--dp-line);padding-top:10px}
+.bk-walk{display:flex;align-items:center;gap:7px;font-size:12px;color:#3d3c38;border:1px solid var(--dp-line);border-radius:999px;padding:4px 10px 4px 6px;margin-right:auto}
+.bk-walk i{width:13px;height:13px;border:1.5px solid #b9b8b2;border-radius:4px}
+.bk-cancel{font-size:12.5px;font-weight:500;color:var(--dp-ink2)}
+.bk-btn{font-size:12.5px;font-weight:600;color:#fff;background:var(--accent);border-radius:8px;padding:8px 14px}
+.dp .dv-body{position:relative}
+.dp .ap-search{min-width:230px}
+.dp .ap-tbl{grid-template-columns:.8fr .8fr 1.7fr 1fr 1.2fr .95fr}
+.dp .chip.nt{background:#f4f4f2;color:#55544f;border-color:#e6e5e0}
+.bk-scrim{position:absolute;inset:0;z-index:3;background:rgba(14,14,16,.28);opacity:0;pointer-events:none;transition:opacity var(--t-ui) var(--ease-out)}
+.bk-drawer{position:absolute;top:0;right:0;bottom:0;z-index:4;width:430px;background:#fff;border-left:1px solid var(--dp-line);box-shadow:-24px 0 60px rgba(14,14,16,.16);padding:16px 18px 14px;display:flex;flex-direction:column;gap:12px;transform:translateX(104%);transition:transform var(--t-scene) var(--ease-out)}
+.studio[data-stage="3"] .dp .bk-scrim{opacity:1}
+.studio[data-stage="3"] .dp .bk-drawer{transform:none}
+.bk-drawer .bk-hd{display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid var(--dp-line);padding-bottom:10px}
+.bk-x{font-size:12px;color:var(--dp-ink3)}
+.bk-drawer .bk-grid{grid-template-columns:1fr;gap:10px}
+.bk-drawer .bk-grid+.bk-slotbox+.bk-grid{grid-template-columns:1fr 1fr}
+.bk-drawer .bk-slots{grid-template-columns:repeat(4,1fr)}
+.bk-drawer .bk-days span{padding:7px 10px}
+.bk-drawer .bk-ft{margin-top:auto}
+.fit:has(.dp) .proto-chip{top:-36px;right:0;bottom:auto}
+.fit:has(.dp) .mp.me{top:49%}
+
 /* Component tags (Figma purple) */
 .u[data-c]::before{content:"◆ " attr(data-c);position:absolute;left:-1px;top:-19px;font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--component);white-space:nowrap;opacity:0;transition:opacity var(--t-ui)}
 /* Wireframe hatch */
@@ -351,6 +488,8 @@ html.motion .frame-name{top:86px}
 }
 html.motion .build{position:absolute;inset:0;padding-top:96px;padding-bottom:96px;align-content:center;max-width:none;width:min(1500px,100%);margin:0 auto}
 html.motion .studio[data-stage="0"] .build{pointer-events:none}
+/* until the script sets the first stage (GSAP still loading), keep the build layer off the hero so captions/device don't flash on load */
+html.motion .studio:not([data-stage]) .build{opacity:0;visibility:hidden}
 @media (max-width:899px){
   html.motion .build{align-content:start;padding-top:84px;gap:18px}
   html.motion .hero{gap:22px}
@@ -1027,59 +1166,111 @@ html[data-skin="code"] .bx.big::after,html[data-skin="code"] .studio-pin::before
 
     <div class="build" id="build">
       <div class="caps" aria-live="polite">
-        <div class="cap" data-s="1"><span class="n">02 / 08 · WIREFRAME</span><span class="serif">Structure before pixels.</span><h2>Four legacy tabs become one ward view.</h2><p>Every project starts as grey boxes: who uses the screen, what they need next, and what can be removed. Here, clinical staff juggled vitals, charges and invoices across four tabs.</p><div class="cap-bar"><i></i></div></div>
-        <div class="cap" data-s="2"><span class="n">03 / 08 · COMPONENTS</span><span class="serif">Components, not screens.</span><h2>Boxes snap into reusable parts.</h2><p>Patient header, navigation, data rows and summary become components with real props, so the same parts work across wards, roles and devices.</p><div class="cap-bar"><i></i></div></div>
-        <div class="cap" data-s="3"><span class="n">04 / 08 · UI DESIGN</span><span class="serif">Hierarchy through restraint.</span><h2>Colour only where it carries meaning.</h2><p>One accent for the active task, green for money saved, tabular numbers for tariffs. Tokens decide the look, so it stays consistent at 1,000 rows.</p><div class="cap-bar"><i></i></div></div>
-        <div class="cap" data-s="4"><span class="n">05 / 08 · PROTOTYPE</span><span class="serif">Interaction you can click.</span><h2>Flows are tested before they're built.</h2><p>Working prototypes with real states, not static artboards. Stakeholders click through billing, pre-authorisation and discharge before a sprint starts.</p><div class="cap-bar"><i></i></div></div>
-        <div class="cap" data-s="5"><span class="n">06 / 08 · PRODUCT</span><span class="serif">Shipped and measured.</span><h2>Discharge in 14 minutes, not 42.</h2><p>Billing omissions fell 38% across the pilot wards. The design is judged by what happens on the floor, not in the file.</p><div class="cap-bar"><i></i></div></div>
+        <div class="cap" data-s="1"><span class="n">02 / 08 · WIREFRAME</span><span class="serif">Structure before pixels.</span><h2>Step 1: today's appointments.</h2><p>Reception starts from one list: case, time, patient, doctor, complaint and status, with Today, Upcoming and Requests as tabs. It starts as grey boxes.</p><div class="cap-bar"><i></i></div></div>
+        <div class="cap" data-s="2"><span class="n">03 / 08 · COMPONENTS</span><span class="serif">Components, not screens.</span><h2>One set of parts for every app.</h2><p>Tabs with counts, search, data table, status chips and the side drawer are built once, then reused in booking, IPD, lab and pharmacy across all 6 DrPro apps.</p><div class="cap-bar"><i></i></div></div>
+        <div class="cap" data-s="3"><span class="n">04 / 08 · UI DESIGN</span><span class="serif">Hierarchy through restraint.</span><h2>Colour only where it carries meaning.</h2><p>Book Appointment opens as a side drawer over the list. One accent marks the chosen slot and the main action; booked slots fade back.</p><div class="cap-bar"><i></i></div></div>
+        <div class="cap" data-s="4"><span class="n">05 / 08 · PROTOTYPE</span><span class="serif">Interaction you can click.</span><h2>Step 2: the bill follows the patient.</h2><p>When the visit becomes an admission, IPD Billing picks it up: ward, doctor, total and balance due in one list, one click to a new invoice.</p><div class="cap-bar"><i></i></div></div>
+        <div class="cap" data-s="5"><span class="n">06 / 08 · PRODUCT</span><span class="serif">Shipped as one system.</span><h2>DrPro redesigned in under 30 days.</h2><p>A new design system rolled out module by module across Clinic, IPD, Lab, Pharmacy, Inventory, Supplier and Admin, so every app looks and works the same.</p><div class="cap-bar"><i></i></div></div>
       </div>
 
       <div class="devwrap">
         <div class="fit" data-fit="960x600" id="devFit">
           <div class="board">
-            <div class="device" id="device">
+            <div class="device dp" id="device">
               <div class="dv-top">
                 <div class="lights"><i></i><i></i><i></i></div>
-                <div class="dv-url">Apex Clinical ERP / Inpatient Ward 4B <small>apex-erp.app/ward-4b</small></div>
+                <div class="dv-url"><span class="dp-urlbar"><svg class="ic" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>app.drpro.health<small class="dp-book">/clinic/appointment</small><small class="dp-bill">/clinic/ipd-billing</small></span></div>
                 <div class="online"><i></i>ONLINE</div>
               </div>
               <div class="dv-body">
-                <div class="u pt" data-c="PatientHeader">
-                  <div class="av" style="--i:0">JD</div>
-                  <div class="pt-name" style="--i:1"><b>John Doe (Anonymized)</b><span>UHID #AP-84920 · 48Y / Male · Bed 12</span></div>
-                  <div class="cmdk" style="--i:2">Switch ⌘K</div>
-                  <div class="vit" style="--i:3"><small>BP</small><b>120/80</b></div>
-                  <div class="vit" style="--i:4"><small>HR</small><b class="g">72 bpm</b></div>
-                  <div class="ins" style="--i:5">INSURED</div>
+                <div class="u side" data-c="Sidebar">
+                  <div class="dp-app" style="--i:0"><span class="dp-logo">D</span><div><b>DrPro</b><small>Clinic</small></div><svg class="ic" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
+                  <div class="dp-clinic" style="--i:1"><i></i>City Care Clinic, Surat<svg class="ic" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
+                  <div class="dp-nav" style="--i:2">
+                    <h6>Menu</h6>
+                    <div class="nb ap"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Appointments<em>18</em></div>
+                    <div class="nb"><svg class="ic" viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="3"/><path d="m22 8-6 4 6 4z"/></svg>Tele Medicine</div>
+                    <div class="nb"><svg class="ic" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>Visits</div>
+                    <div class="nb grp"><svg class="ic" viewBox="0 0 24 24"><path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9"/></svg>IPD<svg class="ic" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg></div>
+                    <div class="dp-subs">
+                      <div class="nb sub">Overview</div>
+                      <div class="nb sub bl hot" id="nbBill">Billing</div>
+                      <div class="nb sub">Patients</div>
+                    </div>
+                    <div class="nb"><svg class="ic" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Patients</div>
+                    <div class="nb"><svg class="ic" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg>Orders</div>
+                    <div class="nb"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 15 4-4 4 4 5-6"/></svg>Reports</div>
+                    <div class="nb"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>Settings</div>
+                  </div>
+                  <div class="dp-me" style="--i:3"><span class="av" style="--h:245">NS</span><div><b>Dr. N. Shah</b><small>Administrator</small></div></div>
                 </div>
-                <div class="u side" data-c="WorkflowNav">
-                  <h5 style="--i:0">WORKFLOW</h5>
-                  <div class="nb" style="--i:1">Clinical Notes</div>
-                  <div class="nb" style="--i:2">Medications</div>
-                  <div class="nb on hot" style="--i:3" id="nbBill">Billing &amp; Tariff</div>
-                  <div class="nb" style="--i:4">Discharge Plan</div>
+                <div class="u pt" data-c="PageHeader">
+                  <div class="dp-hd dp-book" style="--i:0">
+                    <div class="dp-ttl"><b>Appointment(s)</b><small>Today at City Care Clinic, Surat</small></div>
+                    <div class="dp-tabs"><span class="on">Today's <em>18</em></span><span>Upcoming <em>42</em></span><span>Requests <em>5</em></span></div>
+                    <div class="ins"><svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Book Appointment</div>
+                  </div>
+                  <div class="dp-hd dp-bill" style="--i:1">
+                    <div class="dp-ttl"><b>IPD Billing</b><small>Inpatient invoices, bed charges and balances</small></div>
+                    <div class="cmdk"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Search patient or UHID<kbd>⌘K</kbd></div>
+                    <div class="dp-ib"><svg class="ic" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><i></i></div>
+                    <div class="ins" id="dpAdd"><svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New invoice</div>
+                  </div>
                 </div>
                 <div class="u main" data-c="DataTable" id="dvMain">
-                  <h4 style="--i:0">Unbilled Procedures &amp; Consumables (3 items)</h4>
-                  <div class="tbl tab" style="--i:1">
-                    <div class="h"><span>ITEM CODE</span><span>DESCRIPTION</span><span>QTY</span><span>TARIFF</span><span>TOTAL</span></div>
-                    <div class="row-in" style="--i:0"><span class="c">#MED-201</span><span><b>Saline Infusion 500ml</b></span><span>2</span><span>$18.00</span><span><b>$36.00</b></span></div>
-                    <div class="row-in" style="--i:1"><span class="c">#PRC-819</span><span><b>Echocardiogram Screening</b></span><span>1</span><span>$240.00</span><span><b>$240.00</b></span></div>
-                    <div class="row-in" style="--i:2"><span class="c">#CON-104</span><span><b>Cardiology Specialist Visit</b></span><span>1</span><span>$150.00</span><span><b>$150.00</b></span></div>
+                  <div class="dp-view dp-book" style="--i:0">
+                    <div class="dp-bar"><div class="cmdk ap-search"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Search patient</div><div class="dp-flt"><svg class="ic" viewBox="0 0 24 24"><path d="M3 5h18M6 12h12M10 19h4"/></svg>Filter</div></div>
+                    <div class="tbl tab ap-tbl">
+                      <div class="h"><span>Case</span><span>Time</span><span>Patient</span><span>Consultant</span><span>Complaint</span><span>Status</span></div>
+                      <div class="row-in" style="--i:0"><span class="c">#A-1042</span><span>10:00 AM</span><span><i class="av" style="--h:228">RM</i><em><b>Ravi Mehta</b><small>48Y · Male</small></em></span><span>Dr. N. Shah</span><span>Fever, body ache</span><span><b class="chip ok">Checked in</b></span></div>
+                      <div class="row-in" style="--i:1"><span class="c">#A-1043</span><span>10:15 AM</span><span><i class="av" style="--h:330">PS</i><em><b>Pooja Sharma</b><small>31Y · Female</small></em></span><span>Dr. P. Joshi</span><span>Follow-up</span><span><b class="chip pa">Waiting</b></span></div>
+                      <div class="row-in" style="--i:2"><span class="c">#A-1044</span><span>10:30 AM</span><span><i class="av" style="--h:150">IS</i><em><b>Imran Sheikh</b><small>56Y · Male</small></em></span><span>Dr. N. Shah</span><span>Chest pain</span><span><b class="chip wa">Urgent</b></span></div>
+                      <div class="row-in" style="--i:3"><span class="c">#A-1045</span><span>10:45 AM</span><span><i class="av" style="--h:280">SK</i><em><b>Sneha Kulkarni</b><small>27Y · Female</small></em></span><span>Dr. K. Rao</span><span>Tele consult</span><span><b class="chip pa">Online</b></span></div>
+                      <div class="row-in" style="--i:4"><span class="c">#A-1046</span><span>11:00 AM</span><span><i class="av" style="--h:25">AV</i><em><b>Arjun Verma</b><small>40Y · Male</small></em></span><span>Dr. P. Joshi</span><span>Diabetes review</span><span><b class="chip nt">Booked</b></span></div>
+                      <div class="row-in" style="--i:5"><span class="c">#A-1047</span><span>11:15 AM</span><span><i class="av" style="--h:200">KR</i><em><b>Kavya Reddy</b><small>35Y · Female</small></em></span><span>Dr. K. Rao</span><span>Thyroid panel</span><span><b class="chip nt">Booked</b></span></div>
+                    </div>
                   </div>
-                  <div class="sum tab" style="--i:2">
-                    <div><span>Subtotal</span><b>$426.00</b></div>
-                    <div><span>Insurance pre-auth (80%)</span><span class="neg">−$340.80</span></div>
-                    <div class="due"><span>Patient due</span><b id="due">$85.20</b></div>
+                  <div class="dp-view dp-bill" style="--i:1">
+                    <div class="sum tab" style="--i:0">
+                      <div><span>Pending bills</span><b>14</b><small>3 due today</small></div>
+                      <div><span>Collected</span><b class="neg">₹1,35,780</b><small>this week</small></div>
+                      <div class="due"><span>Balance due</span><b id="due">₹1,13,602</b><small>across 5 admissions</small></div>
+                    </div>
+                    <div class="dp-bar" style="--i:1"><div class="dp-tabs"><span class="on">Pending <em>14</em></span><span>Paid <em>86</em></span><span>All</span></div><div class="dp-flt"><svg class="ic" viewBox="0 0 24 24"><path d="M3 5h18M6 12h12M10 19h4"/></svg>Filter</div></div>
+                    <div class="tbl tab" style="--i:2">
+                      <div class="h"><span>Patient</span><span>Ward · Bed</span><span>Doctor</span><span>Status</span><span class="r">Total</span><span class="r">Balance</span></div>
+                      <div class="row-in" style="--i:0"><span><i class="av" style="--h:228">RM</i><em><b>Ravi Mehta</b><small>UH-20931 · IPD-1042</small></em></span><span>General · B4</span><span>Dr. N. Shah</span><span><b class="chip wa">Pending</b></span><span class="r">₹13,922</span><span class="r bal"><b>₹5,922</b></span></div>
+                      <div class="row-in" style="--i:1"><span><i class="av" style="--h:280">AD</i><em><b>Anita Desai</b><small>UH-20877 · IPD-1039</small></em></span><span>ICU · 02</span><span>Dr. K. Rao</span><span><b class="chip pa">Part paid</b></span><span class="r">₹1,26,400</span><span class="r bal"><b>₹66,400</b></span></div>
+                      <div class="row-in" style="--i:2"><span><i class="av" style="--h:150">SI</i><em><b>Suresh Iyer</b><small>UH-20812 · IPD-1037</small></em></span><span>Private · 11</span><span>Dr. N. Shah</span><span><b class="chip ok">Paid</b></span><span class="r">₹32,780</span><span class="r"><b>₹0</b></span></div>
+                      <div class="row-in" style="--i:3"><span><i class="av" style="--h:330">FK</i><em><b>Farah Khan</b><small>UH-20790 · IPD-1034</small></em></span><span>General · B1</span><span>Dr. P. Joshi</span><span><b class="chip wa">Pending</b></span><span class="r">₹18,960</span><span class="r bal"><b>₹13,960</b></span></div>
+                      <div class="row-in" style="--i:4"><span><i class="av" style="--h:25">VP</i><em><b>Vikram Patel</b><small>UH-20745 · IPD-1031</small></em></span><span>Semi-pvt · 07</span><span>Dr. K. Rao</span><span><b class="chip pa">Part paid</b></span><span class="r">₹57,320</span><span class="r bal"><b>₹27,320</b></span></div>
+                    </div>
                   </div>
+                </div>
+                <div class="bk-scrim" aria-hidden="true"></div>
+                <div class="bk-drawer">
+                    <div class="bk-hd"><div><b>Book Appointment</b><small>Please fill out the form to book an appointment</small></div><span class="bk-x">✕</span></div>
+                    <div class="bk-grid">
+                      <div><small>Select Patient <i>*</i></small><span class="bk-in"><i class="av" style="--h:228">RM</i>Ravi Mehta<em>UH-20931 · 48Y</em></span></div>
+                      <div><small>Doctor <i>*</i></small><span class="bk-in">Dr. N. Shah (Physician)</span></div>
+                    </div>
+                    <div class="bk-slotbox">
+                      <div class="bk-days"><span class="on">26 Sat</span><span>27 Sun</span><span>28 Mon</span><span>29 Tue</span><span>30 Wed</span></div>
+                      <div class="bk-slots"><span class="">10:00 AM</span><span class="off">10:15 AM</span><span class="">10:30 AM</span><span class="off">10:45 AM</span><span class="">11:00 AM</span><span class="">11:15 AM</span><span class="on">11:30 AM</span><span class="">11:45 AM</span><span class="">12:00 PM</span><span class="off">12:15 PM</span><span class="">12:30 PM</span><span class="">12:45 PM</span></div>
+                    </div>
+                    <div class="bk-grid">
+                      <div><small>Level of Urgency</small><span class="bk-pills"><b>Critical</b><b>Major</b><b class="on">Moderate</b><b>Low</b></span></div>
+                      <div><small>Appointment Type</small><span class="bk-pills"><b class="on">Clinic visit</b><b>Video call visit</b></span></div>
+                    </div>
+                    <div class="bk-ft"><span class="bk-walk"><i></i>Walk-in</span><span class="bk-cancel">Cancel</span><span class="bk-btn">Book Appointment</span></div>
                 </div>
               </div>
             </div>
           </div>
           <svg class="noodle" viewBox="0 0 960 600" preserveAspectRatio="none" aria-hidden="true">
-            <path pathLength="1" d="M204 302 C 252 302, 244 215, 300 215"/>
-            <circle cx="204" cy="302" r="5"/><circle cx="300" cy="215" r="4"/>
-            <g class="ix"><rect x="214" y="340" rx="6" width="200" height="24" style="fill:var(--accent)"/><text x="224" y="356" fill="#fff" font-family="Geist Mono, monospace" font-size="11">On click → Smart animate 300ms</text></g>
+            <path pathLength="1" d="M190 335 C 560 335, 882 262, 882 102"/>
+            <circle cx="190" cy="335" r="5"/><circle cx="882" cy="102" r="4"/>
+            <g class="ix"><rect x="420" y="548" rx="6" width="214" height="24" style="fill:var(--accent)"/><text x="431" y="564" fill="#fff" font-family="Geist Mono, monospace" font-size="11">On click → New invoice drawer</text></g>
           </svg>
           <div class="proto-chip">▶ PROTOTYPE · FLOW 1</div>
           <div class="inspect" aria-hidden="true">
@@ -1091,9 +1282,9 @@ html[data-skin="code"] .bx.big::after,html[data-skin="code"] .studio-pin::before
             <div class="r"><span>Contrast</span><span style="color:#0d9a52">AA · 7.1:1</span></div>
           </div>
           <div class="outcome" aria-hidden="true">
-            <small>DISCHARGE PROCESSING</small>
-            <div class="big tab"><s>42</s><span id="dis">14</span> min</div>
-            <span class="ok">↓ 38% billing omissions · pilot wards</span>
+            <small>DRPRO DESIGN-SYSTEM ROLLOUT</small>
+            <div class="big tab">&lt;<span id="dis">30</span> days</div>
+            <span class="ok">6 apps + IPD · one design system</span>
           </div>
           <div class="mp me" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 2l7.5 19 2.6-7.9L21 10.5z" stroke="#fff" stroke-width="1.5"/></svg><span>Aditya</span></div>
           <div class="mp pm" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 2l7.5 19 2.6-7.9L21 10.5z" stroke="#fff" stroke-width="1.5"/></svg><span>PM · "Shipping to ward 5 next"</span></div>
@@ -1847,8 +2038,8 @@ function setStage(s){
   studio.dataset.stage = s;
   setFlow(Math.min(s,5));
   if (s===5){
-    const o = {v:42}; gsap.to(o, {v:14, duration:1.2, ease:'power2.out', onUpdate:()=>$('#dis').textContent = Math.round(o.v)});
-    const due = {v:426}; gsap.to(due, {v:85.2, duration:1.2, ease:'power2.out', onUpdate:()=>$('#due').textContent = '$'+due.v.toFixed(2)});
+    const o = {v:0}; gsap.to(o, {v:30, duration:1.2, ease:'power2.out', onUpdate:()=>$('#dis').textContent = Math.round(o.v)});
+    const due = {v:249382}; gsap.to(due, {v:113602, duration:1.2, ease:'power2.out', onUpdate:()=>$('#due').textContent = '₹'+Math.round(due.v).toLocaleString('en-IN')});
   }
 }
 if (MOTION){
