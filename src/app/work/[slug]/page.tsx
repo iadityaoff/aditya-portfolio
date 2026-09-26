@@ -52,7 +52,7 @@ export async function generateMetadata({
   const isConfidential = project.confidential === "password";
 
   return {
-    title: `${project.title} | Aditya Tripathi`,
+    title: project.title,
     description: project.summary,
     alternates: {
       canonical: `https://adityatripathi.design/work/${project.slug}`,
@@ -64,9 +64,10 @@ export async function generateMetadata({
       siteName: "Aditya Tripathi — Senior UI/UX Designer",
       title: `${project.title} — Case Study | Aditya Tripathi`,
       description: project.summary,
+      // SVG covers don't render in link previews, so share the generated PNG card
       images: [
         {
-          url: project.cover,
+          url: "/opengraph-image",
           width: 1200,
           height: 630,
           alt: project.title,
@@ -77,7 +78,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: `${project.title} — Case Study | Aditya Tripathi`,
       description: project.summary,
-      images: [project.cover],
+      images: ["/opengraph-image"],
     },
     robots: {
       index: !isConfidential,

@@ -184,32 +184,37 @@ export function DSMock04() {
 // --------------------------------------------------------
 
 export function HealthMock01() {
-  // Step 1: Patient Dashboard
+  // Step 1: Appointment List
   return (
     <div className="w-full h-full bg-[#F1F5F9] flex flex-col relative overflow-hidden font-sans">
       <ConceptualTag />
       <div className="h-12 bg-white border-b border-slate-200 flex items-center px-4 justify-between shrink-0">
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 bg-emerald-500 rounded-md" />
-          <span className="font-bold text-slate-800 text-sm">DrPro Care</span>
+          <span className="font-bold text-slate-800 text-sm">DrPro · Clinic</span>
         </div>
-        <div className="w-6 h-6 rounded-full bg-slate-200" />
+        <span className="text-[10px] text-slate-500">City Care Clinic, Surat</span>
       </div>
-      
-      <div className="p-4 flex-1 overflow-hidden flex flex-col gap-4">
+
+      <div className="p-4 flex-1 overflow-hidden flex flex-col gap-3">
         <div className="flex justify-between items-end">
           <div>
-            <h1 className="text-lg font-bold text-slate-800">Queue</h1>
-            <p className="text-xs text-slate-500">Tuesday, Oct 24 • 14 Patients</p>
+            <h1 className="text-lg font-bold text-slate-800">Appointment(s)</h1>
+            <div className="flex gap-3 mt-1 text-[10px] font-semibold">
+              <span className="text-slate-800 border-b-2 border-emerald-500 pb-0.5">Today&apos;s <span className="text-emerald-600">18</span></span>
+              <span className="text-slate-500">Upcoming 42</span>
+              <span className="text-slate-500">Requests 5</span>
+            </div>
           </div>
-          <button className="bg-emerald-500 text-white text-xs px-3 py-1.5 rounded-md font-medium">Refresh</button>
+          <button className="bg-emerald-500 text-white text-xs px-3 py-1.5 rounded-md font-medium">Book Appointment</button>
         </div>
 
         <div className="flex-1 bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden flex flex-col">
           {[
-            { time: "09:00 AM", name: "Eleanor Rigby", type: "Follow-up", status: "Waiting", color: "text-amber-600 bg-amber-50" },
-            { time: "09:30 AM", name: "Jude Lawson", type: "Consultation", status: "In Session", color: "text-emerald-600 bg-emerald-50" },
-            { time: "10:00 AM", name: "Penny Lane", type: "Review", status: "Scheduled", color: "text-slate-600 bg-slate-50" },
+            { time: "10:00 AM", name: "Ravi Mehta", type: "Fever, body ache · Dr. N. Shah", status: "Checked in", color: "text-emerald-600 bg-emerald-50" },
+            { time: "10:15 AM", name: "Pooja Sharma", type: "Follow-up · Dr. P. Joshi", status: "Waiting", color: "text-amber-600 bg-amber-50" },
+            { time: "10:30 AM", name: "Imran Sheikh", type: "Chest pain · Dr. N. Shah", status: "Urgent", color: "text-rose-600 bg-rose-50" },
+            { time: "10:45 AM", name: "Sneha Kulkarni", type: "Tele consult · Dr. K. Rao", status: "Online", color: "text-slate-600 bg-slate-50" },
           ].map((patient, i) => (
             <div key={i} className="flex items-center p-3 border-b border-slate-100 hover:bg-slate-50">
               <div className="w-16 text-[10px] font-semibold text-slate-500">{patient.time}</div>
@@ -217,7 +222,7 @@ export function HealthMock01() {
                 <div className="text-xs font-bold text-slate-800">{patient.name}</div>
                 <div className="text-[10px] text-slate-500">{patient.type}</div>
               </div>
-              <div className={cn("text-[9px] font-bold px-2 py-0.5 rounded-full", patient.color)}>
+              <div className={cn("text-[10px] font-bold px-2 py-0.5 rounded-full", patient.color)}>
                 {patient.status}
               </div>
             </div>
@@ -229,55 +234,53 @@ export function HealthMock01() {
 }
 
 export function HealthMock02() {
-  // Step 2: Medical Record Entry (Dense Form)
+  // Step 2: Book Appointment drawer over the list
+  const slots = ["10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45"];
   return (
-    <div className="w-full h-full bg-white flex flex-col relative overflow-hidden">
+    <div className="w-full h-full bg-slate-800/30 flex justify-end relative overflow-hidden">
       <ConceptualTag />
-      {/* Sticky Context Header */}
-      <div className="bg-slate-800 text-white p-3 flex justify-between items-center shrink-0">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-slate-600 border border-slate-500" />
-          <div>
-            <div className="text-xs font-bold flex items-center gap-2">
-              Jude Lawson <span className="bg-blue-500 text-[8px] px-1.5 py-0.5 rounded">Male, 34</span>
+      <div className="w-[78%] h-full bg-white border-l border-slate-200 shadow-2xl flex flex-col">
+        <div className="p-4 border-b border-slate-100">
+          <div className="text-sm font-bold text-slate-800">Book Appointment</div>
+          <div className="text-[10px] text-slate-500">Please fill out the form to book an appointment</div>
+        </div>
+        <div className="p-4 flex-1 flex flex-col gap-3">
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-1">
+              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Patient</label>
+              <div className="border border-slate-200 rounded-md p-2 text-xs text-slate-800 font-medium">Ravi Mehta · UH-20931</div>
             </div>
-            <div className="text-[10px] text-slate-300 font-mono">UHID: 994-203-11A</div>
-          </div>
-        </div>
-        <div className="text-[9px] font-bold text-emerald-400 border border-emerald-400/30 bg-emerald-400/10 px-2 py-1 rounded">
-          Insurance Active
-        </div>
-      </div>
-
-      <div className="p-4 flex-1 flex flex-col gap-4">
-        <div className="text-sm font-bold text-slate-800 border-b border-slate-200 pb-2">Clinical Notes</div>
-        
-        <div className="grid grid-cols-2 gap-3">
-          <div className="space-y-1">
-            <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Symptoms</label>
-            <div className="h-16 w-full border border-slate-200 rounded-md bg-slate-50 p-2 text-xs text-slate-700">
-              Mild fever, persistent cough for 3 days.
+            <div className="space-y-1">
+              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Doctor</label>
+              <div className="border border-slate-200 rounded-md p-2 text-xs text-slate-800 font-medium">Dr. N. Shah</div>
             </div>
           </div>
-          <div className="space-y-1">
-            <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Diagnosis (ICD-10)</label>
-            <div className="w-full border border-emerald-300 rounded-md bg-emerald-50 p-2 text-xs text-emerald-800 flex items-center justify-between">
-              <span>J06.9 - Acute upper respiratory...</span>
-              <div className="w-3 h-3 rounded-full bg-emerald-200" />
+          <div className="border border-slate-200 rounded-md overflow-hidden">
+            <div className="flex gap-4 px-3 py-2 border-b border-slate-200 text-[10px] font-semibold text-slate-500">
+              <span className="text-slate-800 border-b-2 border-emerald-500">26 Sat</span><span>27 Sun</span><span>28 Mon</span><span>29 Tue</span>
+            </div>
+            <div className="grid grid-cols-4 gap-1.5 p-2 bg-emerald-50/40">
+              {slots.map((t) => (
+                <span
+                  key={t}
+                  className={cn(
+                    "text-[10px] text-center py-1 rounded border",
+                    t === "11:30" ? "bg-emerald-500 border-emerald-500 text-white font-bold" : t === "10:15" || t === "10:45" ? "border-dashed border-slate-200 text-slate-300 line-through" : "bg-white border-slate-200 text-slate-700"
+                  )}
+                >
+                  {t}
+                </span>
+              ))}
             </div>
           </div>
-        </div>
-
-        <div className="space-y-1 mt-2">
-          <label className="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Prescriptions</label>
-          <div className="w-full border border-slate-200 rounded-md divide-y divide-slate-100">
-            <div className="p-2 text-xs flex justify-between items-center">
-              <div><span className="font-bold text-slate-700">Amoxicillin</span> <span className="text-slate-500">500mg</span></div>
-              <div className="text-slate-400 text-[10px]">1x Daily</div>
-            </div>
-            <div className="p-2 text-xs flex justify-between items-center bg-slate-50">
-              <span className="text-slate-400 italic">Add medication +</span>
-            </div>
+          <div className="flex gap-1.5 text-[10px]">
+            {["Critical", "Major", "Moderate", "Low"].map((u) => (
+              <span key={u} className={cn("px-2 py-0.5 rounded-full border", u === "Moderate" ? "bg-emerald-50 border-emerald-300 text-emerald-700 font-bold" : "border-slate-200 text-slate-500")}>{u}</span>
+            ))}
+          </div>
+          <div className="mt-auto flex justify-end gap-2">
+            <button className="px-3 py-1.5 text-xs font-bold text-slate-500">Cancel</button>
+            <button className="px-3 py-1.5 text-xs font-bold text-white bg-emerald-500 rounded-md">Book Appointment</button>
           </div>
         </div>
       </div>
@@ -286,48 +289,47 @@ export function HealthMock02() {
 }
 
 export function HealthMock03() {
-  // Step 3: Billing Generation (Draft Invoice)
+  // Step 3: IPD pending bills
   return (
     <div className="w-full h-full bg-[#F1F5F9] p-4 flex flex-col relative overflow-hidden">
       <ConceptualTag />
       <div className="bg-white rounded-lg shadow-sm border border-slate-200 flex-1 flex flex-col overflow-hidden">
         <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
           <div>
-            <div className="text-xs font-bold text-slate-800">Draft Invoice #INV-0092</div>
-            <div className="text-[10px] text-slate-500">Generated from Clinical Encounter</div>
+            <div className="text-xs font-bold text-slate-800">IPD Billing</div>
+            <div className="flex gap-3 mt-1 text-[10px] font-semibold">
+              <span className="text-slate-800 border-b-2 border-emerald-500">Pending Bills</span>
+              <span className="text-slate-500">Paid Bills</span>
+              <span className="text-slate-500">All Bills</span>
+            </div>
           </div>
-          <div className="text-[10px] font-bold text-amber-600 bg-amber-100 px-2 py-1 rounded">Pending Review</div>
+          <div className="text-[10px] font-bold text-slate-700 bg-white border border-slate-200 px-2 py-1 rounded">Generate Invoice</div>
         </div>
-        
+
         <div className="flex-1 p-4">
           <div className="w-full border border-slate-200 rounded overflow-hidden">
-            <div className="grid grid-cols-12 bg-slate-100 border-b border-slate-200 p-2 text-[9px] font-bold text-slate-500 uppercase tracking-wider">
-              <div className="col-span-2">Code</div>
-              <div className="col-span-6">Description</div>
-              <div className="col-span-2 text-right">Qty</div>
-              <div className="col-span-2 text-right">Total</div>
+            <div className="grid grid-cols-12 bg-slate-100 border-b border-slate-200 p-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+              <div className="col-span-4">Patient</div>
+              <div className="col-span-3">Ward / Bed</div>
+              <div className="col-span-2">Status</div>
+              <div className="col-span-3 text-right">Balance</div>
             </div>
-            
+
             {[
-              { code: "99213", desc: "Outpatient Visit, Level 3", qty: 1, total: "$120.00" },
-              { code: "J06.9", desc: "Respiratory Dx Bundle", qty: 1, total: "$45.00" },
+              { name: "Ravi Mehta", ipd: "IPD-1042 · UH-20931", bed: "General · B4", bal: "₹5,922" },
+              { name: "Anita Desai", ipd: "IPD-1039 · UH-20877", bed: "ICU · 02", bal: "₹66,400" },
+              { name: "Farah Khan", ipd: "IPD-1034 · UH-20790", bed: "General · B1", bal: "₹13,960" },
             ].map((row, i) => (
               <div key={i} className="grid grid-cols-12 p-2 border-b border-slate-100 text-xs items-center hover:bg-slate-50">
-                <div className="col-span-2 font-mono text-slate-500 text-[10px]">{row.code}</div>
-                <div className="col-span-6 text-slate-700 font-medium truncate pr-2">{row.desc}</div>
-                <div className="col-span-2 text-right text-slate-500">{row.qty}</div>
-                <div className="col-span-2 text-right font-mono font-medium text-slate-800">{row.total}</div>
+                <div className="col-span-4">
+                  <div className="text-slate-800 font-bold truncate">{row.name}</div>
+                  <div className="font-mono text-slate-500 text-[10px] truncate">{row.ipd}</div>
+                </div>
+                <div className="col-span-3 text-slate-600">{row.bed}</div>
+                <div className="col-span-2"><span className="text-[10px] font-bold text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded">Pending</span></div>
+                <div className="col-span-3 text-right font-mono font-bold text-rose-600">{row.bal}</div>
               </div>
             ))}
-            
-            <div className="grid grid-cols-12 p-2 bg-emerald-50 text-xs items-center">
-              <div className="col-span-8 text-right font-bold text-emerald-800 text-[10px] uppercase">Insurance Coverage (80%)</div>
-              <div className="col-span-4 text-right font-mono font-bold text-emerald-700">-$132.00</div>
-            </div>
-            <div className="grid grid-cols-12 p-3 bg-slate-800 text-white text-xs items-center">
-              <div className="col-span-8 text-right font-bold text-[10px] uppercase tracking-wider">Patient Responsibility</div>
-              <div className="col-span-4 text-right font-mono font-bold text-base">$33.00</div>
-            </div>
           </div>
         </div>
       </div>
@@ -336,42 +338,48 @@ export function HealthMock03() {
 }
 
 export function HealthMock04() {
-  // Step 4: Action & Sign-off
+  // Step 4: Generate invoice
+  const lines = [
+    { item: "General ward · 4 days", total: "₹10,000" },
+    { item: "Ceftriaxone 1g inj. ×8", total: "₹1,480" },
+    { item: "CBC + CRP panel", total: "₹950" },
+  ];
   return (
     <div className="w-full h-full bg-slate-800/40 p-4 flex items-center justify-center relative overflow-hidden backdrop-blur-sm">
       <ConceptualTag />
-      <div className="w-full max-w-sm bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden transform transition-all">
-        <div className="p-5 border-b border-slate-100 flex flex-col items-center justify-center text-center">
-          <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-3">
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
+      <div className="w-full max-w-sm bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden">
+        <div className="p-4 border-b border-slate-100 flex items-center justify-between">
+          <div>
+            <h3 className="text-sm font-bold text-slate-800">Generate Invoice</h3>
+            <p className="text-[10px] text-slate-500 mt-0.5 font-mono">Ravi Mehta · IPD-1042 · UH-20931</p>
           </div>
-          <h3 className="text-base font-bold text-slate-800">Ready to Submit Claim</h3>
-          <p className="text-xs text-slate-500 mt-1">Invoice INV-0092 has been verified against clinical notes.</p>
+          <span className="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-1 rounded">Gen · B4</span>
         </div>
-        
-        <div className="bg-slate-50 p-4 space-y-3">
-          <div className="flex items-center gap-2 text-xs text-slate-600 bg-white p-2 border border-slate-200 rounded">
-            <input type="checkbox" checked readOnly className="rounded border-slate-300 text-emerald-500" />
-            <span>Attending Physician Signed Off</span>
+
+        <div className="p-4 space-y-2">
+          {lines.map((l) => (
+            <div key={l.item} className="flex justify-between text-xs text-slate-700">
+              <span>{l.item}</span>
+              <span className="font-mono">{l.total}</span>
+            </div>
+          ))}
+          <div className="flex justify-between text-[10px] text-slate-500 border-t border-slate-100 pt-2">
+            <span>SGST 6% + CGST 6%</span>
+            <span className="font-mono">₹1,492</span>
           </div>
-          <div className="flex items-center gap-2 text-xs text-slate-600 bg-white p-2 border border-slate-200 rounded">
-            <input type="checkbox" checked readOnly className="rounded border-slate-300 text-emerald-500" />
-            <span>ICD-10 Codes Validated</span>
+          <div className="flex justify-between text-xs font-bold text-slate-800">
+            <span>Total incl. taxes</span>
+            <span className="font-mono">₹13,922</span>
           </div>
-          
-          <div className="pt-2 flex gap-2">
-            <button className="flex-1 py-2 text-xs font-bold text-slate-600 bg-white border border-slate-200 rounded-md hover:bg-slate-50">
-              Edit Invoice
-            </button>
-            <button className="flex-1 py-2 text-xs font-bold text-white bg-emerald-500 rounded-md hover:bg-emerald-600 shadow-sm flex justify-center items-center gap-1.5">
-              Submit to Payor
-              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </button>
-          </div>
+        </div>
+
+        <div className="bg-slate-50 p-4 pt-3 flex gap-2">
+          <button className="flex-1 py-2 text-xs font-bold text-slate-600 bg-white border border-slate-200 rounded-md">
+            Download
+          </button>
+          <button className="flex-1 py-2 text-xs font-bold text-white bg-emerald-500 rounded-md shadow-sm">
+            Create &amp; Print
+          </button>
         </div>
       </div>
     </div>

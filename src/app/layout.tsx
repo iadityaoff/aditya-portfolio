@@ -98,7 +98,7 @@ export const metadata: Metadata = {
       "Senior UI/UX Designer specializing in complex SaaS platforms, enterprise workflows, high-density data dashboards, and scalable token-driven design systems.",
     images: [
       {
-        url: "https://adityatripathi.design/og-image.jpg",
+        url: "https://adityatripathi.design/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Aditya Tripathi - Senior UI/UX Designer",
@@ -110,7 +110,7 @@ export const metadata: Metadata = {
     title: "Aditya Tripathi | Senior UI/UX Designer",
     description:
       "Senior UI/UX Designer specializing in SaaS, enterprise workflows, and token-driven design systems.",
-    images: ["https://adityatripathi.design/og-image.jpg"],
+    images: ["https://adityatripathi.design/opengraph-image"],
   },
   robots: {
     index: true,

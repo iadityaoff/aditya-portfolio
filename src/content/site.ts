@@ -212,7 +212,7 @@ export const services: ServiceItem[] = [
     ],
     typicalOutputs: ["Figma Design File", "Interactive Prototype", "Handoff Specification"],
     relatedWorkSlug: "healthcare-platform",
-    relatedWorkTitle: "Healthcare Operations Platform",
+    relatedWorkTitle: "DrPro Hospital & Clinic Platform",
   },
   {
     id: "design-systems",
