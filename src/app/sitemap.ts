@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 import { getAllProjects } from "@/content/projects-data";
+import { SITE_URL } from "@/lib/site-url";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://adityatripathi.design";
+  const baseUrl = SITE_URL;
 
   // Use a stable date unless a real CMS is providing dynamic modification dates
   const staticDate = new Date("2026-09-22");

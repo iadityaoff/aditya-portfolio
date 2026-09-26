@@ -12,19 +12,19 @@ export const metadata: Metadata = {
   description:
     "Product design, design systems, legacy SaaS modernization, and design-to-development handoff services by Aditya Tripathi.",
   alternates: {
-    canonical: "https://adityatripathi.design/services",
+    canonical: "/services",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://adityatripathi.design/services",
+    url: "/services",
     siteName: "Aditya Tripathi — Senior UI/UX Designer",
     title: "Design Services & Advisory | Aditya Tripathi",
     description:
       "Product design, design systems, legacy SaaS modernization, and design-to-development handoff services by Aditya Tripathi.",
     images: [
       {
-        url: "https://adityatripathi.design/og-services.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Design Services & Advisory - Aditya Tripathi",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     title: "Design Services & Advisory | Aditya Tripathi",
     description:
       "Product design, design systems, legacy SaaS modernization, and design-to-development handoff services by Aditya Tripathi.",
-    images: ["https://adityatripathi.design/og-services.jpg"],
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,

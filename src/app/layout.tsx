@@ -23,6 +23,7 @@ import { CommandPalette } from "@/components/layout/command-palette";
 import { ThemeDrawer } from "@/components/layout/theme-drawer";
 import { SiteMotion } from "@/components/layout/site-motion";
 import { SITE_THEME_BOOT } from "@/lib/site-theme-boot";
+import { SITE_URL } from "@/lib/site-url";
 import "./globals.css";
 
 const interTight = Inter_Tight({
@@ -62,7 +63,7 @@ const themeFonts = [geist, inter, spaceGrotesk, fraunces, jetbrainsMono, plusJak
   .join(" ");
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://adityatripathi.design"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Aditya Tripathi | Senior UI/UX Designer for SaaS & Enterprise",
     template: "%s | Aditya Tripathi",
@@ -83,22 +84,23 @@ export const metadata: Metadata = {
     "Rapid Prototyping",
     "Aditya Tripathi",
   ],
-  authors: [{ name: "Aditya Tripathi" }],
+  authors: [{ name: "Aditya Tripathi", url: SITE_URL }],
+  // Google Search Console: set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION to the token from the HTML-tag method
+  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+    : undefined,
   creator: "Aditya Tripathi",
-  alternates: {
-    canonical: "https://adityatripathi.design",
-  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://adityatripathi.design",
+    url: "/",
     siteName: "Aditya Tripathi — Senior UI/UX Designer",
     title: "Aditya Tripathi | Senior UI/UX Designer for SaaS & Enterprise",
     description:
       "Senior UI/UX Designer specializing in complex SaaS platforms, enterprise workflows, high-density data dashboards, and scalable token-driven design systems.",
     images: [
       {
-        url: "https://adityatripathi.design/opengraph-image",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Aditya Tripathi - Senior UI/UX Designer",
@@ -110,7 +112,7 @@ export const metadata: Metadata = {
     title: "Aditya Tripathi | Senior UI/UX Designer",
     description:
       "Senior UI/UX Designer specializing in SaaS, enterprise workflows, and token-driven design systems.",
-    images: ["https://adityatripathi.design/opengraph-image"],
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
@@ -135,17 +137,18 @@ export default function RootLayout({
     "@graph": [
       {
         "@type": "WebSite",
-        "@id": "https://adityatripathi.design/#website",
-        url: "https://adityatripathi.design",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
         name: "Aditya Tripathi Portfolio",
         publisher: {
-          "@id": "https://adityatripathi.design/#person"
+          "@id": `${SITE_URL}/#person`
         }
       },
       {
         "@type": "Person",
-        "@id": "https://adityatripathi.design/#person",
+        "@id": `${SITE_URL}/#person`,
         name: siteConfig.name,
+        url: SITE_URL,
         jobTitle: siteConfig.roleTitle,
         description: siteConfig.subHeadline,
         email: siteConfig.email,

@@ -7,7 +7,8 @@ import { siteConfig } from "@/content/site";
 export const metadata: Metadata = {
   title: "Aditya Tripathi Studio — Senior UI/UX & Product Designer",
   description:
-    "Aditya Tripathi — Senior UI/UX & Product Designer for SaaS and enterprise. A portfolio that builds itself as you scroll.",
+    "Aditya Tripathi is a Senior UI/UX & Product Designer in Surat, India, designing complex SaaS, healthcare (DrPro) and enterprise products and design systems. A portfolio that builds itself as you scroll.",
+  alternates: { canonical: "/" },
 };
 
 /**

@@ -6,6 +6,7 @@ import { siteConfig } from "@/content/site";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "Privacy policy and data handling practices for Aditya Tripathi's portfolio.",
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {

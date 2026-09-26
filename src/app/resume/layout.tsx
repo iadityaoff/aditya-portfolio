@@ -4,18 +4,18 @@ export const metadata: Metadata = {
   title: "Resume & Experience",
   description: "Professional experience, skills, and work history of Aditya Tripathi, Senior UI/UX Designer specializing in SaaS and enterprise products.",
   alternates: {
-    canonical: "https://adityatripathi.design/resume",
+    canonical: "/resume",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://adityatripathi.design/resume",
+    url: "/resume",
     siteName: "Aditya Tripathi — Senior UI/UX Designer",
     title: "Resume & Experience | Aditya Tripathi",
     description: "Professional experience, skills, and work history of Aditya Tripathi, Senior UI/UX Designer specializing in SaaS and enterprise products.",
     images: [
       {
-        url: "https://adityatripathi.design/og-resume.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Resume & Experience - Aditya Tripathi",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Resume & Experience | Aditya Tripathi",
     description: "Professional experience, skills, and work history of Aditya Tripathi, Senior UI/UX Designer specializing in SaaS and enterprise products.",
-    images: ["https://adityatripathi.design/og-resume.jpg"],
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,

@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { SITE_HOST } from "@/lib/site-url";
 
 export const runtime = "nodejs";
 export const alt = "Aditya Tripathi — Senior UI/UX Designer";
@@ -100,7 +101,7 @@ export default async function Image() {
           }}
         >
           <span>5+ Years Experience · SaaS &amp; Enterprise</span>
-          <span style={{ color: "#2F4BFF", fontWeight: 700 }}>adityatripathi.design</span>
+          <span style={{ color: "#2F4BFF", fontWeight: 700 }}>{SITE_HOST}</span>
         </div>
       </div>
     ),

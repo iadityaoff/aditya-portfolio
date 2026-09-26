@@ -11,19 +11,19 @@ export const metadata: Metadata = {
   description:
     "Senior UI/UX Designer with over 5 years specializing in complex SaaS workflows, clinical healthcare systems, and scalable design token architectures. Uses AI-assisted workflows to accelerate research, prototyping, and implementation.",
   alternates: {
-    canonical: "https://adityatripathi.design/about",
+    canonical: "/about",
   },
   openGraph: {
     type: "profile",
     locale: "en_US",
-    url: "https://adityatripathi.design/about",
+    url: "/about",
     siteName: "Aditya Tripathi — Senior UI/UX Designer",
     title: "About Aditya Tripathi",
     description:
       "Senior UI/UX Designer with over 5 years specializing in complex SaaS workflows, clinical healthcare systems, and scalable design token architectures.",
     images: [
       {
-        url: "https://adityatripathi.design/og-about.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "About Aditya Tripathi",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     title: "About Aditya Tripathi",
     description:
       "Senior UI/UX Designer with over 5 years specializing in complex SaaS workflows, clinical healthcare systems, and scalable design token architectures.",
-    images: ["https://adityatripathi.design/og-about.jpg"],
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,

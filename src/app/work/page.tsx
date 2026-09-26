@@ -10,19 +10,19 @@ export const metadata: Metadata = {
   description:
     "Explore in-depth product design and UI/UX case studies across healthcare platforms, enterprise application suites, and multi-tier design systems by Aditya Tripathi.",
   alternates: {
-    canonical: "https://adityatripathi.design/work",
+    canonical: "/work",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://adityatripathi.design/work",
+    url: "/work",
     siteName: "Aditya Tripathi — Senior UI/UX Designer",
     title: "Selected Work & Case Studies | Aditya Tripathi",
     description:
       "Explore in-depth product design and UI/UX case studies across healthcare platforms, enterprise application suites, and multi-tier design systems by Aditya Tripathi.",
     images: [
       {
-        url: "https://adityatripathi.design/og-work.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Selected Work & Case Studies - Aditya Tripathi",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: "Selected Work & Case Studies | Aditya Tripathi",
     description:
       "Explore in-depth product design and UI/UX case studies across healthcare platforms, enterprise application suites, and multi-tier design systems by Aditya Tripathi.",
-    images: ["https://adityatripathi.design/og-work.jpg"],
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,

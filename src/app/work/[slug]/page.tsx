@@ -55,12 +55,12 @@ export async function generateMetadata({
     title: project.title,
     description: project.summary,
     alternates: {
-      canonical: `https://adityatripathi.design/work/${project.slug}`,
+      canonical: `/work/${project.slug}`,
     },
     openGraph: {
       type: "article",
       locale: "en_US",
-      url: `https://adityatripathi.design/work/${project.slug}`,
+      url: `/work/${project.slug}`,
       siteName: "Aditya Tripathi — Senior UI/UX Designer",
       title: `${project.title} — Case Study | Aditya Tripathi`,
       description: project.summary,
