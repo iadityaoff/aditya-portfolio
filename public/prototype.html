@@ -1168,7 +1168,7 @@ html[data-skin="code"] .bx.big::after,html[data-skin="code"] .studio-pin::before
         <a class="btn" href="#work" data-magnetic data-cursor="Jump to work">View selected work <span class="arr">↓</span></a>
         <a class="btn ghost" href="#contact" data-magnetic data-cursor="Say hello">Let's talk <span class="arr">→</span></a>
       </div>
-      <p class="hero-meta mono"><span>5+ years</span><span>SaaS &amp; enterprise</span><span>Design systems</span><span>Figma</span><span>AI-assisted implementation</span></p>
+      <p class="hero-meta mono"><span data-years="{n}+ years">5+ years</span><span>SaaS &amp; enterprise</span><span>Design systems</span><span>Figma</span><span>AI-assisted implementation</span></p>
     </div>
 
     <!-- floating design-tool artefacts (parallax depth) -->
@@ -1313,11 +1313,11 @@ html[data-skin="code"] .bx.big::after,html[data-skin="code"] .studio-pin::before
 <section class="stats wrap" id="stats" data-zone="paper" data-flow="5">
   <div class="stats-pin" id="statsPin">
   <div class="al-head">
-    <h2>Five years of shipping dense, <span class="serif">operational</span> software.</h2>
+    <h2><span data-years-word>Five</span> years of shipping dense, <span class="serif">operational</span> software.</h2>
     <div class="al-meta" id="alMeta"><span>Direction <b id="alDir">→ Horizontal</b></span><span>Gap <b id="alGap">20</b></span><span>Padding <b>20</b></span></div>
   </div>
   <div class="al" id="al">
-    <div class="st"><div class="st-top"><span>01 · Time</span><em>◆ Metric</em></div><b class="tab" data-count="5">5+</b><span>Years experience</span><small>SaaS &amp; enterprise focus</small>
+    <div class="st"><div class="st-top"><span>01 · Time</span><em>◆ Metric</em></div><b class="tab" data-count="5" data-years-count>5+</b><span>Years experience</span><small>SaaS &amp; enterprise focus</small>
       <div class="st-viz vz-years" aria-hidden="true"><i style="--j:0"></i><i style="--j:1"></i><i style="--j:2"></i><i style="--j:3"></i><i style="--j:4"></i></div></div>
     <div class="st"><div class="st-top"><span>02 · Breadth</span><em>◆ Metric</em></div><b class="tab" data-count="14">14+</b><span>Products designed</span><small>Healthcare, ERP, fintech</small>
       <div class="st-viz vz-dots" aria-hidden="true"><i style="--j:0"></i><i style="--j:1"></i><i style="--j:2"></i><i style="--j:3"></i><i style="--j:4"></i><i style="--j:5"></i><i style="--j:6"></i><i style="--j:7"></i><i style="--j:8"></i><i style="--j:9"></i><i style="--j:10"></i><i style="--j:11"></i><i style="--j:12"></i><i style="--j:13"></i></div></div>
@@ -1675,7 +1675,7 @@ html[data-skin="code"] .bx.big::after,html[data-skin="code"] .studio-pin::before
       <span class="avail"><i></i>Available for Q4 / Q1 projects</span>
       <div class="ab-text">
         <span class="label">About</span>
-        <p>For over 5 years, I've focused on untangling complex domain models: clinical healthcare software, role-based enterprise portals, and high-frequency booking systems.</p>
+        <p>For over <span data-years="{n}">5</span> years, I've focused on untangling complex domain models: clinical healthcare software, role-based enterprise portals, and high-frequency booking systems.</p>
         <p>My background bridging design and frontend development means I design with empathy for both the operator using the tool and the engineer shipping the code. The most impactful design work happens in clear information architecture and robust design tokens, not in decoration.</p>
       </div>
       <a class="btn ghost" href="https://linkedin.com/in/aditya-tripathi-2a4847171" target="_blank" rel="noopener" data-magnetic data-cursor="LinkedIn ↗">LinkedIn <span class="arr">↗</span></a>
@@ -1730,6 +1730,14 @@ const d = document.documentElement;
 const $ = (s, r=document) => r.querySelector(s);
 const $$ = (s, r=document) => [...r.querySelectorAll(s)];
 const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+
+/* Years of experience, derived from the career start (03/2021) so the copy never goes stale.
+   Same formula as yearsOfExperience() in src/content/site.ts. */
+const YEARS = (() => { const n = new Date(); return Math.floor(((n.getFullYear() - 2021) * 12 + n.getMonth() + 1 - 3) / 12); })();
+const YEAR_WORDS = ['Zero','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve'];
+$$('[data-years]').forEach(el => { el.textContent = el.dataset.years.replace('{n}', YEARS); });
+$$('[data-years-word]').forEach(el => { el.textContent = YEAR_WORDS[YEARS] || String(YEARS); });
+$$('[data-years-count]').forEach(el => { el.dataset.count = YEARS; el.textContent = YEARS + '+'; });
 
 const HAS_G = !!(window.gsap && window.ScrollTrigger);
 if (!HAS_G) { d.classList.remove('motion','cine'); }

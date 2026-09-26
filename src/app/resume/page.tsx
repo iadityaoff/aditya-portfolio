@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
-import { siteConfig } from "@/content/site";
+import { siteConfig, yearsOfExperience } from "@/content/site";
 import { DotGrid, FrameHeading, PageToolbar } from "@/components/motion/studio";
 
 export default function ResumePage() {
@@ -73,8 +73,9 @@ export default function ResumePage() {
             <h3 className="font-mono text-xs uppercase font-bold text-muted tracking-wider">
               Professional Summary
             </h3>
-            <p className="text-sm leading-relaxed text-ink/90">
-              Senior UI/UX Designer with over 5 years of experience designing and shipping enterprise web and mobile products. Builds and maintains scalable design systems of reusable components, variants and design tokens that keep Figma libraries and production code in sync. Turns dense, multi-role enterprise workflows into clear, minimal interfaces, then implements them as responsive, production-ready UI in Angular, Next.js, SCSS and Tailwind CSS. Integrates AI-assisted workflows (Claude, Cursor, Antigravity) to accelerate research synthesis, component scaffolding, and prototype delivery while maintaining human-led design review. Works at the intersection of design and engineering, from user flows and prototypes through to Storybook documentation and developer handoff.
+            {/* years are recomputed in the browser, which may be newer than the prerendered HTML */}
+            <p className="text-sm leading-relaxed text-ink/90" suppressHydrationWarning>
+              Senior UI/UX Designer with over {yearsOfExperience()} years of experience designing and shipping enterprise web and mobile products. Builds and maintains scalable design systems of reusable components, variants and design tokens that keep Figma libraries and production code in sync. Turns dense, multi-role enterprise workflows into clear, minimal interfaces, then implements them as responsive, production-ready UI in Angular, Next.js, SCSS and Tailwind CSS. Integrates AI-assisted workflows (Claude, Cursor, Antigravity) to accelerate research synthesis, component scaffolding, and prototype delivery while maintaining human-led design review. Works at the intersection of design and engineering, from user flows and prototypes through to Storybook documentation and developer handoff.
             </p>
           </section>
 

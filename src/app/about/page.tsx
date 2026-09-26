@@ -4,12 +4,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CTASection } from "@/components/shared/cta-section";
 import { DotGrid, FrameHeading, PageToolbar, Reveal } from "@/components/motion/studio";
-import { capabilities, experiences, whatICareAbout } from "@/content/site";
+import { capabilities, experiences, whatICareAbout, yearsOfExperience } from "@/content/site";
+
+const YEARS = yearsOfExperience();
 
 export const metadata: Metadata = {
   title: "About Aditya Tripathi",
   description:
-    "Senior UI/UX Designer with over 5 years specializing in complex SaaS workflows, clinical healthcare systems, and scalable design token architectures. Uses AI-assisted workflows to accelerate research, prototyping, and implementation.",
+    `Senior UI/UX Designer with over ${YEARS} years specializing in complex SaaS workflows, clinical healthcare systems, and scalable design token architectures. Uses AI-assisted workflows to accelerate research, prototyping, and implementation.`,
   alternates: {
     canonical: "/about",
   },
@@ -20,7 +22,7 @@ export const metadata: Metadata = {
     siteName: "Aditya Tripathi — Senior UI/UX Designer",
     title: "About Aditya Tripathi",
     description:
-      "Senior UI/UX Designer with over 5 years specializing in complex SaaS workflows, clinical healthcare systems, and scalable design token architectures.",
+      `Senior UI/UX Designer with over ${YEARS} years specializing in complex SaaS workflows, clinical healthcare systems, and scalable design token architectures.`,
     images: [
       {
         url: "/opengraph-image",
@@ -34,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "About Aditya Tripathi",
     description:
-      "Senior UI/UX Designer with over 5 years specializing in complex SaaS workflows, clinical healthcare systems, and scalable design token architectures.",
+      `Senior UI/UX Designer with over ${YEARS} years specializing in complex SaaS workflows, clinical healthcare systems, and scalable design token architectures.`,
     images: ["/opengraph-image"],
   },
   robots: {
@@ -90,7 +92,7 @@ export default function AboutPage() {
 
             <Reveal className="space-y-4 text-base sm:text-lg text-muted leading-relaxed pt-6">
               <p>
-                For over five years, I have worked at the intersection of complex operational workflows and rigorous design systems, currently driving product design at OctaNode. My work focuses on platforms where users make high-consequence decisions under time pressure — clinical hospital administrators managing patient wards, hiring panels screening thousands of candidates, and support engineers triaging incident queues.
+                For over {YEARS} years, I have worked at the intersection of complex operational workflows and rigorous design systems, currently driving product design at OctaNode. My work focuses on platforms where users make high-consequence decisions under time pressure — clinical hospital administrators managing patient wards, hiring panels screening thousands of candidates, and support engineers triaging incident queues.
               </p>
               <p>
                 What differentiates my approach is frontend awareness. Having built interfaces with HTML, CSS/SCSS, Tailwind, Angular, and React, I understand the technical boundaries and state complexities behind every layout choice. When I design a component, its variants, hover states, keyboard focus behaviors, and responsive rules are ready for engineers to implement without guesswork.
@@ -153,7 +155,7 @@ export default function AboutPage() {
               CAREER TIMELINE
             </span>
             <h2 className="text-2xl sm:text-3xl font-semibold text-ink mt-1">
-              5+ Years in Enterprise Product Design
+              {YEARS}+ Years in Enterprise Product Design
             </h2>
           </div>
 

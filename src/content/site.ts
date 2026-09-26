@@ -1,19 +1,30 @@
 import { SiteConfig, ServiceItem, TestimonialItem, CapabilityGroup, ProcessStep, ExperienceItem } from "@/types";
 
+/** Career start (OctaNode, 03/2021). Years of experience are derived from it, so copy never goes stale. */
+export const CAREER_START = { year: 2021, month: 3 };
+
+/** Whole years since CAREER_START, e.g. 5 in September 2026 and 6 from March 2027. */
+export function yearsOfExperience(now: Date = new Date()): number {
+  const months = (now.getFullYear() - CAREER_START.year) * 12 + (now.getMonth() + 1 - CAREER_START.month);
+  return Math.floor(months / 12);
+}
+
+const YEARS = yearsOfExperience();
+
 export const siteConfig: SiteConfig = {
   name: "Aditya Tripathi",
   roleTitle: "Senior UI/UX Designer",
   headline: "Complex products. Clear experiences. Scalable systems.",
   subHeadline:
     "I design SaaS and enterprise products with complex workflows, dashboards, roles and data — then use AI-assisted workflows to move from Figma to working prototypes, design systems, and production-ready implementation faster.",
-  credibilityText: "5+ YEARS · SAAS & ENTERPRISE · DESIGN SYSTEMS · FIGMA · AI-ASSISTED IMPLEMENTATION",
+  credibilityText: `${YEARS}+ YEARS · SAAS & ENTERPRISE · DESIGN SYSTEMS · FIGMA · AI-ASSISTED IMPLEMENTATION`,
   email: "aditya21tripathi81040@gmail.com",
   phone: "+91 6394625747",
   location: "Surat, Gujarat, India",
   availability: "Open to projects",
   responseTime: "Within 24 hours",
   metrics: [
-    { value: "5+", label: "Years experience", sublabel: "SaaS & enterprise focus" },
+    { value: `${YEARS}+`, label: "Years experience", sublabel: "SaaS & enterprise focus" },
     { value: "14+", label: "Products designed", sublabel: "Healthcare, ERP, fintech" },
     { value: "480+", label: "Reusable components", sublabel: "Tokens, states & documentation" },
     { value: "Web + Mobile", label: "Multi-platform delivery", sublabel: "Responsive & native" },
