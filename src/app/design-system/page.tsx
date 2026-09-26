@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { CTASection } from "@/components/shared/cta-section";
 import { cn } from "@/lib/utils";
 import { ComponentLab } from "@/components/design-system/component-lab";
+import { PatternLab } from "@/components/design-system/pattern-gallery";
 import { useSiteTheme } from "@/lib/site-theme";
 import { DotGrid, FrameHeading, PageToolbar, Reveal } from "@/components/motion/studio";
 
@@ -247,12 +248,31 @@ export default function DesignSystemPage() {
           <ComponentLab />
         </section>
 
-        {/* 4. Atomic Architecture */}
+        {/* 4. Composed patterns — organisms built from the library */}
+        <section id="patterns" className="my-20 space-y-10" data-section="Patterns">
+          <Reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <span className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">
+                04 · COMPOSED PATTERNS
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-semibold text-ink mt-1">
+                Components, assembled into <em className="font-serif font-normal italic">real workflows</em>
+              </h2>
+              <p className="text-sm text-muted mt-2 max-w-xl">
+                The same primitives and tokens, composed into the organisms a product actually ships: booking, dense tables, command search and access control. Everything here is live and follows the theme builder.
+              </p>
+            </div>
+            <span className="font-mono text-xs text-muted">Organisms · Interactive</span>
+          </Reveal>
+          <PatternLab />
+        </section>
+
+        {/* 5. Atomic Architecture */}
         <section className="my-20" data-section="Atomic">
           <Reveal className="space-y-8">
           <div>
             <span className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">
-              04 · ATOMIC ARCHITECTURE
+              05 · ATOMIC ARCHITECTURE
             </span>
             <h2 className="text-2xl sm:text-3xl font-semibold text-ink mt-1">
               Atoms → Molecules → Organisms → Templates
@@ -286,7 +306,7 @@ export default function DesignSystemPage() {
           <Reveal className="space-y-8">
           <div>
             <span className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">
-              05 · AI-ASSISTED SYSTEM WORKFLOW
+              06 · AI-ASSISTED SYSTEM WORKFLOW
             </span>
             <h2 className="text-2xl sm:text-3xl font-semibold text-ink mt-1">
               Figma → Tokens → AI Scaffold → Code → Storybook → Product

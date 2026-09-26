@@ -10,24 +10,11 @@ import { cn } from "@/lib/utils";
  * them at once. Each card exposes a Figma-style "Variant" property.
  */
 
-/* token-driven class shorthands */
-const accentFill = "bg-[var(--t-accent)] text-[var(--t-on-accent)] hover:bg-[var(--t-accent-hover)]";
-const surface = "bg-[var(--t-surface)]";
-const surface2 = "bg-[var(--t-surface-2)]";
-const ink = "text-[var(--t-ink)]";
-const muted = "text-[var(--t-muted)]";
-const line = "border-[var(--t-line)]";
-const r = "rounded-[var(--t-r)]";
-const rLg = "rounded-[var(--t-r-lg)]";
-const pill = "rounded-[var(--t-pill)]";
-const h = (px: number) => ({ height: `calc(${px}px * var(--t-d))` });
-const pad = (y: number, x: number) => ({ padding: `calc(${y}px * var(--t-d)) calc(${x}px * var(--t-d))` });
-const monoSm = "font-mono text-[9.5px] tracking-[0.06em]";
-const STATUS = {
-  ok: "bg-[var(--t-ok-bg)] text-[var(--t-ok)]",
-  wait: "bg-[var(--t-warn-bg)] text-[var(--t-warn)]",
-  no: "bg-[var(--t-bad-bg)] text-[var(--t-bad)]",
-};
+import { accentFill, surface, surface2, ink, muted, line, r, rLg, pill, h, pad, monoSm, STATUS } from "./lab-tokens";
+import {
+  SlotPickerExample, PopoverExample, StatExample, ProgressExample, SearchExample, AccordionExample,
+  UploadExample, SliderExample, NavExample, EmptyStateExample, TimelineExample, OtpExample,
+} from "./component-examples-more";
 
 type Ex = React.ComponentType<{ variant: string }>;
 
@@ -482,7 +469,21 @@ const INVENTORY: { name: string; count: number; category: string; Example: Ex; v
   { name: "Badge & Tag", count: 9, category: "Data Display", Example: BadgeExample, variants: ["Soft", "Solid", "Outline", "Dot"] },
   { name: "Avatar & Identity", count: 8, category: "Data Display", Example: AvatarExample, variants: ["Group", "Status", "Sizes", "Square"] },
   { name: "Toast & Alert", count: 12, category: "Feedback", Example: ToastExample, variants: ["Success", "Warning", "Error", "Info"] },
+  { name: "Date & Slot Picker", count: 9, category: "Scheduling", Example: SlotPickerExample, variants: ["Day tabs", "Slots", "Calendar"] },
+  { name: "Tooltip & Popover", count: 10, category: "Overlays", Example: PopoverExample, variants: ["Popover", "Menu", "Tooltip"] },
+  { name: "Stat & KPI Card", count: 8, category: "Data Display", Example: StatExample, variants: ["Default", "Trend", "Sparkline", "Progress"] },
+  { name: "Progress & Loader", count: 8, category: "Feedback", Example: ProgressExample, variants: ["Bar", "Ring", "Skeleton", "Spinner"] },
+  { name: "Search & Filters", count: 7, category: "Navigation", Example: SearchExample, variants: ["Search", "Command", "Filters"] },
+  { name: "Accordion & Tree", count: 6, category: "Navigation", Example: AccordionExample, variants: ["Accordion", "Tree"] },
+  { name: "File Upload", count: 6, category: "Forms", Example: UploadExample, variants: ["Dropzone", "Uploading", "Done"] },
+  { name: "Slider & Stepper", count: 6, category: "Forms", Example: SliderExample, variants: ["Single", "Range", "Stepper"] },
+  { name: "Sidebar & Breadcrumb", count: 9, category: "Navigation", Example: NavExample, variants: ["Sidebar", "Collapsed", "Breadcrumb"] },
+  { name: "Empty & Error States", count: 6, category: "Feedback", Example: EmptyStateExample, variants: ["Empty", "No results", "Error", "Offline"] },
+  { name: "Timeline & Activity", count: 5, category: "Data Display", Example: TimelineExample, variants: ["Activity", "Audit log"] },
+  { name: "OTP & PIN Input", count: 4, category: "Forms", Example: OtpExample, variants: ["OTP", "PIN", "Error"] },
 ];
+
+const CATEGORIES = ["All", ...Array.from(new Set(INVENTORY.map((i) => i.category)))];
 
 function ComponentCard({ item }: { item: (typeof INVENTORY)[number] }) {
   const { name, count, category, Example, variants, fill } = item;
@@ -537,13 +538,39 @@ function ComponentCard({ item }: { item: (typeof INVENTORY)[number] }) {
 }
 
 export function ComponentGallery() {
+  const [cat, setCat] = React.useState("All");
+  const items = cat === "All" ? INVENTORY : INVENTORY.filter((i) => i.category === cat);
   return (
-    <Stagger className="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-8" stagger={0.06}>
-      {INVENTORY.map((item) => (
-        <StaggerItem key={item.name}>
-          <ComponentCard item={item} />
-        </StaggerItem>
-      ))}
-    </Stagger>
+    <div className="space-y-8">
+      <div role="group" aria-label="Filter components by category" className="flex flex-wrap items-center gap-1.5">
+        {CATEGORIES.map((c) => {
+          const n = c === "All" ? INVENTORY.length : INVENTORY.filter((i) => i.category === c).length;
+          return (
+            <button
+              key={c}
+              type="button"
+              aria-pressed={cat === c}
+              onClick={() => setCat(c)}
+              className={cn(
+                "inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium border transition-colors duration-300 cursor-pointer",
+                pill,
+                cat === c ? "bg-[var(--t-ink)] text-[var(--t-surface)] border-[var(--t-ink)]" : cn(surface, line, muted, "hover:text-[var(--t-ink)]")
+              )}
+            >
+              {c}
+              <span className="font-mono text-[10px] opacity-70">{n}</span>
+            </button>
+          );
+        })}
+      </div>
+      {/* re-keyed so the stagger replays when the filter changes */}
+      <Stagger key={cat} className="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-8" stagger={0.06}>
+        {items.map((item) => (
+          <StaggerItem key={item.name}>
+            <ComponentCard item={item} />
+          </StaggerItem>
+        ))}
+      </Stagger>
+    </div>
   );
 }
