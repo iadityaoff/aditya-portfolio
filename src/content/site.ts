@@ -189,12 +189,6 @@ export const experiences: ExperienceItem[] = [
     period: "03/2021 — Present",
     description: "Lead end-to-end UX/UI design for enterprise web and mobile applications, building scalable design systems in Storybook, and writing production UI code in Angular, SCSS, and Tailwind CSS.",
   },
-  {
-    role: "UI/UX & Frontend Designer",
-    company: "Freelance & Enterprise Engagements",
-    period: "2019 — 2021",
-    description: "Designed responsive web tools, role-based admin portals, and component design systems across healthcare, event management, and scheduling domains.",
-  },
 ];
 
 export const services: ServiceItem[] = [
